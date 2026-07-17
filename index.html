@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="College Place Audio — an independent sound studio."
+    />
+    <title>College Place Audio</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="landing">
+      <header class="brand" aria-label="College Place Audio">
+        <a class="brand__home" href="/" aria-label="Close panel and return home">
+          <h1>
+            <span>College Place</span>
+            <span>Audio.</span>
+          </h1>
+        </a>
+
+        <nav class="primary-nav" id="primary-nav" aria-label="Primary navigation">
+          <a href="#about">About</a>
+          <a href="#work">Work</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </header>
+
+      <figure class="feature">
+        <div class="feature__frame">
+          <img
+            src="assets/college-place-exterior.png"
+            alt="A minimal white studio exterior with a College Place Audio sign"
+          />
+        </div>
+        <figcaption>College Place Audio — independent sound studio</figcaption>
+      </figure>
+
+      <button
+        class="menu-toggle"
+        type="button"
+        aria-label="Open navigation"
+        aria-expanded="false"
+        aria-controls="primary-nav"
+      >
+        <span></span>
+        <span></span>
+      </button>
+    </main>
+
+    <section
+      class="content-page content-page--about page-panel"
+      id="about"
+      aria-labelledby="about-title"
+      aria-hidden="true"
+    >
+      <div class="content-page__header">
+        <p class="eyebrow">About</p>
+        <h2 id="about-title">About.</h2>
+        <p>
+          College Place Audio is an independent sound studio and sync partner
+          for music moving through film, commercial, and television.
+        </p>
+      </div>
+
+      <div class="about-panel">
+        <p>
+          This section can become a short studio statement: who you work with,
+          what kinds of placements you specialize in, and the feeling behind the
+          catalogue.
+        </p>
+        <p>
+          Placeholder copy for now — built to be swapped for a sharper bio,
+          roster note, or licensing overview when the site direction settles.
+        </p>
+      </div>
+    </section>
+
+    <section
+      class="work-page page-panel"
+      id="work"
+      aria-labelledby="work-title"
+      aria-hidden="true"
+    >
+      <div class="work-page__header">
+        <p class="eyebrow">Selected syncs</p>
+        <h2 id="work-title">Work.</h2>
+        <p>
+          Music placed across film, commercial, and television. A growing archive
+          of picture-led moments, cues, and songs.
+        </p>
+      </div>
+
+      <div class="work-grid" aria-label="Selected College Place Audio sync work">
+        <article class="work-card">
+          <div class="work-card__media work-card__media--video">
+            <span>Film clip</span>
+          </div>
+          <div class="work-card__body">
+            <p class="work-card__type">Film</p>
+            <h3>Feature / short film placement</h3>
+            <p>
+              Replace this with a short video excerpt from a film sync, trailer,
+              or scene where the song is featured.
+            </p>
+            <div class="audio-placeholder" aria-label="Audio clip placeholder">
+              <span>Audio clip</span>
+              <span>00:00</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="work-card">
+          <div class="work-card__media work-card__media--video">
+            <span>Commercial clip</span>
+          </div>
+          <div class="work-card__body">
+            <p class="work-card__type">Commercial</p>
+            <h3>Brand campaign placement</h3>
+            <p>
+              A space for commercial spots, campaign films, or product launches
+              featuring College Place Audio syncs.
+            </p>
+            <div class="audio-placeholder" aria-label="Audio clip placeholder">
+              <span>Audio clip</span>
+              <span>00:00</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="work-card">
+          <div class="work-card__media work-card__media--video">
+            <span>TV clip</span>
+          </div>
+          <div class="work-card__body">
+            <p class="work-card__type">Television</p>
+            <h3>Series / episode placement</h3>
+            <p>
+              Use this for network, streaming, documentary, or unscripted
+              television placements.
+            </p>
+            <div class="audio-placeholder" aria-label="Audio clip placeholder">
+              <span>Audio clip</span>
+              <span>00:00</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section
+      class="content-page content-page--contact page-panel"
+      id="contact"
+      aria-labelledby="contact-title"
+      aria-hidden="true"
+    >
+      <div class="content-page__header">
+        <p class="eyebrow">Contact</p>
+        <h2 id="contact-title">Contact.</h2>
+        <p>
+          For licensing, briefs, supervision, and project conversations.
+        </p>
+      </div>
+
+      <div class="contact-list" aria-label="Contact placeholders">
+        <a href="mailto:hello@collegeplace.audio">
+          <span>Email</span>
+          <span>hello@collegeplace.audio</span>
+        </a>
+        <a href="https://instagram.com/" target="_blank" rel="noreferrer">
+          <span>Instagram</span>
+          <span>@collegeplaceaudio</span>
+        </a>
+        <a href="#work">
+          <span>Catalogue</span>
+          <span>Request listening links</span>
+        </a>
+      </div>
+    </section>
+
+    <script src="script.js"></script>
+  </body>
+</html>
