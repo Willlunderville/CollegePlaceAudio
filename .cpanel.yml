@@ -8,4 +8,7 @@ deployment:
     - /bin/cp styles.css $DEPLOYPATH
     - /bin/cp script.js $DEPLOYPATH
     - /bin/cp assets/college-place-exterior.png $DEPLOYPATH/assets/
-
+    - /bin/cp assets/college-place-logo.jpeg $DEPLOYPATH/assets/
+    - /bin/cp assets/favicon.png $DEPLOYPATH/assets/
+    - /bin/cp assets/favicon-32.png $DEPLOYPATH/assets/
+    - /bin/cp assets/apple-touch-icon.png $DEPLOYPATH/assets/
