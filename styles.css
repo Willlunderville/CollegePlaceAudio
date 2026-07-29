@@ -413,19 +413,31 @@ textarea {
   gap: 0;
 }
 
+.portal-login .eyebrow {
+  margin-bottom: clamp(14px, 1.6vw, 28px);
+}
+
 .portal-login h2,
 .portal-app h2 {
-  max-width: 8ch;
   margin: 0;
-  font-size: clamp(76px, 12vw, 190px);
   font-weight: 600;
   letter-spacing: -0.085em;
   line-height: 0.78;
 }
 
+.portal-login h2 {
+  max-width: 5ch;
+  font-size: clamp(92px, 15vw, 240px);
+}
+
+.portal-app h2 {
+  max-width: 8ch;
+  font-size: clamp(76px, 12vw, 190px);
+}
+
 .portal-login > p:not(.eyebrow) {
-  max-width: 520px;
-  margin: clamp(30px, 3.2vw, 54px) 0 0;
+  max-width: 640px;
+  margin: clamp(26px, 3vw, 48px) 0 0;
   font-size: clamp(18px, 1.45vw, 28px);
   letter-spacing: -0.045em;
   line-height: 1;
@@ -434,8 +446,8 @@ textarea {
 .portal-login__form {
   display: grid;
   gap: 12px;
-  max-width: 520px;
-  margin-top: clamp(42px, 5vw, 86px);
+  max-width: 640px;
+  margin-top: clamp(38px, 4.4vw, 74px);
   padding-top: clamp(24px, 3vw, 44px);
   border-top: 2px solid currentColor;
 }
