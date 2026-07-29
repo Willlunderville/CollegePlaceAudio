@@ -10,9 +10,14 @@ The site can deploy to cPanel automatically through GitHub Actions whenever `mai
 
 Add these GitHub repository secrets before enabling the workflow:
 
-- `CPANEL_FTP_SERVER` — the FTP server/host for the cPanel account
-- `CPANEL_FTP_USERNAME` — the cPanel FTP username
-- `CPANEL_FTP_PASSWORD` — the cPanel FTP password
-- `CPANEL_FTP_REMOTE_DIR` — the live site folder, usually `public_html`
+- `CPANEL_SSH_HOST` — the cPanel server/host, for example `6155903.refreshmobile.ca`
+- `CPANEL_SSH_USERNAME` — the cPanel username, for example `collegeplace`
+- `CPANEL_SSH_PASSWORD` — the cPanel account password
+- `CPANEL_SSH_PORT` — the SSH/SFTP port, usually `22`
+- `CPANEL_SSH_REMOTE_DIR` — the live site folder, usually `public_html`
 
 The workflow uploads the static site files and assets only. It does not delete remote files.
+
+## Local checks
+
+Run `./scripts/check-site.sh` before pushing to confirm the core static files and deployment settings are present.

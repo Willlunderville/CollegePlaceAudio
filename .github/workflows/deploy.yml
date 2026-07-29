@@ -19,35 +19,37 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Install FTP client
-        run: sudo apt-get update && sudo apt-get install -y lftp
+      - name: Install SFTP client
+        run: sudo apt-get update && sudo apt-get install -y sshpass
 
       - name: Upload files to cPanel
         env:
-          FTP_SERVER: ${{ secrets.CPANEL_FTP_SERVER }}
-          FTP_USERNAME: ${{ secrets.CPANEL_FTP_USERNAME }}
-          FTP_PASSWORD: ${{ secrets.CPANEL_FTP_PASSWORD }}
-          FTP_REMOTE_DIR: ${{ secrets.CPANEL_FTP_REMOTE_DIR }}
+          SSH_HOST: ${{ secrets.CPANEL_SSH_HOST }}
+          SSH_USERNAME: ${{ secrets.CPANEL_SSH_USERNAME }}
+          SSH_PASSWORD: ${{ secrets.CPANEL_SSH_PASSWORD }}
+          SSH_PORT: ${{ secrets.CPANEL_SSH_PORT }}
+          SSH_REMOTE_DIR: ${{ secrets.CPANEL_SSH_REMOTE_DIR }}
         run: |
           set -euo pipefail
 
-          if [ -z "$FTP_SERVER" ] || [ -z "$FTP_USERNAME" ] || [ -z "$FTP_PASSWORD" ] || [ -z "$FTP_REMOTE_DIR" ]; then
-            echo "Missing one or more required cPanel FTP secrets."
+          if [ -z "$SSH_HOST" ] || [ -z "$SSH_USERNAME" ] || [ -z "$SSH_PASSWORD" ] || [ -z "$SSH_PORT" ] || [ -z "$SSH_REMOTE_DIR" ]; then
+            echo "Missing one or more required cPanel SSH/SFTP secrets."
             exit 1
           fi
 
-          lftp -u "$FTP_USERNAME","$FTP_PASSWORD" "$FTP_SERVER" <<EOF
-          set ftp:ssl-allow true
-          set net:max-retries 2
-          set net:timeout 20
-          mkdir -p "$FTP_REMOTE_DIR/assets"
-          put -O "$FTP_REMOTE_DIR" index.html
-          put -O "$FTP_REMOTE_DIR" styles.css
-          put -O "$FTP_REMOTE_DIR" script.js
-          put -O "$FTP_REMOTE_DIR/assets" assets/college-place-exterior.png
-          put -O "$FTP_REMOTE_DIR/assets" assets/college-place-logo.jpeg
-          put -O "$FTP_REMOTE_DIR/assets" assets/favicon.png
-          put -O "$FTP_REMOTE_DIR/assets" assets/favicon-32.png
-          put -O "$FTP_REMOTE_DIR/assets" assets/apple-touch-icon.png
+          sshpass -p "$SSH_PASSWORD" sftp \
+            -o StrictHostKeyChecking=accept-new \
+            -P "$SSH_PORT" \
+            "$SSH_USERNAME@$SSH_HOST" <<EOF
+          -mkdir "$SSH_REMOTE_DIR"
+          -mkdir "$SSH_REMOTE_DIR/assets"
+          put index.html "$SSH_REMOTE_DIR/index.html"
+          put styles.css "$SSH_REMOTE_DIR/styles.css"
+          put script.js "$SSH_REMOTE_DIR/script.js"
+          put assets/college-place-exterior.png "$SSH_REMOTE_DIR/assets/college-place-exterior.png"
+          put assets/college-place-logo.jpeg "$SSH_REMOTE_DIR/assets/college-place-logo.jpeg"
+          put assets/favicon.png "$SSH_REMOTE_DIR/assets/favicon.png"
+          put assets/favicon-32.png "$SSH_REMOTE_DIR/assets/favicon-32.png"
+          put assets/apple-touch-icon.png "$SSH_REMOTE_DIR/assets/apple-touch-icon.png"
           bye
           EOF
