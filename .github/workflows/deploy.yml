@@ -1,0 +1,53 @@
+name: Deploy to cPanel
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: cpanel-deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Upload static site
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install FTP client
+        run: sudo apt-get update && sudo apt-get install -y lftp
+
+      - name: Upload files to cPanel
+        env:
+          FTP_SERVER: ${{ secrets.CPANEL_FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.CPANEL_FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.CPANEL_FTP_PASSWORD }}
+          FTP_REMOTE_DIR: ${{ secrets.CPANEL_FTP_REMOTE_DIR }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "$FTP_SERVER" ] || [ -z "$FTP_USERNAME" ] || [ -z "$FTP_PASSWORD" ] || [ -z "$FTP_REMOTE_DIR" ]; then
+            echo "Missing one or more required cPanel FTP secrets."
+            exit 1
+          fi
+
+          lftp -u "$FTP_USERNAME","$FTP_PASSWORD" "$FTP_SERVER" <<EOF
+          set ftp:ssl-allow true
+          set net:max-retries 2
+          set net:timeout 20
+          mkdir -p "$FTP_REMOTE_DIR/assets"
+          put -O "$FTP_REMOTE_DIR" index.html
+          put -O "$FTP_REMOTE_DIR" styles.css
+          put -O "$FTP_REMOTE_DIR" script.js
+          put -O "$FTP_REMOTE_DIR/assets" assets/college-place-exterior.png
+          put -O "$FTP_REMOTE_DIR/assets" assets/college-place-logo.jpeg
+          put -O "$FTP_REMOTE_DIR/assets" assets/favicon.png
+          put -O "$FTP_REMOTE_DIR/assets" assets/favicon-32.png
+          put -O "$FTP_REMOTE_DIR/assets" assets/apple-touch-icon.png
+          bye
+          EOF
