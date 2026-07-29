@@ -66,13 +66,21 @@ function updatePanelFromHash() {
 function getPortalData() {
   try {
     const data = JSON.parse(localStorage.getItem(portalStorageKey)) || defaultPortalData;
+    let repairedData = false;
 
     ['notes', 'docs', 'links'].forEach((type) => {
-      data[type] = (data[type] || []).map((item) => ({
-        id: item.id || crypto.randomUUID(),
-        ...item,
-      }));
+      data[type] = (data[type] || []).map((item) => {
+        if (item.id) return item;
+
+        repairedData = true;
+        return {
+          ...item,
+          id: crypto.randomUUID(),
+        };
+      });
     });
+
+    if (repairedData) savePortalData(data);
 
     return data;
   } catch {
