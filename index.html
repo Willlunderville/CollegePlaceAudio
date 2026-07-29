@@ -187,6 +187,84 @@
       </div>
     </section>
 
+    <section
+      class="portal-page page-panel"
+      id="portal"
+      aria-labelledby="portal-title"
+      aria-hidden="true"
+    >
+      <div class="portal-login" data-portal-login>
+        <p class="eyebrow">Private</p>
+        <h2 id="portal-title">Founders portal.</h2>
+        <p>
+          A quiet workspace for College Place Audio meeting notes, shared links,
+          and working documents.
+        </p>
+
+        <form class="portal-login__form" data-portal-form>
+          <label for="portal-passcode">Passcode</label>
+          <div>
+            <input
+              id="portal-passcode"
+              name="passcode"
+              type="password"
+              autocomplete="current-password"
+              placeholder="Enter passcode"
+              required
+            />
+            <button type="submit">Enter</button>
+          </div>
+          <p class="portal-login__error" data-portal-error aria-live="polite"></p>
+        </form>
+      </div>
+
+      <div class="portal-app" data-portal-app hidden>
+        <div class="portal-app__topbar">
+          <div>
+            <p class="eyebrow">College Place Audio</p>
+            <h2>Portal.</h2>
+          </div>
+          <button type="button" data-portal-logout>Log out</button>
+        </div>
+
+        <div class="portal-layout">
+          <aside class="portal-sidebar" aria-label="Portal sections">
+            <button class="is-active" type="button" data-portal-view="notes">
+              Meeting notes
+            </button>
+            <button type="button" data-portal-view="docs">Documents</button>
+            <button type="button" data-portal-view="links">Shared links</button>
+          </aside>
+
+          <div class="portal-board">
+            <section class="portal-section is-active" data-portal-section="notes">
+              <div class="portal-section__header">
+                <h3>Meeting notes</h3>
+                <button type="button" data-add-note>Add note</button>
+              </div>
+              <div class="portal-list" data-notes-list></div>
+            </section>
+
+            <section class="portal-section" data-portal-section="docs">
+              <div class="portal-section__header">
+                <h3>Documents</h3>
+                <button type="button" data-add-doc>Add document</button>
+              </div>
+              <div class="portal-list" data-docs-list></div>
+            </section>
+
+            <section class="portal-section" data-portal-section="links">
+              <div class="portal-section__header">
+                <h3>Shared links</h3>
+                <button type="button" data-add-link>Add link</button>
+              </div>
+              <div class="portal-list" data-links-list></div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <script src="script.js"></script>
   </body>
 </html>
