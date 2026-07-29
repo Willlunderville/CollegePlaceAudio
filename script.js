@@ -11,6 +11,7 @@ const portalLogout = document.querySelector('[data-portal-logout]');
 const portalViewButtons = Array.from(document.querySelectorAll('[data-portal-view]'));
 const portalSections = Array.from(document.querySelectorAll('[data-portal-section]'));
 const docUploadInput = document.querySelector('[data-doc-upload]');
+const portalSearchInput = document.querySelector('[data-portal-search]');
 const portalStorageKey = 'college-place-audio-portal';
 const portalSessionKey = 'college-place-audio-portal-unlocked';
 const portalPasscode = 'cpaudio';
@@ -64,9 +65,18 @@ function updatePanelFromHash() {
 
 function getPortalData() {
   try {
-    return JSON.parse(localStorage.getItem(portalStorageKey)) || defaultPortalData;
+    const data = JSON.parse(localStorage.getItem(portalStorageKey)) || defaultPortalData;
+
+    ['notes', 'docs', 'links'].forEach((type) => {
+      data[type] = (data[type] || []).map((item) => ({
+        id: item.id || crypto.randomUUID(),
+        ...item,
+      }));
+    });
+
+    return data;
   } catch {
-    return defaultPortalData;
+    return JSON.parse(JSON.stringify(defaultPortalData));
   }
 }
 
@@ -132,17 +142,26 @@ function renderPortalList(type, selector) {
   if (!list) return;
 
   const data = getPortalData();
-  const items = data[type] || [];
+  const searchTerm = portalSearchInput?.value.trim().toLowerCase() || '';
+  const items = (data[type] || []).filter((item) => {
+    if (!searchTerm) return true;
+
+    return [item.title, item.body, item.fileName]
+      .filter(Boolean)
+      .some((value) => String(value).toLowerCase().includes(searchTerm));
+  });
 
   if (!items.length) {
-    list.innerHTML = '<p class="portal-empty">Nothing here yet. Add the first item.</p>';
+    list.innerHTML = searchTerm
+      ? '<p class="portal-empty">No matches yet.</p>'
+      : '<p class="portal-empty">Nothing here yet. Add the first item.</p>';
     return;
   }
 
   list.innerHTML = items
     .map(
-      (item, index) => `
-        <article class="portal-item" data-portal-item="${type}" data-index="${index}">
+      (item) => `
+        <article class="portal-item" data-portal-item="${type}" data-id="${escapeHtml(item.id)}">
           <input value="${escapeHtml(item.title)}" aria-label="${type} title" />
           <textarea aria-label="${type} body">${escapeHtml(item.body)}</textarea>
           ${type === 'docs' ? renderPortalFile(item) : ''}
@@ -166,6 +185,7 @@ function addPortalItem(type) {
   const data = getPortalData();
   data[type] = data[type] || [];
   data[type].unshift({
+    id: crypto.randomUUID(),
     title: type === 'notes' ? 'Untitled meeting note' : 'Untitled item',
     body: '',
     updated: portalTimestamp(),
@@ -190,6 +210,7 @@ function uploadPortalDocs(files) {
       const latestData = getPortalData();
       latestData.docs = latestData.docs || [];
       latestData.docs.unshift({
+        id: crypto.randomUUID(),
         title: file.name.replace(/\.[^/.]+$/, '') || file.name,
         body: 'Uploaded from computer.',
         fileName: file.name,
@@ -208,9 +229,12 @@ function uploadPortalDocs(files) {
 
 function updatePortalItem(itemElement) {
   const type = itemElement.dataset.portalItem;
-  const index = Number(itemElement.dataset.index);
+  const id = itemElement.dataset.id;
   const [titleInput, bodyInput] = itemElement.querySelectorAll('input, textarea');
   const data = getPortalData();
+  const index = data[type].findIndex((item) => item.id === id);
+
+  if (index === -1) return;
 
   data[type][index] = {
     ...data[type][index],
@@ -226,8 +250,11 @@ function updatePortalItem(itemElement) {
 
 function deletePortalItem(itemElement) {
   const type = itemElement.dataset.portalItem;
-  const index = Number(itemElement.dataset.index);
+  const id = itemElement.dataset.id;
   const data = getPortalData();
+  const index = data[type].findIndex((item) => item.id === id);
+
+  if (index === -1) return;
 
   data[type].splice(index, 1);
   savePortalData(data);
@@ -291,6 +318,8 @@ docUploadInput?.addEventListener('change', () => {
   uploadPortalDocs(docUploadInput.files);
   docUploadInput.value = '';
 });
+
+portalSearchInput?.addEventListener('input', renderPortal);
 
 document.querySelector('[data-add-link]')?.addEventListener('click', () => {
   addPortalItem('links');

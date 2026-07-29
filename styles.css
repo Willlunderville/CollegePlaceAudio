@@ -530,6 +530,37 @@ textarea {
   min-width: 0;
 }
 
+.portal-search {
+  display: grid;
+  gap: 10px;
+  margin-bottom: clamp(24px, 3vw, 44px);
+}
+
+.portal-search span {
+  font-size: 13px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.portal-search input {
+  width: 100%;
+  padding: 13px 0 11px;
+  border: 0;
+  border-bottom: 2px solid currentColor;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  font-size: clamp(24px, 2.5vw, 44px);
+  font-weight: 600;
+  letter-spacing: -0.06em;
+  line-height: 1;
+}
+
+.portal-search input:focus-visible {
+  outline: 0;
+  border-bottom-style: dashed;
+}
+
 .portal-section {
   display: none;
 }
