@@ -10,9 +10,11 @@ const portalError = document.querySelector('[data-portal-error]');
 const portalLogout = document.querySelector('[data-portal-logout]');
 const portalViewButtons = Array.from(document.querySelectorAll('[data-portal-view]'));
 const portalSections = Array.from(document.querySelectorAll('[data-portal-section]'));
+const docUploadInput = document.querySelector('[data-doc-upload]');
 const portalStorageKey = 'college-place-audio-portal';
 const portalSessionKey = 'college-place-audio-portal-unlocked';
 const portalPasscode = 'cpaudio';
+const maxPortalFileSize = 3 * 1024 * 1024;
 
 const defaultPortalData = {
   notes: [
@@ -90,6 +92,12 @@ function portalTimestamp() {
   }).format(new Date());
 }
 
+function formatFileSize(bytes = 0) {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${Math.round(bytes / 1024)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
+
 function setPortalUnlocked(unlocked) {
   if (!portalLogin || !portalApp) return;
 
@@ -102,6 +110,21 @@ function setPortalUnlocked(unlocked) {
   } else {
     sessionStorage.removeItem(portalSessionKey);
   }
+}
+
+function renderPortalFile(item) {
+  if (!item.fileData) return '';
+
+  return `
+    <a
+      class="portal-file"
+      href="${escapeHtml(item.fileData)}"
+      download="${escapeHtml(item.fileName || item.title)}"
+    >
+      <span>${escapeHtml(item.fileName || 'Download file')}</span>
+      <span>${escapeHtml(formatFileSize(item.fileSize))}</span>
+    </a>
+  `;
 }
 
 function renderPortalList(type, selector) {
@@ -122,6 +145,7 @@ function renderPortalList(type, selector) {
         <article class="portal-item" data-portal-item="${type}" data-index="${index}">
           <input value="${escapeHtml(item.title)}" aria-label="${type} title" />
           <textarea aria-label="${type} body">${escapeHtml(item.body)}</textarea>
+          ${type === 'docs' ? renderPortalFile(item) : ''}
           <div class="portal-item__meta">
             <span>Updated ${escapeHtml(item.updated)}</span>
             <button type="button" data-delete-item>Delete</button>
@@ -150,6 +174,38 @@ function addPortalItem(type) {
   renderPortal();
 }
 
+function uploadPortalDocs(files) {
+  const data = getPortalData();
+  data.docs = data.docs || [];
+
+  Array.from(files).forEach((file) => {
+    if (file.size > maxPortalFileSize) {
+      window.alert(`${file.name} is too large for this prototype. Try a file under 3 MB.`);
+      return;
+    }
+
+    const reader = new FileReader();
+
+    reader.addEventListener('load', () => {
+      const latestData = getPortalData();
+      latestData.docs = latestData.docs || [];
+      latestData.docs.unshift({
+        title: file.name.replace(/\.[^/.]+$/, '') || file.name,
+        body: 'Uploaded from computer.',
+        fileName: file.name,
+        fileType: file.type,
+        fileSize: file.size,
+        fileData: reader.result,
+        updated: portalTimestamp(),
+      });
+      savePortalData(latestData);
+      renderPortal();
+    });
+
+    reader.readAsDataURL(file);
+  });
+}
+
 function updatePortalItem(itemElement) {
   const type = itemElement.dataset.portalItem;
   const index = Number(itemElement.dataset.index);
@@ -157,6 +213,7 @@ function updatePortalItem(itemElement) {
   const data = getPortalData();
 
   data[type][index] = {
+    ...data[type][index],
     title: titleInput.value,
     body: bodyInput.value,
     updated: portalTimestamp(),
@@ -227,7 +284,12 @@ document.querySelector('[data-add-note]')?.addEventListener('click', () => {
 });
 
 document.querySelector('[data-add-doc]')?.addEventListener('click', () => {
-  addPortalItem('docs');
+  docUploadInput?.click();
+});
+
+docUploadInput?.addEventListener('change', () => {
+  uploadPortalDocs(docUploadInput.files);
+  docUploadInput.value = '';
 });
 
 document.querySelector('[data-add-link]')?.addEventListener('click', () => {

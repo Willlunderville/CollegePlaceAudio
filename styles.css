@@ -546,6 +546,15 @@ textarea {
   margin-bottom: 18px;
 }
 
+.portal-file-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
 .portal-section h3 {
   margin: 0;
   font-size: clamp(34px, 4vw, 72px);
@@ -593,6 +602,26 @@ textarea {
   font-weight: 600;
   letter-spacing: -0.035em;
   line-height: 1.1;
+}
+
+.portal-file {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 0 10px;
+  border-top: 1px solid rgba(17, 17, 17, 0.35);
+  border-bottom: 1px solid rgba(17, 17, 17, 0.35);
+  font-size: 13px;
+  line-height: 1;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.portal-file:hover,
+.portal-file:focus-visible {
+  background: var(--ink);
+  color: var(--paper);
+  outline: 0;
 }
 
 .portal-item__meta {
