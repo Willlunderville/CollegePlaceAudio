@@ -153,7 +153,7 @@ textarea {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 31%;
+  object-position: center top;
   filter: saturate(0.72) contrast(0.96);
   transition: transform 1.1s cubic-bezier(0.2, 0.75, 0.25, 1), filter 0.8s ease;
 }
@@ -310,53 +310,41 @@ textarea {
 }
 
 .work-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(18px, 2vw, 34px);
+  max-width: 1280px;
 }
 
 .work-card {
-  display: flex;
-  min-height: 100%;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: minmax(260px, 0.72fr) minmax(340px, 1fr);
+  gap: clamp(28px, 4vw, 72px);
+  padding-top: 12px;
   border-top: 2px solid currentColor;
 }
 
+.work-card + .work-card {
+  margin-top: clamp(64px, 8vw, 120px);
+}
+
 .work-card__media {
-  position: relative;
-  display: grid;
-  place-items: center;
-  aspect-ratio: 4 / 3;
-  margin-top: 12px;
+  aspect-ratio: 1 / 1;
+  margin: 0;
   overflow: hidden;
-  background:
-    linear-gradient(rgba(17, 17, 17, 0.06), rgba(17, 17, 17, 0.06)),
-    url("assets/college-place-exterior.png") center / cover;
-  color: var(--paper);
-  filter: grayscale(0.95) contrast(1.1);
+  background: #111111;
 }
 
-.work-card__media::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 35% 28%, transparent 0 1px, rgba(248, 248, 246, 0.12) 1px 2px),
-    rgba(17, 17, 17, 0.28);
-  background-size: 5px 5px, auto;
-  mix-blend-mode: overlay;
-  pointer-events: none;
+.work-card__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.work-card__media span {
-  position: relative;
-  z-index: 1;
-  padding: 8px 10px;
-  border: 1px solid currentColor;
-  font-size: clamp(13px, 1vw, 16px);
-  letter-spacing: -0.03em;
-  line-height: 1;
-  text-transform: uppercase;
+.work-card__media img[src$="the-big-squeeze.jpg"] {
+  object-position: center top;
+}
+
+.work-card__media img[src$="tiny-pretty-things.jpg"] {
+  object-position: center 42%;
 }
 
 .work-card__body {
@@ -375,31 +363,60 @@ textarea {
 
 .work-card h3 {
   margin: 0;
-  font-size: clamp(30px, 3vw, 58px);
+  font-size: clamp(46px, 5vw, 88px);
   font-weight: 600;
   letter-spacing: -0.075em;
   line-height: 0.84;
 }
 
-.work-card__body > p:not(.work-card__type) {
-  max-width: 28ch;
+.work-card__summary {
+  max-width: 34ch;
   margin: 18px 0 28px;
   font-size: clamp(15px, 1.1vw, 19px);
   letter-spacing: -0.035em;
   line-height: 1.05;
 }
 
-.audio-placeholder {
+.work-card__credits {
+  margin: 0 0 28px;
+}
+
+.work-card__credits div,
+.work-card__link {
   display: flex;
   justify-content: space-between;
   gap: 14px;
-  margin-top: auto;
   padding: 12px 0 10px;
   border-top: 1px solid currentColor;
-  border-bottom: 1px solid currentColor;
   font-size: 14px;
   line-height: 1;
+}
+
+.work-card__credits div:last-child,
+.work-card__link {
+  border-bottom: 1px solid currentColor;
+}
+
+.work-card__credits dt,
+.work-card__credits dd {
+  margin: 0;
+}
+
+.work-card__credits dt,
+.work-card__link {
   text-transform: uppercase;
+}
+
+.work-card__link {
+  margin-top: auto;
+  text-decoration: none;
+}
+
+.work-card__link:hover,
+.work-card__link:focus-visible {
+  background: var(--ink);
+  color: var(--paper);
+  outline: 0;
 }
 
 .portal-page {
@@ -821,8 +838,12 @@ textarea {
   }
 
   .work-grid {
+    max-width: none;
+  }
+
+  .work-card {
     grid-template-columns: 1fr;
-    gap: 46px;
+    gap: 24px;
   }
 
   .portal-login h2,
@@ -849,10 +870,15 @@ textarea {
 @media (max-width: 540px) {
   :root {
     --gutter: 18px;
+    --panel-rail: 72px;
   }
 
   .landing {
     padding-top: 18px;
+  }
+
+  body.has-active-panel .brand {
+    z-index: 3;
   }
 
   .brand {
