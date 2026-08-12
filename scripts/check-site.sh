@@ -7,6 +7,8 @@ required_files=(
   "script.js"
   "assets/college-place-exterior.png"
   "assets/college-place-logo.jpeg"
+  "assets/the-big-squeeze.jpg"
+  "assets/tiny-pretty-things.jpg"
   "assets/favicon.png"
   "assets/favicon-32.png"
   "assets/apple-touch-icon.png"

@@ -1,4 +1,5 @@
 const menuToggle = document.querySelector('.menu-toggle');
+const landing = document.querySelector('.landing');
 const primaryNav = document.querySelector('.primary-nav');
 const brandHome = document.querySelector('.brand__home');
 const pagePanels = Array.from(document.querySelectorAll('.page-panel'));
@@ -61,6 +62,11 @@ function setActivePanel(id) {
 
 function updatePanelFromHash() {
   setActivePanel(window.location.hash.replace('#', ''));
+}
+
+function closeActivePanel() {
+  history.pushState('', document.title, window.location.pathname);
+  setActivePanel('');
 }
 
 function getPortalData() {
@@ -275,8 +281,14 @@ menuToggle.addEventListener('click', () => {
 
 brandHome.addEventListener('click', (event) => {
   event.preventDefault();
-  history.pushState('', document.title, window.location.pathname);
-  setActivePanel('');
+  closeActivePanel();
+});
+
+landing.addEventListener('click', (event) => {
+  if (!document.body.classList.contains('has-active-panel')) return;
+  if (event.target.closest('a, button')) return;
+
+  closeActivePanel();
 });
 
 window.addEventListener('hashchange', updatePanelFromHash);
@@ -351,8 +363,7 @@ document.addEventListener('keydown', (event) => {
   }
 
   if (event.key === 'Escape' && document.body.classList.contains('has-active-panel')) {
-    history.pushState('', document.title, window.location.pathname);
-    setActivePanel('');
+    closeActivePanel();
   }
 });
 
