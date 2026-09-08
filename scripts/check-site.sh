@@ -9,6 +9,8 @@ required_files=(
   "assets/college-place-logo.jpeg"
   "assets/the-big-squeeze.jpg"
   "assets/tiny-pretty-things.jpg"
+  "assets/christmas-in-wolf-creek.jpg"
+  "assets/vice-hbo.jpg"
   "assets/favicon.png"
   "assets/favicon-32.png"
   "assets/apple-touch-icon.png"

@@ -347,6 +347,10 @@ textarea {
   object-position: center 42%;
 }
 
+.work-card__media img[src$="vice-hbo.jpg"] {
+  object-fit: contain;
+}
+
 .work-card__body {
   display: flex;
   flex: 1;
