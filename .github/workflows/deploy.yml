@@ -43,6 +43,9 @@ jobs:
             "$SSH_USERNAME@$SSH_HOST" <<EOF
           -mkdir "$SSH_REMOTE_DIR"
           -mkdir "$SSH_REMOTE_DIR/assets"
+          -mkdir "$SSH_REMOTE_DIR/assets/brands"
+          put assets/brands/*.svg "$SSH_REMOTE_DIR/assets/brands/"
+          put assets/brands/*.png "$SSH_REMOTE_DIR/assets/brands/"
           put index.html "$SSH_REMOTE_DIR/index.html"
           put styles.css "$SSH_REMOTE_DIR/styles.css"
           put script.js "$SSH_REMOTE_DIR/script.js"

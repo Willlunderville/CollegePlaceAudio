@@ -10,7 +10,7 @@
     <title>College Place Audio</title>
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
-    <link rel="stylesheet" href="styles.css?v=20260909-about" />
+    <link rel="stylesheet" href="styles.css?v=20260909-carousel" />
   </head>
   <body>
     <main class="landing">
@@ -179,6 +179,29 @@
           through project stills, details, and credits.
         </p>
       </div>
+
+      <section class="brand-reel" aria-label="Brand logo carousel">
+        <div class="brand-reel__header">
+          <div class="brand-reel__controls" hidden>
+            <button type="button" data-brand-step="-1" aria-label="Previous logos" aria-controls="brand-reel-viewport"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6M8 12h13" /></svg></button>
+            <button type="button" data-brand-toggle aria-controls="brand-reel-viewport">Pause</button>
+            <button type="button" data-brand-step="1" aria-label="Next logos" aria-controls="brand-reel-viewport"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 6 6 6-6 6M16 12H3" /></svg></button>
+          </div>
+        </div>
+        <div class="brand-reel__viewport" id="brand-reel-viewport" tabindex="0" role="region" aria-label="Brand logos; scroll horizontally to explore">
+          <div class="brand-reel__track">
+            <ul class="brand-reel__group">
+              <li><img src="assets/brands/vice-tv.svg" alt="VICE TV" width="160" height="64" /></li>
+              <li><img src="assets/brands/netflix.svg" alt="Netflix" width="160" height="64" /></li>
+              <li><img src="assets/brands/boost-mobile.png" alt="Boost Mobile" width="160" height="64" /></li>
+              <li><img src="assets/brands/hbo.svg" alt="HBO" width="128" height="64" /></li>
+              <li><img src="assets/brands/vice.svg" alt="VICE" width="160" height="64" /></li>
+              <li><img src="assets/brands/imagicomm.png" alt="Imagicomm Entertainment" width="170" height="80" /></li>
+              <li><img src="assets/brands/showtime.svg" alt="Showtime" width="160" height="64" /></li>
+            </ul>
+          </div>
+        </div>
+      </section>
 
       <div class="work-grid" aria-label="Selected College Place Audio sync work">
         <article class="work-card">
@@ -462,6 +485,6 @@
       </div>
     </section>
 
-    <script src="script.js"></script>
+    <script src="script.js?v=20260909-carousel"></script>
   </body>
 </html>
