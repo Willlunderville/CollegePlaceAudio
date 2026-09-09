@@ -250,26 +250,224 @@ textarea {
   line-height: 0.98;
 }
 
-.about-panel {
+.content-page--about {
+  padding-top: clamp(28px, 3vw, 54px);
+}
+
+.about-hero {
   display: grid;
-  grid-template-columns: minmax(220px, 0.45fr) minmax(320px, 1fr);
-  column-gap: clamp(34px, 6vw, 110px);
-  max-width: 1180px;
+  align-items: end;
+  min-height: min(700px, calc(100svh - 110px));
+  padding-bottom: clamp(52px, 7vw, 112px);
 }
 
-.about-panel p {
-  grid-column: 2;
-  max-width: 52ch;
+.about-hero__copy {
+  display: grid;
+  grid-template-columns: minmax(420px, 1fr) minmax(280px, 0.55fr);
+  gap: clamp(40px, 8vw, 148px);
+  align-items: end;
+  width: 100%;
+}
+
+.about-hero__copy h2 {
+  max-width: 9ch;
   margin: 0;
-  padding-top: 16px;
-  border-top: 2px solid currentColor;
-  font-size: clamp(20px, 2vw, 38px);
-  letter-spacing: -0.06em;
-  line-height: 0.96;
+  font-size: clamp(58px, 7vw, 96px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 0.86;
+  text-wrap: balance;
 }
 
-.about-panel p + p {
-  margin-top: 34px;
+.about-hero__intro > p:first-child {
+  max-width: 34ch;
+  margin: 0;
+  font-size: clamp(22px, 2.2vw, 36px);
+  letter-spacing: -0.035em;
+  line-height: 1;
+}
+
+.about-hero__locations {
+  margin: clamp(34px, 5vw, 72px) 0 0;
+  padding-top: 12px;
+  border-top: 1px solid currentColor;
+  font-size: 12px;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.about-origin {
+  display: grid;
+  grid-template-columns: minmax(170px, 0.35fr) minmax(340px, 1fr);
+  gap: clamp(34px, 6vw, 110px);
+  padding: clamp(54px, 7vw, 112px) 0;
+  border-top: 2px solid currentColor;
+}
+
+.about-origin__aside {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
+.about-origin__story h3,
+.about-collective h3 {
+  max-width: 11ch;
+  margin: 0;
+  font-size: clamp(44px, 6vw, 88px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 0.88;
+  text-wrap: balance;
+}
+
+.about-origin__story > p {
+  max-width: 62ch;
+  margin: clamp(28px, 3vw, 46px) 0 0;
+  font-size: clamp(18px, 1.55vw, 26px);
+  letter-spacing: -0.025em;
+  line-height: 1.12;
+}
+
+.about-origin__story > p + p {
+  margin-top: 1em;
+}
+
+.about-collective {
+  padding: clamp(54px, 7vw, 112px) 0;
+  border-top: 2px solid currentColor;
+}
+
+.about-collective__heading {
+  display: grid;
+  grid-template-columns: minmax(340px, 1fr) minmax(240px, 0.56fr);
+  gap: clamp(34px, 6vw, 110px);
+  align-items: end;
+  margin-bottom: clamp(52px, 7vw, 108px);
+}
+
+.about-collective__heading > p {
+  max-width: 38ch;
+  margin: 0;
+  font-size: clamp(18px, 1.4vw, 24px);
+  letter-spacing: -0.025em;
+  line-height: 1.12;
+}
+
+.about-collective__principles {
+  margin-left: min(18vw, 260px);
+  border-bottom: 1px solid currentColor;
+}
+
+.about-collective__principles article {
+  display: grid;
+  grid-template-columns: minmax(200px, 0.55fr) minmax(300px, 1fr);
+  gap: clamp(24px, 4vw, 70px);
+  padding: clamp(24px, 3vw, 42px) 0;
+  border-top: 1px solid currentColor;
+}
+
+.about-collective__principles h4 {
+  margin: 0;
+  font-size: clamp(22px, 2vw, 32px);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.about-collective__principles p {
+  max-width: 58ch;
+  margin: 0;
+  font-size: clamp(16px, 1.1vw, 19px);
+  letter-spacing: -0.02em;
+  line-height: 1.18;
+}
+
+.about-artist {
+  display: grid;
+  grid-template-columns: minmax(340px, 1fr) minmax(300px, 0.78fr);
+  gap: clamp(34px, 6vw, 110px);
+  padding: clamp(54px, 7vw, 112px) 0;
+  border-top: 2px solid currentColor;
+}
+
+.about-artist h3 {
+  max-width: 11ch;
+  margin: 0;
+  font-size: clamp(44px, 6vw, 88px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 0.88;
+  text-wrap: balance;
+}
+
+.about-artist__copy {
+  align-self: end;
+}
+
+.about-artist__copy p {
+  max-width: 58ch;
+  margin: 0;
+  font-size: clamp(18px, 1.45vw, 24px);
+  letter-spacing: -0.025em;
+  line-height: 1.12;
+}
+
+.about-artist__copy p + p {
+  margin-top: 1em;
+}
+
+.about-statement {
+  padding: clamp(64px, 9vw, 148px) 0;
+  border-top: 2px solid currentColor;
+}
+
+.about-statement p {
+  max-width: 13ch;
+  margin: 0;
+  font-size: clamp(48px, 7vw, 96px);
+  letter-spacing: -0.04em;
+  line-height: 0.88;
+}
+
+.about-statement p:last-child {
+  max-width: 16ch;
+  margin: clamp(44px, 6vw, 88px) 0 0 auto;
+  text-align: right;
+}
+
+.about-cta {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 28px;
+  padding: clamp(28px, 4vw, 58px) 0;
+  border-top: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  text-decoration: none;
+}
+
+.about-cta span {
+  font-size: clamp(15px, 1.15vw, 19px);
+  line-height: 1;
+}
+
+.about-cta strong {
+  font-size: clamp(34px, 5vw, 72px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+}
+
+.about-cta:hover,
+.about-cta:focus-visible {
+  padding-right: 18px;
+  padding-left: 18px;
+  background: var(--ink);
+  color: var(--paper);
+  outline: 0;
 }
 
 .contact-list {
@@ -820,13 +1018,31 @@ textarea {
     margin-top: 22px;
   }
 
-  .about-panel,
   .contact-list {
     display: block;
   }
 
-  .about-panel p {
-    max-width: 28ch;
+  .about-hero {
+    min-height: auto;
+  }
+
+  .about-hero__copy {
+    grid-template-columns: minmax(320px, 1fr) minmax(240px, 0.58fr);
+    gap: 52px;
+  }
+
+  .about-hero__copy h2 {
+    font-size: clamp(54px, 9vw, 82px);
+  }
+
+  .about-origin,
+  .about-collective__heading,
+  .about-artist {
+    gap: 34px;
+  }
+
+  .about-collective__principles {
+    margin-left: 0;
   }
 
   .contact-list a {
@@ -907,6 +1123,80 @@ textarea {
   .feature figcaption {
     max-width: 32ch;
     font-size: 10px;
+  }
+
+  .content-page--about {
+    padding-top: 28px;
+  }
+
+  .about-hero,
+  .about-hero__copy,
+  .about-origin,
+  .about-collective__heading,
+  .about-collective__principles article,
+  .about-artist {
+    display: block;
+  }
+
+  .about-hero {
+    padding-bottom: 58px;
+  }
+
+  .about-hero__copy h2 {
+    max-width: 100%;
+    font-size: clamp(38px, 12vw, 58px);
+  }
+
+  .about-hero__intro {
+    margin-top: 28px;
+  }
+
+  .about-hero__locations {
+    margin-top: 38px;
+  }
+
+  .about-origin__story {
+    margin-top: 46px;
+  }
+
+  .about-origin__story h3,
+  .about-collective h3,
+  .about-artist h3 {
+    font-size: clamp(42px, 13vw, 64px);
+  }
+
+  .about-collective__heading > p {
+    margin-top: 30px;
+  }
+
+  .about-collective__principles article {
+    padding: 28px 0 30px;
+  }
+
+  .about-collective__principles p {
+    margin-top: 16px;
+  }
+
+  .about-artist__copy {
+    margin-top: 34px;
+  }
+
+  .about-statement p {
+    font-size: clamp(38px, 12vw, 58px);
+  }
+
+  .about-statement p:last-child {
+    margin-top: 58px;
+  }
+
+  .about-cta {
+    display: block;
+  }
+
+  .about-cta strong {
+    display: block;
+    margin-top: 22px;
+    font-size: 28px;
   }
 
   .primary-nav.is-open {
