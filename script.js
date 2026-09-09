@@ -27,43 +27,13 @@ if (brandReel) {
   duplicate.setAttribute('aria-hidden', 'true');
   duplicate.querySelectorAll('img').forEach((img) => { img.alt = ''; });
   group.after(duplicate);
-  const toggle = brandReel.querySelector('[data-brand-toggle]');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  let paused = reducedMotion.matches;
-  let hovering = false;
   let previousTime = 0;
   let position = 0;
-  const setPaused = (value) => {
-    paused = value;
-    toggle.textContent = paused ? 'Play' : 'Pause';
-    toggle.setAttribute('aria-label', paused ? 'Play logo carousel' : 'Pause logo carousel');
-  };
-  setPaused(paused);
-  brandReel.querySelector('.brand-reel__controls').hidden = false;
-  toggle.addEventListener('click', () => setPaused(!paused));
-  reducedMotion.addEventListener('change', () => setPaused(reducedMotion.matches));
-  viewport.addEventListener('pointerenter', () => { hovering = true; });
-  viewport.addEventListener('pointerleave', () => { hovering = false; });
-  viewport.addEventListener('pointerdown', () => setPaused(true));
-  viewport.addEventListener('keydown', () => setPaused(true));
-  viewport.addEventListener('wheel', () => setPaused(true), { passive: true });
-  viewport.addEventListener('scroll', () => { position = viewport.scrollLeft; }, { passive: true });
-  brandReel.querySelectorAll('[data-brand-step]').forEach((button) => {
-    button.addEventListener('click', () => {
-      setPaused(true);
-      const width = group.getBoundingClientRect().width;
-      const step = Number(button.dataset.brandStep);
-      if (step < 0 && viewport.scrollLeft < 1) viewport.scrollLeft = width;
-      if (step > 0 && viewport.scrollLeft >= width) viewport.scrollLeft -= width;
-      viewport.scrollBy({ left: step * group.firstElementChild.getBoundingClientRect().width,
-        behavior: reducedMotion.matches ? 'instant' : 'smooth' });
-    });
-  });
   const animate = (time) => {
     const elapsed = Math.min(time - previousTime, 64);
     previousTime = time;
-    if (!paused && !hovering && !document.hidden &&
-        !brandReel.contains(document.activeElement) &&
+    if (!reducedMotion.matches && !document.hidden &&
         brandReel.closest('.page-panel').classList.contains('is-active')) {
       const width = group.getBoundingClientRect().width;
       position = (position + elapsed * 0.025) % width;
