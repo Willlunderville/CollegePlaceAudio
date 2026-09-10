@@ -50,6 +50,7 @@ jobs:
           put styles.css "$SSH_REMOTE_DIR/styles.css"
           put script.js "$SSH_REMOTE_DIR/script.js"
           put assets/college-place-exterior.png "$SSH_REMOTE_DIR/assets/college-place-exterior.png"
+          put assets/college-place-exterior-darker.png "$SSH_REMOTE_DIR/assets/college-place-exterior-darker.png"
           put assets/college-place-logo.jpeg "$SSH_REMOTE_DIR/assets/college-place-logo.jpeg"
           put assets/the-big-squeeze.jpg "$SSH_REMOTE_DIR/assets/the-big-squeeze.jpg"
           put assets/tiny-pretty-things.jpg "$SSH_REMOTE_DIR/assets/tiny-pretty-things.jpg"
