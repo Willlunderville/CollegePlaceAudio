@@ -136,7 +136,7 @@ textarea {
 }
 
 .feature {
-  width: min(100%, calc(100svh - 100px), 950px);
+  width: min(100%, calc(80svh - 80px), 950px);
   margin: 0;
   justify-self: start;
 }
@@ -144,7 +144,7 @@ textarea {
 .feature__frame {
   position: relative;
   width: 100%;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 4 / 5;
   overflow: hidden;
   background: #e4e2dc;
 }
@@ -1030,8 +1030,8 @@ textarea {
 
   .feature__frame {
     aspect-ratio: auto;
-    height: 67svh;
-    min-height: 430px;
+    height: 72svh;
+    min-height: 460px;
   }
 
   .menu-toggle {
@@ -1164,8 +1164,9 @@ textarea {
   }
 
   .feature__frame {
-    height: 60svh;
-    min-height: 390px;
+    aspect-ratio: 2 / 3;
+    height: auto;
+    min-height: 0;
   }
 
   .feature figcaption {
