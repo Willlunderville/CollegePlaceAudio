@@ -52,6 +52,7 @@ jobs:
           put assets/college-place-exterior.png "$SSH_REMOTE_DIR/assets/college-place-exterior.png"
           put assets/college-place-exterior-darker.png "$SSH_REMOTE_DIR/assets/college-place-exterior-darker.png"
           put assets/college-place-logo.jpeg "$SSH_REMOTE_DIR/assets/college-place-logo.jpeg"
+          put assets/college-place-logo-email.jpg "$SSH_REMOTE_DIR/assets/college-place-logo-email.jpg"
           put assets/the-big-squeeze.jpg "$SSH_REMOTE_DIR/assets/the-big-squeeze.jpg"
           put assets/tiny-pretty-things.jpg "$SSH_REMOTE_DIR/assets/tiny-pretty-things.jpg"
           put assets/christmas-in-wolf-creek.jpg "$SSH_REMOTE_DIR/assets/christmas-in-wolf-creek.jpg"
