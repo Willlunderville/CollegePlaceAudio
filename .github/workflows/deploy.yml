@@ -49,6 +49,7 @@ jobs:
           put index.html "$SSH_REMOTE_DIR/index.html"
           put styles.css "$SSH_REMOTE_DIR/styles.css"
           put script.js "$SSH_REMOTE_DIR/script.js"
+          put email-signature.html "$SSH_REMOTE_DIR/email-signature.html"
           put assets/college-place-exterior.png "$SSH_REMOTE_DIR/assets/college-place-exterior.png"
           put assets/college-place-exterior-darker.png "$SSH_REMOTE_DIR/assets/college-place-exterior-darker.png"
           put assets/college-place-logo.jpeg "$SSH_REMOTE_DIR/assets/college-place-logo.jpeg"
