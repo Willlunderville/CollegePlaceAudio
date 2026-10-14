@@ -1,0 +1,201 @@
+/* October 2026 brand application. Source: supplied Brand Guidelines v1.0.
+   Preserve the photograph, factual copy, drawer navigation, and work carousel.
+   Original embedded logo/grain assets are used without redrawing the wordmark. */
+@font-face {
+  font-family: "Archivo Narrow";
+  src: url("assets/fonts/archivo-narrow-bold.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("assets/fonts/ibm-plex-mono-regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("assets/fonts/ibm-plex-mono-medium.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+:root {
+  --ink: #1a1714;
+  --paper: #ede7dd;
+  --haze: #a9c6d3;
+  --sage: #a8b39b;
+  --plum: #5e2747;
+  --clay: #b9643e;
+  --clay-tint: #e3a27e;
+  --font-display: "Archivo Narrow", "Arial Narrow", sans-serif;
+  --font-text: "IBM Plex Mono", monospace;
+}
+body {
+  font-family: var(--font-text);
+  font-weight: 400;
+  line-height: 1.5;
+  background: var(--paper);
+  background-image: linear-gradient(#ede7dded, #ede7dded), url("assets/identity/grain.jpg");
+  background-size: auto, cover;
+  background-attachment: scroll, fixed;
+  background-repeat: no-repeat;
+}
+.brand h1.brand__wordmark {
+  width: clamp(200px, 20vw, 300px);
+  max-width: 100%;
+  margin: 0;
+  line-height: 1;
+}
+.brand__wordmark img {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* Keep the actual artwork visible, including in local-file previews. */
+  filter: brightness(0);
+}
+.brand__home { max-width: 100%; }
+.page-panel {
+  background: var(--paper);
+  background-image: linear-gradient(#ede7dded, #ede7dded), url("assets/identity/grain.jpg");
+  background-size: auto, cover;
+  background-attachment: scroll, fixed;
+  background-repeat: no-repeat;
+  border-color: var(--ink);
+  box-shadow: none;
+}
+.primary-nav a,
+.content-page h2,
+.work-page h2,
+.about-origin__story h3,
+.about-collective h3,
+.about-collective__principles h4,
+.about-artist h3,
+.about-statement p,
+.about-cta strong,
+.work-card h3,
+.portal-login h2,
+.portal-app h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: capitalize;
+  letter-spacing: 0;
+  line-height: 0.98;
+}
+.content-page h2,
+.work-page h2,
+.portal-login h2,
+.portal-app h2 { font-size: clamp(48px, 7vw, 96px); }
+.primary-nav a { font-size: clamp(26px, 2.4vw, 38px); }
+.work-card h3 { font-size: clamp(38px, 4.2vw, 64px); }
+.about-hero__copy h2 {
+  width: 88%;
+  max-width: 18ch;
+  font-size: clamp(48px, 6.2vw, 88px);
+  line-height: 0.96;
+}
+.about-hero { min-height: auto; padding-top: 20px; }
+.about-hero__intro { width: 58%; margin: 40px 0 0; }
+.about-hero__intro > p:first-child,
+.content-page__header > p:last-child,
+.work-page__header > p:last-child,
+.about-origin__story > p,
+.about-collective__heading > p,
+.about-artist__copy p,
+.portal-login > p:not(.eyebrow) {
+  font-size: clamp(16px, 1.25vw, 20px);
+  font-weight: 400;
+  line-height: 1.55;
+  letter-spacing: 0;
+  max-width: 65ch;
+}
+.about-collective__principles p,
+.work-card__summary {
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0;
+  max-width: 65ch;
+}
+.eyebrow,
+.feature figcaption,
+.about-hero__locations,
+.about-origin__aside,
+.work-card__type,
+.work-card__credits dt,
+.work-card__link,
+.portal-login__form label,
+.contact-list span:first-child {
+  font-family: var(--font-text);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  line-height: 1.5;
+  text-transform: capitalize;
+}
+.portal-section__header h3,
+.portal-app button,
+.portal-login__form button {
+  text-transform: capitalize;
+}
+.feature figcaption { padding-top: 12px; }
+.feature__frame img,
+.feature__frame:hover img { filter: none; }
+.work-card__credits div { font-size: 13px; line-height: 1.5; }
+.work-card__credits dd { text-align: right; }
+.work-card__body { min-width: 0; padding-top: 0; }
+.work-card__type { margin-bottom: 20px; }
+.about-cta { gap: 24px; }
+.about-cta span { font-size: 14px; line-height: 1.5; }
+.about-cta strong { flex-shrink: 0; }
+.contact-list a {
+  font-size: clamp(16px, 1.6vw, 24px);
+  line-height: 1.5;
+  letter-spacing: 0;
+}
+.contact-list a span { overflow-wrap: anywhere; }
+.contact-list a:hover,
+.contact-list a:focus-visible { background: var(--ink); color: var(--paper); }
+.menu-toggle { background: var(--ink); color: var(--paper); }
+.about-origin,
+.about-collective__heading,
+.about-artist,
+.about-collective__principles article,
+.content-page__header,
+.work-page__header,
+.contact-list { grid-template-columns: minmax(0, 0.45fr) minmax(0, 1fr); }
+.about-collective__principles { margin-left: 0; }
+.work-card { grid-template-columns: minmax(0, 0.72fr) minmax(0, 1fr); }
+:focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }
+@media (max-width: 1100px) {
+  .about-origin,
+  .about-collective__heading,
+  .about-artist,
+  .about-collective__principles article { grid-template-columns: 1fr; gap: 28px; }
+  .about-hero__intro { width: 80%; }
+}
+@media (max-width: 900px) {
+  .brand h1.brand__wordmark { width: min(250px, calc(var(--panel-rail) - 2 * var(--gutter))); }
+  .work-card { grid-template-columns: 1fr; }
+  .about-hero__copy h2 { font-size: clamp(42px, 7vw, 64px); }
+  .about-hero__intro { width: 100%; }
+  .about-cta { flex-direction: column; align-items: flex-start; }
+}
+@media (max-width: 540px) {
+  .brand h1.brand__wordmark { width: 224px; }
+  .content-page h2,
+  .work-page h2,
+  .portal-login h2,
+  .portal-app h2 { font-size: clamp(38px, 10vw, 54px); }
+  .about-hero__copy h2 { width: 100%; max-width: 100%; font-size: 40px; }
+  .about-origin__story h3,
+  .about-collective h3,
+  .about-artist h3,
+  .about-statement p { font-size: 38px; }
+  .work-card h3 { font-size: 38px; }
+  .feature figcaption { font-size: 11px; max-width: 38ch; }
+  .work-card__credits div { flex-direction: column; gap: 4px; }
+  .work-card__credits dd { text-align: left; }
+  .work-card__link { gap: 12px; }
+}
