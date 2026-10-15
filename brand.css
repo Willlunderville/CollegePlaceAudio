@@ -66,7 +66,6 @@ body {
   border-color: var(--ink);
   box-shadow: none;
 }
-.primary-nav a,
 .content-page h2,
 .work-page h2,
 .about-origin__story h3,
@@ -80,7 +79,7 @@ body {
 .portal-app h2 {
   font-family: var(--font-display);
   font-weight: 700;
-  text-transform: capitalize;
+  text-transform: uppercase;
   letter-spacing: 0;
   line-height: 0.98;
 }
@@ -88,7 +87,39 @@ body {
 .work-page h2,
 .portal-login h2,
 .portal-app h2 { font-size: clamp(48px, 7vw, 96px); }
-.primary-nav a { font-size: clamp(26px, 2.4vw, 38px); }
+.primary-nav {
+  gap: 0;
+  padding-left: 20px;
+  margin-left: -20px;
+}
+.primary-nav a {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 40px;
+  font-family: var(--font-text);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.primary-nav a::before {
+  content: "";
+  position: absolute;
+  left: -20px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--clay);
+  opacity: 0;
+}
+.primary-nav a[aria-current="page"]::before { opacity: 1; }
+.primary-nav a:hover,
+.primary-nav a:focus-visible { text-decoration: none; }
+.primary-nav a:hover { background: rgb(26 23 20 / 6%); }
+.primary-nav a:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
 .work-card h3 { font-size: clamp(38px, 4.2vw, 64px); }
 .about-hero__copy h2 {
   width: 88%;
@@ -137,7 +168,7 @@ body {
 .portal-section__header h3,
 .portal-app button,
 .portal-login__form button {
-  text-transform: capitalize;
+  text-transform: uppercase;
 }
 .feature figcaption { padding-top: 12px; }
 .feature__frame img,

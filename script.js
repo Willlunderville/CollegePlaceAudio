@@ -84,6 +84,13 @@ function setActivePanel(id) {
   });
 
   document.body.classList.toggle('has-active-panel', hasActivePanel);
+  primaryNav.querySelectorAll('a').forEach((link) => {
+    if (link.getAttribute('href') === `#${id}`) {
+      link.setAttribute('aria-current', 'page');
+    } else {
+      link.removeAttribute('aria-current');
+    }
+  });
 }
 
 function updatePanelFromHash() {
