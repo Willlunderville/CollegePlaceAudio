@@ -17,6 +17,7 @@ const portalStorageKey = 'college-place-audio-portal';
 const portalSessionKey = 'college-place-audio-portal-unlocked';
 const portalPasscode = 'cpaudio';
 const maxPortalFileSize = 3 * 1024 * 1024;
+const spotifyArtworkCache = new Map();
 let activeDiscoveryFilter = 'needs-approval';
 
 // One accessible logo list; its visual copy makes the reel wrap seamlessly.
@@ -270,6 +271,57 @@ function safeExternalHref(value) {
   }
 }
 
+function safeSpotifyHref(value) {
+  const href = safeExternalHref(value);
+  if (!href) return '';
+
+  const url = new URL(href);
+  return ['open.spotify.com', 'spotify.link'].includes(url.hostname) ? url.href : '';
+}
+
+function artistInitials(name) {
+  const initials = String(name || '')
+    .trim()
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((word) => word[0])
+    .join('')
+    .toUpperCase();
+  return initials || 'CPA';
+}
+
+function getSpotifyArtwork(spotifyUrl) {
+  if (spotifyArtworkCache.has(spotifyUrl)) return spotifyArtworkCache.get(spotifyUrl);
+
+  const artworkRequest = fetch(`https://open.spotify.com/oembed?url=${encodeURIComponent(spotifyUrl)}`)
+    .then((response) => {
+      if (!response.ok) throw new Error(`Spotify artwork request failed: ${response.status}`);
+      return response.json();
+    })
+    .then((metadata) => safeExternalHref(metadata.thumbnail_url))
+    .catch(() => '');
+
+  spotifyArtworkCache.set(spotifyUrl, artworkRequest);
+  return artworkRequest;
+}
+
+async function hydrateSpotifyArtwork() {
+  const artworkSlots = Array.from(document.querySelectorAll('[data-spotify-artwork]'));
+  await Promise.allSettled(artworkSlots.map(async (slot) => {
+    const spotifyUrl = slot.dataset.spotifyArtwork;
+    const imageUrl = await getSpotifyArtwork(spotifyUrl);
+    if (!imageUrl || !slot.isConnected || slot.dataset.spotifyArtwork !== spotifyUrl) return;
+
+    const image = new Image();
+    image.src = imageUrl;
+    image.alt = `${slot.dataset.artistName || 'Artist'} artwork from Spotify`;
+    image.loading = 'lazy';
+    image.decoding = 'async';
+    slot.replaceChildren(image);
+    slot.classList.add('is-loaded');
+  }));
+}
+
 function overallApproval(artist) {
   const votes = [artist.willVote, artist.brettVote, artist.isaiahVote];
   if (votes.includes('Discuss')) return 'Needs discussion';
@@ -309,11 +361,20 @@ function renderArtistLinkField(field, label, value) {
 function renderArtistCard(artist) {
   const status = overallApproval(artist);
   const statusClass = status.toLowerCase().replaceAll(' ', '-');
+  const spotifyHref = safeSpotifyHref(artist.spotify);
   return `
     <article class="discovery-card" data-artist-card data-id="${escapeHtml(artist.id)}">
-      <div class="discovery-card__top">
-        <input class="discovery-card__name" data-field="name" value="${escapeHtml(artist.name || '')}" aria-label="Artist name" placeholder="Artist name" />
-        <span class="discovery-status discovery-status--${statusClass}" data-approval-status>${escapeHtml(status)}</span>
+      <div class="discovery-card__hero">
+        ${spotifyHref
+          ? `<a class="discovery-artwork" href="${escapeHtml(spotifyHref)}" target="_blank" rel="noreferrer" data-spotify-artwork="${escapeHtml(spotifyHref)}" data-artist-name="${escapeHtml(artist.name || 'Artist')}" aria-label="Open ${escapeHtml(artist.name || 'artist')} on Spotify"><span>${escapeHtml(artistInitials(artist.name))}</span></a>`
+          : `<div class="discovery-artwork discovery-artwork--empty" aria-hidden="true"><span>${escapeHtml(artistInitials(artist.name))}</span></div>`}
+        <div class="discovery-card__hero-copy">
+          <div class="discovery-card__top">
+            <input class="discovery-card__name" data-field="name" value="${escapeHtml(artist.name || '')}" aria-label="Artist name" placeholder="Artist name" />
+            <span class="discovery-status discovery-status--${statusClass}" data-approval-status>${escapeHtml(status)}</span>
+          </div>
+          <p class="discovery-artwork__caption">Artwork via Spotify · Select to listen ↗</p>
+        </div>
       </div>
 
       <div class="discovery-links">
@@ -432,6 +493,7 @@ function renderDiscovery() {
   artistList.innerHTML = artists.length
     ? artists.map(renderArtistCard).join('')
     : `<p class="portal-empty">${searchTerm ? 'No artists match this search and filter.' : 'No artists in this view.'}</p>`;
+  hydrateSpotifyArtwork();
   sourceList.innerHTML = sources.length
     ? sources.map(renderDiscoverySource).join('')
     : '<p class="portal-empty">No discovery sources match this search.</p>';
