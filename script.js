@@ -385,30 +385,50 @@ function renderArtistCard(artist) {
           ? `<a class="discovery-artwork" href="${escapeHtml(spotifyHref)}" target="_blank" rel="noreferrer" data-spotify-artwork="${escapeHtml(spotifyHref)}" data-artist-name="${escapeHtml(artist.name || 'Artist')}" aria-label="Open ${escapeHtml(artist.name || 'artist')} on Spotify"><span>${escapeHtml(artistInitials(artist.name))}</span></a>`
           : `<div class="discovery-artwork discovery-artwork--empty" aria-hidden="true"><span>${escapeHtml(artistInitials(artist.name))}</span></div>`}
         <div class="discovery-card__hero-copy">
-          <div class="discovery-card__top">
-            <input class="discovery-card__name" data-field="name" value="${escapeHtml(artist.name || '')}" aria-label="Artist name" placeholder="Artist name" />
+          <div class="discovery-card__kicker">
+            <span class="discovery-card__type">Artist</span>
             <span class="discovery-statuses">
               <span class="discovery-status discovery-status--${statusClass}" data-approval-status>${escapeHtml(status)}</span>
               ${status === 'Approved' ? `<span class="discovery-email-badge${isEmailed ? ' is-emailed' : ''}">${isEmailed ? 'Emailed' : 'Needs email'}</span>` : ''}
             </span>
           </div>
+          <div class="discovery-card__top">
+            <input class="discovery-card__name" data-field="name" value="${escapeHtml(artist.name || '')}" aria-label="Artist name" placeholder="Artist name" />
+          </div>
           <p class="discovery-artwork__caption">Artwork via Spotify · Select to listen ↗</p>
+          <div class="discovery-fields discovery-fields--identity">
+            <label class="discovery-field">
+              <span>Monthly listeners</span>
+              <input data-field="listeners" type="number" min="0" step="1" value="${escapeHtml(artist.listeners ?? '')}" />
+            </label>
+            <label class="discovery-field">
+              <span>Label association</span>
+              <input data-field="label" value="${escapeHtml(artist.label || '')}" placeholder="Independent, label name, or unknown" />
+            </label>
+            <label class="discovery-field">
+              <span>Listeners checked</span>
+              <input data-field="checkedOn" type="date" value="${escapeHtml(artist.checkedOn || '')}" />
+            </label>
+            <label class="discovery-field">
+              <span>Added by</span>
+              <input data-field="addedBy" value="${escapeHtml(artist.addedBy || '')}" />
+            </label>
+          </div>
         </div>
       </div>
 
       ${spotifyEmbed ? `
-        <details class="discovery-spotify-preview" data-spotify-preview>
-          <summary>
-            <span>Spotify song preview</span>
-            <span aria-hidden="true">Listen +</span>
-          </summary>
-          <div
-            class="discovery-spotify-preview__frame"
-            data-spotify-embed="${escapeHtml(spotifyEmbed.src)}"
-            data-spotify-height="${spotifyEmbed.height}"
-            data-artist-name="${escapeHtml(artist.name || 'Artist')}"
-          ></div>
-        </details>
+        <div class="discovery-spotify-player">
+          <iframe
+            src="${escapeHtml(spotifyEmbed.src)}"
+            title="${escapeHtml(artist.name || 'Artist')} Spotify player"
+            width="100%"
+            height="${spotifyEmbed.height}"
+            loading="lazy"
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
       ` : ''}
 
       <div class="discovery-links">
@@ -417,53 +437,46 @@ function renderArtistCard(artist) {
         ${renderArtistLinkField('source', 'Discovery source', artist.source)}
       </div>
 
-      <div class="discovery-fields">
-        <label class="discovery-field">
-          <span>Monthly listeners</span>
-          <input data-field="listeners" type="number" min="0" step="1" value="${escapeHtml(artist.listeners ?? '')}" />
-        </label>
-        <label class="discovery-field">
-          <span>Label association</span>
-          <input data-field="label" value="${escapeHtml(artist.label || '')}" placeholder="Independent, label name, or unknown" />
-        </label>
-        <label class="discovery-field">
-          <span>Listeners checked</span>
-          <input data-field="checkedOn" type="date" value="${escapeHtml(artist.checkedOn || '')}" />
-        </label>
-        <label class="discovery-field">
-          <span>Added by</span>
-          <input data-field="addedBy" value="${escapeHtml(artist.addedBy || '')}" />
-        </label>
-      </div>
+      <section class="discovery-panel" aria-labelledby="reviewer-decisions-${escapeHtml(artist.id)}">
+        <div class="discovery-panel__header">
+          <h4 id="reviewer-decisions-${escapeHtml(artist.id)}">Reviewer decisions</h4>
+          <span>Select each reviewer's decision</span>
+        </div>
+        <div class="discovery-votes" aria-label="Team votes">
+          <label><span>Will</span><select data-field="willVote">${voteOptions(artist.willVote)}</select></label>
+          <label><span>Brett</span><select data-field="brettVote">${voteOptions(artist.brettVote)}</select></label>
+          <label><span>Isaiah</span><select data-field="isaiahVote">${voteOptions(artist.isaiahVote)}</select></label>
+        </div>
+      </section>
 
-      <div class="discovery-votes" aria-label="Team votes">
-        <label><span>Will</span><select data-field="willVote">${voteOptions(artist.willVote)}</select></label>
-        <label><span>Brett</span><select data-field="brettVote">${voteOptions(artist.brettVote)}</select></label>
-        <label><span>Isaiah</span><select data-field="isaiahVote">${voteOptions(artist.isaiahVote)}</select></label>
-      </div>
-
-      <div class="discovery-fields discovery-fields--contact${status === 'Approved' ? ' discovery-fields--approved-contact' : ''}">
-        <label class="discovery-field">
-          <span>In CRM</span>
-          <select data-field="inCrm">
-            <option value="no"${artist.inCrm === 'no' ? ' selected' : ''}>No</option>
-            <option value="yes"${artist.inCrm === 'yes' ? ' selected' : ''}>Yes</option>
-          </select>
-        </label>
-        ${status === 'Approved' ? `
+      <section class="discovery-panel" aria-labelledby="outreach-${escapeHtml(artist.id)}">
+        <div class="discovery-panel__header">
+          <h4 id="outreach-${escapeHtml(artist.id)}">Outreach &amp; CRM</h4>
+          <span>Manage outreach status and contact</span>
+        </div>
+        <div class="discovery-fields discovery-fields--contact${status === 'Approved' ? ' discovery-fields--approved-contact' : ''}">
           <label class="discovery-field">
-            <span>Email outreach</span>
-            <select data-field="emailed">
-              <option value="no"${!isEmailed ? ' selected' : ''}>Needs email</option>
-              <option value="yes"${isEmailed ? ' selected' : ''}>Emailed</option>
+            <span>In CRM</span>
+            <select data-field="inCrm">
+              <option value="no"${artist.inCrm === 'no' ? ' selected' : ''}>No</option>
+              <option value="yes"${artist.inCrm === 'yes' ? ' selected' : ''}>Yes</option>
             </select>
           </label>
-        ` : ''}
-        <label class="discovery-field discovery-field--wide">
-          <span>Contact email or link</span>
-          <input data-field="contact" value="${escapeHtml(artist.contact || '')}" />
-        </label>
-      </div>
+          ${status === 'Approved' ? `
+            <label class="discovery-field">
+              <span>Email outreach</span>
+              <select data-field="emailed">
+                <option value="no"${!isEmailed ? ' selected' : ''}>Needs email</option>
+                <option value="yes"${isEmailed ? ' selected' : ''}>Emailed</option>
+              </select>
+            </label>
+          ` : ''}
+          <label class="discovery-field discovery-field--wide">
+            <span>Contact email or link</span>
+            <input data-field="contact" value="${escapeHtml(artist.contact || '')}" placeholder="Enter email address or link…" />
+          </label>
+        </div>
+      </section>
 
       <details class="discovery-notes"${[artist.willNotes, artist.brettNotes, artist.isaiahNotes].some(Boolean) ? ' open' : ''}>
         <summary>Reviewer notes</summary>
@@ -809,27 +822,6 @@ document.addEventListener('change', (event) => {
     updateDiscoveryEntry(event.target, 'artists');
   }
 });
-
-document.addEventListener('toggle', (event) => {
-  const preview = event.target.closest?.('[data-spotify-preview]');
-  if (!preview?.open) return;
-
-  const slot = preview.querySelector('[data-spotify-embed]');
-  if (!slot || slot.querySelector('iframe')) return;
-
-  const src = safeExternalHref(slot.dataset.spotifyEmbed);
-  if (!src) return;
-
-  const iframe = document.createElement('iframe');
-  iframe.src = src;
-  iframe.title = `${slot.dataset.artistName || 'Artist'} Spotify player`;
-  iframe.width = '100%';
-  iframe.height = slot.dataset.spotifyHeight || '352';
-  iframe.loading = 'lazy';
-  iframe.allow = 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
-  iframe.setAttribute('allowfullscreen', '');
-  slot.append(iframe);
-}, true);
 
 document.addEventListener('click', (event) => {
   if (event.target.matches('[data-delete-item]')) {
