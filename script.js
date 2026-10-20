@@ -272,18 +272,17 @@ function safeExternalHref(value) {
 
 function overallApproval(artist) {
   const votes = [artist.willVote, artist.brettVote, artist.isaiahVote];
+  if (votes.includes('Discuss')) return 'Needs discussion';
   if (votes.filter((vote) => vote === 'Approve').length >= 2) return 'Approved';
   if (votes.filter((vote) => vote === 'Reject').length >= 2) return 'Rejected';
-  if (votes.includes('Discuss')) return 'Needs discussion';
   return 'Pending';
 }
 
 function matchesDiscoveryFilter(artist, filter) {
   const status = overallApproval(artist);
-  if (filter === 'needs-approval') {
-    return status === 'Pending' || status === 'Needs discussion';
-  }
+  if (filter === 'needs-approval') return status === 'Pending';
   if (filter === 'approved') return status === 'Approved';
+  if (filter === 'discuss') return status === 'Needs discussion';
   if (filter === 'rejected') return status === 'Rejected';
   return true;
 }
