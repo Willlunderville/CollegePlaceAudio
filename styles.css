@@ -957,6 +957,27 @@ textarea {
   margin-bottom: 12px;
 }
 
+.discovery-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.discovery-filters button {
+  min-height: 38px;
+  padding: 8px 14px;
+  border: 1px solid currentColor;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.discovery-filters button.is-active {
+  background: var(--ink, #111);
+  color: var(--paper, #f1eee7);
+}
+
 .discovery-summary {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -1526,6 +1547,11 @@ textarea {
   }
 
   .discovery-summary {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .discovery-filters {
+    display: grid;
     grid-template-columns: 1fr 1fr;
   }
 

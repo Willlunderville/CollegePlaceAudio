@@ -17,6 +17,7 @@ const portalStorageKey = 'college-place-audio-portal';
 const portalSessionKey = 'college-place-audio-portal-unlocked';
 const portalPasscode = 'cpaudio';
 const maxPortalFileSize = 3 * 1024 * 1024;
+let activeDiscoveryFilter = 'needs-approval';
 
 // One accessible logo list; its visual copy makes the reel wrap seamlessly.
 const brandReel = document.querySelector('.brand-reel');
@@ -277,6 +278,16 @@ function overallApproval(artist) {
   return 'Pending';
 }
 
+function matchesDiscoveryFilter(artist, filter) {
+  const status = overallApproval(artist);
+  if (filter === 'needs-approval') {
+    return status === 'Pending' || status === 'Needs discussion';
+  }
+  if (filter === 'approved') return status === 'Approved';
+  if (filter === 'rejected') return status === 'Rejected';
+  return true;
+}
+
 function voteOptions(selected) {
   return ['Pending', 'Approve', 'Discuss', 'Reject']
     .map((vote) => `<option${vote === selected ? ' selected' : ''}>${vote}</option>`)
@@ -392,6 +403,7 @@ function renderDiscovery() {
   const data = getPortalData();
   const searchTerm = portalSearchInput?.value.trim().toLowerCase() || '';
   const artists = data.artists.filter((artist) => {
+    if (!matchesDiscoveryFilter(artist, activeDiscoveryFilter)) return false;
     if (!searchTerm) return true;
     return Object.values(artist).some((value) => String(value || '').toLowerCase().includes(searchTerm));
   });
@@ -412,9 +424,15 @@ function renderDiscovery() {
     <div><strong>${counts.Pending || 0}</strong><span>Pending</span></div>
   `;
 
+  document.querySelectorAll('[data-discovery-filter]').forEach((button) => {
+    const isActive = button.dataset.discoveryFilter === activeDiscoveryFilter;
+    button.classList.toggle('is-active', isActive);
+    button.setAttribute('aria-pressed', String(isActive));
+  });
+
   artistList.innerHTML = artists.length
     ? artists.map(renderArtistCard).join('')
-    : '<p class="portal-empty">No artists match this search.</p>';
+    : `<p class="portal-empty">${searchTerm ? 'No artists match this search and filter.' : 'No artists in this view.'}</p>`;
   sourceList.innerHTML = sources.length
     ? sources.map(renderDiscoverySource).join('')
     : '<p class="portal-empty">No discovery sources match this search.</p>';
@@ -638,6 +656,13 @@ docUploadInput?.addEventListener('change', () => {
 });
 
 portalSearchInput?.addEventListener('input', renderPortal);
+
+document.querySelectorAll('[data-discovery-filter]').forEach((button) => {
+  button.addEventListener('click', () => {
+    activeDiscoveryFilter = button.dataset.discoveryFilter;
+    renderDiscovery();
+  });
+});
 
 document.querySelector('[data-add-link]')?.addEventListener('click', () => {
   addPortalItem('links');

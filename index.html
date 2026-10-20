@@ -10,7 +10,7 @@
     <title>College Place Audio</title>
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
-    <link rel="stylesheet" href="styles.css?v=20261020-discovery" />
+    <link rel="stylesheet" href="styles.css?v=20261020-approval-filter" />
     <link rel="stylesheet" href="brand.css?v=20261015-navigation" />
   </head>
   <body>
@@ -478,6 +478,26 @@
                 <button type="button" data-add-artist>Add artist</button>
               </div>
 
+              <nav class="discovery-filters" aria-label="Artist status filters">
+                <button
+                  class="is-active"
+                  type="button"
+                  data-discovery-filter="needs-approval"
+                  aria-pressed="true"
+                >
+                  Needs approval
+                </button>
+                <button type="button" data-discovery-filter="approved" aria-pressed="false">
+                  Approved
+                </button>
+                <button type="button" data-discovery-filter="rejected" aria-pressed="false">
+                  Rejected
+                </button>
+                <button type="button" data-discovery-filter="all" aria-pressed="false">
+                  All artists
+                </button>
+              </nav>
+
               <div class="discovery-summary" data-discovery-summary></div>
               <div class="discovery-list" data-artists-list></div>
 
@@ -495,6 +515,6 @@
       </div>
     </section>
 
-    <script src="script.js?v=20261020-discovery"></script>
+    <script src="script.js?v=20261020-approval-filter"></script>
   </body>
 </html>
