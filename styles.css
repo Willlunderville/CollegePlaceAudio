@@ -973,6 +973,7 @@ textarea {
 }
 
 .discovery-filters button {
+  position: relative;
   display: grid;
   min-width: 0;
   min-height: 84px;
@@ -1006,6 +1007,28 @@ textarea {
 .discovery-filters button.is-active {
   background: var(--ink, #111);
   color: var(--paper, #f1eee7);
+}
+
+.discovery-filters .discovery-filter-alert {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: grid;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  place-items: center;
+  border-radius: 999px;
+  background: #ed8b00;
+  color: #111;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+.discovery-filters .discovery-filter-alert[hidden] {
+  display: none;
 }
 
 .discovery-field > span,
@@ -1556,6 +1579,7 @@ textarea {
 }
 
 .discovery-vote--approve select {
+  padding-right: 64px;
   border: 1px solid #c1d1bc;
   border-radius: 7px;
   background: #f0f4ec;
@@ -1564,7 +1588,7 @@ textarea {
 .discovery-vote--approve::after {
   position: absolute;
   right: 42px;
-  bottom: 18px;
+  bottom: 10px;
   display: grid;
   width: 17px;
   height: 17px;

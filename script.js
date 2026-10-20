@@ -561,6 +561,9 @@ function renderDiscovery() {
     rejected: counts.Rejected || 0,
     all: data.artists.length,
   };
+  const approvedNeedsEmail = data.artists.filter(
+    (artist) => overallApproval(artist) === 'Approved' && artist.emailed !== 'yes',
+  ).length;
 
   document.querySelectorAll('[data-discovery-filter]').forEach((button) => {
     const isActive = button.dataset.discoveryFilter === activeDiscoveryFilter;
@@ -568,14 +571,23 @@ function renderDiscovery() {
     const label = button.querySelector('span')?.textContent.trim() || 'Artists';
     const countElement = button.querySelector('[data-filter-count]');
     if (countElement) countElement.textContent = count;
+    const emailAlert = button.querySelector('[data-approved-email-alert]');
+    if (emailAlert) {
+      emailAlert.hidden = approvedNeedsEmail === 0;
+      emailAlert.textContent = approvedNeedsEmail;
+      emailAlert.setAttribute(
+        'aria-label',
+        `${approvedNeedsEmail} ${approvedNeedsEmail === 1 ? 'artist needs' : 'artists need'} email`,
+      );
+    }
     button.classList.toggle('is-active', isActive);
     button.setAttribute('aria-pressed', String(isActive));
-    button.setAttribute('aria-label', `${label}: ${count} ${count === 1 ? 'artist' : 'artists'}`);
+    const actionLabel = button.dataset.discoveryFilter === 'approved' && approvedNeedsEmail
+      ? `; ${approvedNeedsEmail} ${approvedNeedsEmail === 1 ? 'artist needs' : 'artists need'} email`
+      : '';
+    button.setAttribute('aria-label', `${label}: ${count} ${count === 1 ? 'artist' : 'artists'}${actionLabel}`);
   });
 
-  const approvedNeedsEmail = data.artists.filter(
-    (artist) => overallApproval(artist) === 'Approved' && artist.emailed !== 'yes',
-  ).length;
   const emailNotice = activeDiscoveryFilter === 'approved'
     ? `<div class="discovery-email-notice${approvedNeedsEmail ? '' : ' is-complete'}"><button type="button" data-discovery-back aria-label="Back to all artists">‹</button><strong>${approvedNeedsEmail}</strong><span>${approvedNeedsEmail === 1 ? 'approved artist needs an email' : approvedNeedsEmail ? 'approved artists need an email' : 'All approved artists have been emailed'}</span><i aria-hidden="true">⋮</i></div>`
     : '';
