@@ -1304,10 +1304,11 @@ textarea {
 
 .discovery-links .discovery-field {
   display: grid;
-  grid-template-columns: 42px minmax(0, 1fr);
-  grid-template-rows: auto auto;
+  grid-template-columns: 42px minmax(0, 1fr) auto;
   gap: 0 12px;
-  padding: 13px 16px 11px;
+  min-height: 84px;
+  align-items: center;
+  padding: 13px 16px;
   border: 1px solid rgba(17, 17, 17, 0.18);
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.42);
@@ -1345,6 +1346,19 @@ textarea {
   text-transform: none;
 }
 
+.discovery-link-copy a {
+  display: grid;
+  min-width: 0;
+  color: inherit;
+  text-decoration: none;
+}
+
+.discovery-link-copy a:hover strong,
+.discovery-link-copy a:focus-visible strong {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .discovery-link-copy strong {
   overflow: hidden;
   font-size: 13px;
@@ -1361,11 +1375,41 @@ textarea {
   white-space: nowrap;
 }
 
-.discovery-link-edit {
-  display: flex;
+.discovery-link-editor {
+  align-self: center;
+}
+
+.discovery-link-editor summary {
+  cursor: pointer;
+  font-size: 9px;
+  line-height: 1;
+  list-style: none;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-transform: uppercase;
+}
+
+.discovery-link-editor summary::-webkit-details-marker {
+  display: none;
+}
+
+.discovery-link-editor[open] {
+  display: grid;
   grid-column: 1 / -1;
-  align-items: end;
-  gap: 8px;
+  grid-template-columns: 1fr;
+  gap: 7px;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.discovery-link-editor[open] summary {
+  justify-self: end;
+}
+
+.discovery-link-editor input {
+  padding: 7px 0 5px;
+  font-size: 11px;
+  font-weight: 600;
 }
 
 .discovery-panel {

@@ -366,18 +366,21 @@ function renderArtistLinkField(field, value) {
     soundcloud: { label: 'Listen on SoundCloud', helper: 'Full artist profile', icon: 'SC' },
     source: { label: 'Discovery source', helper: href ? new URL(href).hostname.replace(/^www\./, '') : 'Where this artist was found', icon: '↗' },
   }[field];
+  const linkCopy = `
+    <strong>${linkDetails.label}${href ? ' ↗' : ''}</strong>
+    <small>${escapeHtml(linkDetails.helper)}</small>
+  `;
   return `
-    <label class="discovery-field discovery-field--link discovery-field--${field}">
+    <div class="discovery-field discovery-field--link discovery-field--${field}">
       <span class="discovery-link-icon" aria-hidden="true">${linkDetails.icon}</span>
       <span class="discovery-link-copy">
-        <strong>${linkDetails.label}${href ? ' ↗' : ''}</strong>
-        <small>${escapeHtml(linkDetails.helper)}</small>
+        ${href ? `<a href="${escapeHtml(href)}" target="_blank" rel="noreferrer" aria-label="Open ${linkDetails.label}">${linkCopy}</a>` : linkCopy}
       </span>
-      <span class="discovery-link-edit">
-        <input data-field="${field}" type="url" value="${escapeHtml(value || '')}" placeholder="https://" />
-        ${href ? `<a href="${escapeHtml(href)}" target="_blank" rel="noreferrer" aria-label="Open ${linkDetails.label}">Open</a>` : ''}
-      </span>
-    </label>
+      <details class="discovery-link-editor">
+        <summary aria-label="Edit ${linkDetails.label} link">Edit</summary>
+        <input data-field="${field}" type="url" value="${escapeHtml(value || '')}" placeholder="https://" aria-label="${linkDetails.label} URL" />
+      </details>
+    </div>
   `;
 }
 
