@@ -338,9 +338,9 @@ async function hydrateSpotifyArtwork() {
 
 function overallApproval(artist) {
   const votes = [artist.willVote, artist.brettVote, artist.isaiahVote];
+  if (votes.filter((vote) => vote === 'Reject').length >= 2) return 'Rejected';
   if (votes.includes('Discuss')) return 'Needs discussion';
   if (votes.filter((vote) => vote === 'Approve').length >= 2) return 'Approved';
-  if (votes.filter((vote) => vote === 'Reject').length >= 2) return 'Rejected';
   return 'Pending';
 }
 
