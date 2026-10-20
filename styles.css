@@ -1122,13 +1122,6 @@ textarea {
   justify-items: end;
 }
 
-.discovery-artwork__caption {
-  margin: 14px 0 0;
-  font-size: 10px;
-  line-height: 1.2;
-  text-transform: uppercase;
-}
-
 .discovery-spotify-player {
   overflow: hidden;
   margin: 0 0 14px;
@@ -1328,8 +1321,19 @@ textarea {
   font-weight: 700;
 }
 
+.discovery-link-icon svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
 .discovery-field--soundcloud .discovery-link-icon {
   background: #f45b18;
+}
+
+.discovery-field--soundcloud .discovery-link-icon svg {
+  width: 25px;
+  height: 25px;
 }
 
 .discovery-field--source .discovery-link-icon {
