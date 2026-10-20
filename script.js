@@ -440,73 +440,78 @@ function renderArtistCard(artist) {
         </div>
       </div>
 
-      ${spotifyEmbed ? `
-        <div class="discovery-spotify-player">
-          <iframe
-            src="${escapeHtml(spotifyEmbed.src)}"
-            title="${escapeHtml(artist.name || 'Artist')} Spotify player"
-            width="100%"
-            height="${spotifyEmbed.height}"
-            loading="lazy"
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-            allowfullscreen
-          ></iframe>
-        </div>
-      ` : ''}
-
-      <div class="discovery-links">
-        ${renderArtistLinkField('spotify', artist.spotify)}
-        ${renderArtistLinkField('soundcloud', artist.soundcloud)}
-        ${renderArtistLinkField('source', artist.source)}
-      </div>
-
-      <section class="discovery-panel" aria-labelledby="reviewer-decisions-${escapeHtml(artist.id)}">
-        <div class="discovery-panel__header">
-          <h4 id="reviewer-decisions-${escapeHtml(artist.id)}">Reviewer decisions</h4>
-          <span>Select each reviewer's decision</span>
-        </div>
-        <div class="discovery-votes" aria-label="Team votes">
-          <label class="discovery-vote discovery-vote--${artist.willVote.toLowerCase()}"><span>Will</span><select data-field="willVote">${voteOptions(artist.willVote)}</select></label>
-          <label class="discovery-vote discovery-vote--${artist.brettVote.toLowerCase()}"><span>Brett</span><select data-field="brettVote">${voteOptions(artist.brettVote)}</select></label>
-          <label class="discovery-vote discovery-vote--${artist.isaiahVote.toLowerCase()}"><span>Isaiah</span><select data-field="isaiahVote">${voteOptions(artist.isaiahVote)}</select></label>
-        </div>
-      </section>
-
-      <section class="discovery-panel" aria-labelledby="outreach-${escapeHtml(artist.id)}">
-        <div class="discovery-panel__header">
-          <h4 id="outreach-${escapeHtml(artist.id)}">Outreach &amp; CRM</h4>
-          <span>Manage outreach status and contact</span>
-        </div>
-        <div class="discovery-fields discovery-fields--contact${status === 'Approved' ? ' discovery-fields--approved-contact' : ''}">
-          <label class="discovery-field">
-            <span>In CRM</span>
-            <select data-field="inCrm">
-              <option value="no"${artist.inCrm === 'no' ? ' selected' : ''}>No</option>
-              <option value="yes"${artist.inCrm === 'yes' ? ' selected' : ''}>Yes</option>
-            </select>
-          </label>
-          <label class="discovery-field discovery-field--wide">
-            <span>Contact email or link</span>
-            <input data-field="contact" value="${escapeHtml(artist.contact || '')}" placeholder="Enter email address or link…" />
-          </label>
-          ${status === 'Approved' ? `
-            <label class="discovery-field discovery-field--email ${isEmailed ? 'is-emailed' : 'needs-email'}">
-              <span>Email outreach</span>
-              <select data-field="emailed">
-                <option value="no"${!isEmailed ? ' selected' : ''}>Needs email</option>
-                <option value="yes"${isEmailed ? ' selected' : ''}>Emailed</option>
-              </select>
-            </label>
+      <details class="discovery-card__details" open>
+        <summary aria-label="Toggle details for ${escapeHtml(artist.name || 'artist')}"></summary>
+        <div class="discovery-card__details-content">
+          ${spotifyEmbed ? `
+            <div class="discovery-spotify-player">
+              <iframe
+                src="${escapeHtml(spotifyEmbed.src)}"
+                title="${escapeHtml(artist.name || 'Artist')} Spotify player"
+                width="100%"
+                height="${spotifyEmbed.height}"
+                loading="lazy"
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
           ` : ''}
-        </div>
-      </section>
 
-      <details class="discovery-notes"${[artist.willNotes, artist.brettNotes, artist.isaiahNotes].some(Boolean) ? ' open' : ''}>
-        <summary>Reviewer notes</summary>
-        <div>
-          <label><span>Will</span><textarea data-field="willNotes">${escapeHtml(artist.willNotes || '')}</textarea></label>
-          <label><span>Brett</span><textarea data-field="brettNotes">${escapeHtml(artist.brettNotes || '')}</textarea></label>
-          <label><span>Isaiah</span><textarea data-field="isaiahNotes">${escapeHtml(artist.isaiahNotes || '')}</textarea></label>
+          <div class="discovery-links">
+            ${renderArtistLinkField('spotify', artist.spotify)}
+            ${renderArtistLinkField('soundcloud', artist.soundcloud)}
+            ${renderArtistLinkField('source', artist.source)}
+          </div>
+
+          <section class="discovery-panel" aria-labelledby="reviewer-decisions-${escapeHtml(artist.id)}">
+            <div class="discovery-panel__header">
+              <h4 id="reviewer-decisions-${escapeHtml(artist.id)}">Reviewer decisions</h4>
+              <span>Select each reviewer's decision</span>
+            </div>
+            <div class="discovery-votes" aria-label="Team votes">
+              <label class="discovery-vote discovery-vote--${artist.willVote.toLowerCase()}"><span>Will</span><select data-field="willVote">${voteOptions(artist.willVote)}</select></label>
+              <label class="discovery-vote discovery-vote--${artist.brettVote.toLowerCase()}"><span>Brett</span><select data-field="brettVote">${voteOptions(artist.brettVote)}</select></label>
+              <label class="discovery-vote discovery-vote--${artist.isaiahVote.toLowerCase()}"><span>Isaiah</span><select data-field="isaiahVote">${voteOptions(artist.isaiahVote)}</select></label>
+            </div>
+          </section>
+
+          <section class="discovery-panel" aria-labelledby="outreach-${escapeHtml(artist.id)}">
+            <div class="discovery-panel__header">
+              <h4 id="outreach-${escapeHtml(artist.id)}">Outreach &amp; CRM</h4>
+              <span>Manage outreach status and contact</span>
+            </div>
+            <div class="discovery-fields discovery-fields--contact${status === 'Approved' ? ' discovery-fields--approved-contact' : ''}">
+              <label class="discovery-field">
+                <span>In CRM</span>
+                <select data-field="inCrm">
+                  <option value="no"${artist.inCrm === 'no' ? ' selected' : ''}>No</option>
+                  <option value="yes"${artist.inCrm === 'yes' ? ' selected' : ''}>Yes</option>
+                </select>
+              </label>
+              <label class="discovery-field discovery-field--wide">
+                <span>Contact email or link</span>
+                <input data-field="contact" value="${escapeHtml(artist.contact || '')}" placeholder="Enter email address or link…" />
+              </label>
+              ${status === 'Approved' ? `
+                <label class="discovery-field discovery-field--email ${isEmailed ? 'is-emailed' : 'needs-email'}">
+                  <span>Email outreach</span>
+                  <select data-field="emailed">
+                    <option value="no"${!isEmailed ? ' selected' : ''}>Needs email</option>
+                    <option value="yes"${isEmailed ? ' selected' : ''}>Emailed</option>
+                  </select>
+                </label>
+              ` : ''}
+            </div>
+          </section>
+
+          <details class="discovery-notes"${[artist.willNotes, artist.brettNotes, artist.isaiahNotes].some(Boolean) ? ' open' : ''}>
+            <summary>Reviewer notes</summary>
+            <div>
+              <label><span>Will</span><textarea data-field="willNotes">${escapeHtml(artist.willNotes || '')}</textarea></label>
+              <label><span>Brett</span><textarea data-field="brettNotes">${escapeHtml(artist.brettNotes || '')}</textarea></label>
+              <label><span>Isaiah</span><textarea data-field="isaiahNotes">${escapeHtml(artist.isaiahNotes || '')}</textarea></label>
+            </div>
+          </details>
         </div>
       </details>
 
