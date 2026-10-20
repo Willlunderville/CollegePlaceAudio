@@ -494,10 +494,10 @@ function renderDiscovery() {
     return totals;
   }, {});
   summary.innerHTML = `
-    <div><strong>${data.artists.length}</strong><span>Artists</span></div>
-    <div><strong>${counts.Approved || 0}</strong><span>Approved</span></div>
-    <div><strong>${counts['Needs discussion'] || 0}</strong><span>Discuss</span></div>
     <div><strong>${counts.Pending || 0}</strong><span>Pending</span></div>
+    <div><strong>${counts['Needs discussion'] || 0}</strong><span>Discuss</span></div>
+    <div><strong>${counts.Approved || 0}</strong><span>Approved</span></div>
+    <div><strong>${counts.Rejected || 0}</strong><span>Rejected</span></div>
   `;
 
   document.querySelectorAll('[data-discovery-filter]').forEach((button) => {
