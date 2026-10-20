@@ -52,9 +52,9 @@ jobs:
           put assets/fonts/*.txt "$SSH_REMOTE_DIR/assets/fonts/"
           put assets/brands/*.svg "$SSH_REMOTE_DIR/assets/brands/"
           put assets/brands/*.png "$SSH_REMOTE_DIR/assets/brands/"
-          put index.html "$SSH_REMOTE_DIR/index.html"
           put styles.css "$SSH_REMOTE_DIR/styles.css"
           put brand.css "$SSH_REMOTE_DIR/brand.css"
+          put portal-sync.js "$SSH_REMOTE_DIR/portal-sync.js"
           put script.js "$SSH_REMOTE_DIR/script.js"
           put email-signature.html "$SSH_REMOTE_DIR/email-signature.html"
           put assets/college-place-exterior.png "$SSH_REMOTE_DIR/assets/college-place-exterior.png"
@@ -68,5 +68,6 @@ jobs:
           put assets/favicon.png "$SSH_REMOTE_DIR/assets/favicon.png"
           put assets/favicon-32.png "$SSH_REMOTE_DIR/assets/favicon-32.png"
           put assets/apple-touch-icon.png "$SSH_REMOTE_DIR/assets/apple-touch-icon.png"
+          put index.html "$SSH_REMOTE_DIR/index.html"
           bye
           EOF

@@ -2246,3 +2246,13 @@ textarea {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Shared portal controls use the existing compact, square control style. */
+.portal-shared-actions { display:flex; flex-wrap:wrap; gap:8px; align-self:start; }
+.portal-app__topbar { grid-template-columns:minmax(180px,.6fr) minmax(220px,1fr) auto; gap:24px; }
+[data-portal-avlen], .portal-login [data-portal-backup] { margin-top:24px; padding:13px 16px; border:1px solid currentColor; color:inherit; background:transparent; cursor:pointer; }
+[data-portal-avlen] { background:var(--ink); color:var(--paper); }
+[data-shared-status] { margin-bottom:20px; }
+[data-shared-conflicts] { padding:16px; border:1px solid currentColor; margin-bottom:20px; overflow-wrap:anywhere; }
+[data-conflict-list] button { margin:0 8px 12px 0; }
+@media(max-width:1000px) { .portal-app__topbar { grid-template-columns:1fr; } }

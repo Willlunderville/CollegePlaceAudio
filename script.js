@@ -15,7 +15,7 @@ const docUploadInput = document.querySelector('[data-doc-upload]');
 const portalSearchInput = document.querySelector('[data-portal-search]');
 const portalStorageKey = 'college-place-audio-portal';
 const portalSessionKey = 'college-place-audio-portal-unlocked';
-const portalPasscode = 'cpaudio';
+let sharedPortal = null;
 const maxPortalFileSize = 3 * 1024 * 1024;
 const spotifyArtworkCache = new Map();
 const expandedArtistIds = new Set();
@@ -139,6 +139,7 @@ function closeActivePanel() {
 }
 
 function getPortalData() {
+  if (sharedPortal?.state?.migrated) return sharedPortal.data();
   try {
     const data = JSON.parse(localStorage.getItem(portalStorageKey)) || defaultPortalData;
     let repairedData = false;
@@ -169,6 +170,10 @@ function getPortalData() {
 }
 
 function savePortalData(data) {
+  if (sharedPortal) {
+    try { sharedPortal.save(data); } catch (error) { window.alert(error.message + ' Please export a backup before closing this page.'); throw error; }
+    return;
+  }
   localStorage.setItem(portalStorageKey, JSON.stringify(data));
 }
 
@@ -486,6 +491,7 @@ function renderArtistCard(artist) {
               <span>Manage outreach status and contact</span>
             </div>
             <div class="discovery-fields discovery-fields--contact${status === 'Approved' ? ' discovery-fields--approved-contact' : ''}">
+              ${status === 'Approved' ? `<div class="discovery-field discovery-field--wide"><button type="button" data-add-to-crm="${escapeHtml(artist.id)}">${artist.crmRecord ? 'Check / enrich CRM record' : 'Add to CRM'}</button><small data-crm-status="${escapeHtml(artist.id)}">${escapeHtml(artist.crmMessage || 'Checks Leads and Contacts; fills blank fields only.')}</small>${artist.crmRecord && ['leads','contacts'].includes(artist.crmRecord.kind) && Number.isSafeInteger(artist.crmRecord.id) ? `<a href="https://avlen.io/#${artist.crmRecord.kind === 'contacts' ? 'contact' : 'lead'}-${artist.crmRecord.id}" target="_blank" rel="noopener">Open in CRM</a>` : ''}</div>` : ''}
               <label class="discovery-field">
                 <span>In CRM</span>
                 <select data-field="inCrm">
@@ -790,21 +796,6 @@ landing.addEventListener('click', (event) => {
 
 window.addEventListener('hashchange', updatePanelFromHash);
 
-portalForm?.addEventListener('submit', (event) => {
-  event.preventDefault();
-  const formData = new FormData(portalForm);
-  const passcode = String(formData.get('passcode') || '').trim();
-
-  if (passcode === portalPasscode) {
-    portalError.textContent = '';
-    portalForm.reset();
-    setPortalUnlocked(true);
-    return;
-  }
-
-  portalError.textContent = 'Incorrect passcode.';
-});
-
 portalLogout?.addEventListener('click', () => {
   setPortalUnlocked(false);
 });
@@ -899,4 +890,103 @@ document.addEventListener('keydown', (event) => {
 });
 
 updatePanelFromHash();
-setPortalUnlocked(sessionStorage.getItem(portalSessionKey) === 'true');
+setPortalUnlocked(false); // Shared sessions are acquired afresh on each page open.
+
+
+// No credentials or discovery data in URLs. CRM authenticates the transfer.
+const crmTransfers = new Map();
+document.addEventListener('click', event => {
+  const button = event.target.closest('[data-add-to-crm]');
+  if (!button) return;
+  const artist = getPortalData().artists.find(item => item.id === button.dataset.addToCrm);
+  if (!artist || overallApproval(artist) !== 'Approved') return;
+  const nonce = crypto.randomUUID();
+  const popup = window.open(`https://avlen.io/?portal_artist=${nonce}#sales-leads`, '_blank');
+  const status = button.parentElement.querySelector('[data-crm-status]');
+  if (!popup) { status.textContent = 'Allow pop-ups to open the signed-in CRM transfer.'; return; }
+  button.disabled = true;
+  status.textContent = 'Continue in the CRM window. Sign in if prompted, then choose College Place Audio.';
+  const timer = setInterval(() => {
+    if (popup.closed) { clearInterval(timer); clearTimeout(timeout); crmTransfers.delete(nonce); button.disabled = false; status.textContent = 'CRM window closed. You can safely try again; duplicates are checked.'; }
+  }, 1000);
+  const timeout = setTimeout(() => { clearInterval(timer); crmTransfers.delete(nonce); button.disabled = false; status.textContent = 'Transfer window expired. You can safely try again; duplicates are checked.'; }, 600000);
+  crmTransfers.set(nonce, {popup, artistId:artist.id, timer, timeout, button});
+});
+window.addEventListener('message', event => {
+  if (event.origin !== 'https://avlen.io' || !event.data || typeof event.data !== 'object') return;
+  const transfer = crmTransfers.get(event.data.nonce);
+  if (!transfer || event.source !== transfer.popup) return;
+  if (event.data.type === 'cpa-crm-ready') {
+    const artist = getPortalData().artists.find(item => item.id === transfer.artistId);
+    if (artist && overallApproval(artist) === 'Approved') event.source.postMessage({type:'cpa-crm-artist', nonce:event.data.nonce, artist},event.origin);
+  } else if (event.data.type === 'cpa-crm-result' && event.data.artistId === transfer.artistId) {
+    const record = event.data.record;
+    if (!record || !['leads','contacts'].includes(record.kind) || !Number.isSafeInteger(record.id) || record.id <= 0) return;
+    const data = getPortalData();
+    const artist = data.artists.find(item => item.id === transfer.artistId);
+    if (artist) { artist.inCrm='yes'; artist.crmRecord=record; artist.crmMessage=String(event.data.message || 'Linked to CRM'); savePortalData(data); }
+    clearInterval(transfer.timer); clearTimeout(transfer.timeout); crmTransfers.delete(event.data.nonce);
+    renderDiscovery();
+  }
+});
+
+
+// Shared storage is separate from Avlen records; Avlen only authenticates CPA members.
+const sharedStatus = message => { document.querySelector('[data-shared-status]').textContent = message; if(sharedPortal?.state) renderPortalConflicts(); };
+sharedPortal = new CpaPortalSync.PortalSync({storage: localStorage, legacyKey: portalStorageKey, seed: defaultPortalData,
+  render: () => { renderPortal(); renderPortalConflicts(); }, status: sharedStatus});
+let portalConnection = null;
+document.querySelector('[data-portal-avlen]').addEventListener('click', () => {
+  const nonce = crypto.randomUUID();
+  const popup = window.open(`https://avlen.io/?portal_connect=${nonce}#sales-leads`, '_blank');
+  portalConnection = {nonce, popup};
+  document.querySelector('[data-portal-connection]').textContent = popup ? 'Continue in Avlen, select College Place Audio, then connect the portal.' : 'Allow pop-ups to sign in with Avlen.';
+});
+window.addEventListener('message', async event => {
+  if (!portalConnection || event.origin !== 'https://avlen.io' || event.source !== portalConnection.popup || event.data?.nonce !== portalConnection.nonce) return;
+  if (event.data.type === 'cpa-portal-ready') {
+    event.source.postMessage({type:'cpa-portal-connect', nonce:portalConnection.nonce}, event.origin); return;
+  }
+  if (event.data.type !== 'cpa-portal-session' || typeof event.data.token !== 'string') return;
+  portalConnection = null;
+  try { await sharedPortal.initialize(event.data.token); setPortalUnlocked(true); renderPortalConflicts(); }
+  catch (error) { document.querySelector('[data-portal-connection]').textContent = error.message + ' Your original browser data is unchanged.'; }
+});
+document.querySelector('[data-portal-refresh]').addEventListener('click', () => sharedPortal.refresh().catch(error => sharedStatus(error.message)));
+document.querySelectorAll('[data-portal-backup]').forEach(button => button.addEventListener('click', () => {
+  const backup = {original: JSON.parse(localStorage.getItem(portalStorageKey) || 'null'), shared: sharedPortal.state};
+  const url = URL.createObjectURL(new Blob([JSON.stringify(backup, null, 2)], {type:'application/json'}));
+  const link = document.createElement('a'); link.href=url; link.download='cpa-portal-backup-'+new Date().toISOString().slice(0,10)+'.json';link.click(); URL.revokeObjectURL(url);
+}));
+portalLogout.addEventListener('click', () => { sharedPortal.token=''; });
+window.addEventListener('beforeunload', event => { if (sharedPortal.state?.outbox?.length) { event.preventDefault(); event.returnValue=''; } });
+function renderPortalConflicts() {
+  const container=document.querySelector('[data-conflict-list]');container.replaceChildren();
+  const conflicts=sharedPortal.state?.conflicts || [];document.querySelector('[data-shared-conflicts]').hidden=!conflicts.length;
+  conflicts.forEach((conflict,index) => {
+    const row=document.createElement('div');const text=document.createElement('p');
+    text.textContent=`${conflict.collection} / ${conflict.field}: your version ${JSON.stringify(conflict.local)}; shared version ${JSON.stringify(conflict.shared)}`;
+    const keep=document.createElement('button');keep.textContent='Keep shared version';keep.type='button';
+    keep.onclick=()=>{
+      const data=sharedPortal.data();const record=data[conflict.collection]?.find(item=>item.id===conflict.id);
+      if(record && conflict.field!=='*')record[conflict.field]=conflict.shared;
+      sharedPortal.persist({...sharedPortal.state,data,conflicts:sharedPortal.state.conflicts.filter((_,i)=>i!==index)});renderPortal();renderPortalConflicts();
+    };
+    row.append(text,keep);
+    if(conflict.field !== '*') {
+      const use=document.createElement('button');use.type='button';use.textContent='Use my version';
+      use.onclick=()=>{
+        const data=sharedPortal.data();const record=data[conflict.collection]?.find(item=>item.id===conflict.id);
+        if(!record){sharedStatus('This record is no longer available. Your version remains in the backup.');return;}
+        record[conflict.field]=conflict.local;
+        try{
+          const operations=[{collection:conflict.collection,id:conflict.id,base:{[conflict.field]:conflict.shared},values:{[conflict.field]:conflict.local}}];
+          sharedPortal.persist({...sharedPortal.state,data,outbox:[...sharedPortal.state.outbox,{requestId:crypto.randomUUID(),operations}],conflicts:sharedPortal.state.conflicts.filter((_,i)=>i!==index)});
+          sharedPortal.flush().catch(error=>sharedStatus(error.message));renderPortal();renderPortalConflicts();
+        }
+        catch(error){sharedStatus(error.message);}
+      };row.append(use);
+    }
+    container.append(row);
+  });
+}

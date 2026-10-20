@@ -6,6 +6,7 @@ deployment:
     - /bin/mkdir -p $DEPLOYPATH/assets
     - /bin/cp index.html $DEPLOYPATH
     - /bin/cp styles.css $DEPLOYPATH
+    - /bin/cp portal-sync.js $DEPLOYPATH
     - /bin/cp script.js $DEPLOYPATH
     - /bin/cp assets/college-place-exterior.png $DEPLOYPATH/assets/
     - /bin/cp assets/college-place-logo.jpeg $DEPLOYPATH/assets/

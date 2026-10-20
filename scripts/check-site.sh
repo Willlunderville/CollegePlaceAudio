@@ -5,6 +5,7 @@ required_files=(
   "index.html"
   "styles.css"
   "script.js"
+  "portal-sync.js"
   "assets/college-place-exterior.png"
   "assets/college-place-logo.jpeg"
   "assets/the-big-squeeze.jpg"

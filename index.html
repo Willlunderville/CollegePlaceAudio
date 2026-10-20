@@ -10,7 +10,7 @@
     <title>College Place Audio</title>
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
-    <link rel="stylesheet" href="styles.css?v=20261020-collapsed-cards-default" />
+    <link rel="stylesheet" href="styles.css?v=20261020-crm-handoff" />
     <link rel="stylesheet" href="brand.css?v=20261015-navigation" />
   </head>
   <body>
@@ -389,21 +389,10 @@
           documents, and meeting notes.
         </p>
 
-        <form class="portal-login__form" data-portal-form>
-          <label for="portal-passcode">Passcode</label>
-          <div>
-            <input
-              id="portal-passcode"
-              name="passcode"
-              type="password"
-              autocomplete="current-password"
-              placeholder="Enter passcode"
-              required
-            />
-            <button type="submit">Enter</button>
-          </div>
-          <p class="portal-login__error" data-portal-error aria-live="polite"></p>
-        </form>
+        <button type="button" data-portal-avlen>Sign in with Avlen</button>
+        <button type="button" data-portal-backup>Export existing browser backup</button>
+        <p data-portal-connection role="status">Use your CPA workspace account. Existing browser data will be preserved.</p>
+
       </div>
 
       <div class="portal-app" data-portal-app hidden>
@@ -421,9 +410,13 @@
               autocomplete="off"
             />
           </label>
-          <button type="button" data-portal-logout>Log out</button>
+          <div class="portal-shared-actions"><button type="button" data-portal-refresh>Refresh</button>
+          <button type="button" data-portal-backup>Export backup</button>
+          <button type="button" data-portal-logout>Log out</button></div>
         </div>
 
+        <p data-shared-status role="status" aria-live="polite"></p>
+        <details data-shared-conflicts hidden><summary>Review conflicting edits</summary><div data-conflict-list></div></details>
         <div class="portal-layout">
           <aside class="portal-sidebar" aria-label="Portal sections">
             <button class="is-active" type="button" data-portal-view="discovery">
@@ -513,6 +506,7 @@
       </div>
     </section>
 
-    <script src="script.js?v=20261020-collapsed-cards-default"></script>
+    <script src="portal-sync.js?v=20261020-shared"></script>
+  <script src="script.js?v=20261020-shared-portal"></script>
   </body>
 </html>

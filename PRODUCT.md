@@ -26,7 +26,8 @@ The company began four years ago in a small garage studio tucked into a back all
 
 ## Capabilities and Constraints
 
-- Existing static HTML, CSS, and JavaScript site.
+- Static public website with HTML, CSS, and JavaScript.
+- The private portal uses Avlen authentication and a separate Neon Free database for shared records; browser originals and pending edits are preserved during migration.
 - About, Work, Contact, and private Portal experiences use slide-in panels.
 - Do not invent placements, collaborators, testimonials, metrics, or roster names.
 
