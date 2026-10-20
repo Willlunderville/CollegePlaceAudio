@@ -1092,18 +1092,18 @@ textarea {
 }
 
 .discovery-card__details > summary {
-  position: absolute;
-  top: clamp(16px, 2vw, 24px);
-  right: clamp(50px, calc(2vw + 34px), 62px);
-  z-index: 2;
-  display: grid;
-  width: 28px;
-  height: 28px;
-  place-items: center;
-  border: 1px solid rgba(17, 17, 17, 0.24);
-  border-radius: 50%;
+  display: flex;
+  min-height: 38px;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 11px;
+  border-top: 1px solid rgba(17, 17, 17, 0.18);
   cursor: pointer;
+  font-size: 10px;
+  letter-spacing: 0.08em;
   list-style: none;
+  text-transform: uppercase;
 }
 
 .discovery-card__details > summary::-webkit-details-marker {
@@ -1111,19 +1111,27 @@ textarea {
 }
 
 .discovery-card__details > summary::before {
-  content: '⌄';
-  font-size: 17px;
+  order: 2;
+  content: '↓';
+  font-size: 15px;
   line-height: 1;
-  transform: translateY(-2px);
 }
 
 .discovery-card__details[open] > summary::before {
-  content: '⌃';
-  transform: translateY(2px);
+  content: '↑';
+}
+
+.discovery-card__details-hide,
+.discovery-card__details[open] .discovery-card__details-show {
+  display: none;
+}
+
+.discovery-card__details[open] .discovery-card__details-hide {
+  display: inline;
 }
 
 .discovery-card__details-content {
-  padding-top: 18px;
+  padding-top: 12px;
 }
 
 .discovery-artwork {

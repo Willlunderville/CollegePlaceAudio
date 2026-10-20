@@ -18,6 +18,7 @@ const portalSessionKey = 'college-place-audio-portal-unlocked';
 const portalPasscode = 'cpaudio';
 const maxPortalFileSize = 3 * 1024 * 1024;
 const spotifyArtworkCache = new Map();
+const expandedArtistIds = new Set();
 let activeDiscoveryFilter = 'needs-approval';
 
 // One accessible logo list; its visual copy makes the reel wrap seamlessly.
@@ -398,6 +399,7 @@ function renderArtistCard(artist) {
   const spotifyHref = safeSpotifyHref(artist.spotify);
   const spotifyEmbed = spotifyEmbedDetails(artist.spotify);
   const isEmailed = artist.emailed === 'yes';
+  const isExpanded = expandedArtistIds.has(artist.id);
   return `
     <article class="discovery-card" data-artist-card data-id="${escapeHtml(artist.id)}">
       <details class="discovery-card__menu">
@@ -440,8 +442,11 @@ function renderArtistCard(artist) {
         </div>
       </div>
 
-      <details class="discovery-card__details" open>
-        <summary aria-label="Toggle details for ${escapeHtml(artist.name || 'artist')}"></summary>
+      <details class="discovery-card__details"${isExpanded ? ' open' : ''}>
+        <summary aria-label="Toggle details for ${escapeHtml(artist.name || 'artist')}">
+          <span class="discovery-card__details-show">View details</span>
+          <span class="discovery-card__details-hide">Hide details</span>
+        </summary>
         <div class="discovery-card__details-content">
           ${spotifyEmbed ? `
             <div class="discovery-spotify-player">
@@ -600,6 +605,14 @@ function renderDiscovery() {
   artistList.innerHTML = artists.length
     ? `${emailNotice}${artists.map(renderArtistCard).join('')}`
     : `<p class="portal-empty">${searchTerm ? 'No artists match this search and filter.' : 'No artists in this view.'}</p>`;
+  artistList.querySelectorAll('.discovery-card__details').forEach((details) => {
+    details.addEventListener('toggle', () => {
+      const artistId = details.closest('[data-artist-card]')?.dataset.id;
+      if (!artistId) return;
+      if (details.open) expandedArtistIds.add(artistId);
+      else expandedArtistIds.delete(artistId);
+    });
+  });
   hydrateSpotifyArtwork();
   sourceList.innerHTML = sources.length
     ? sources.map(renderDiscoverySource).join('')
