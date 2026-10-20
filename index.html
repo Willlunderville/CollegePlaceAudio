@@ -10,7 +10,7 @@
     <title>College Place Audio</title>
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
-    <link rel="stylesheet" href="styles.css?v=20260910-home-picture" />
+    <link rel="stylesheet" href="styles.css?v=20261020-discovery" />
     <link rel="stylesheet" href="brand.css?v=20261015-navigation" />
   </head>
   <body>
@@ -422,6 +422,9 @@
             </button>
             <button type="button" data-portal-view="docs">Documents</button>
             <button type="button" data-portal-view="links">Shared links</button>
+            <button type="button" data-portal-view="discovery">
+              Artist discovery
+            </button>
           </aside>
 
           <div class="portal-board">
@@ -430,7 +433,7 @@
               <input
                 type="search"
                 data-portal-search
-                placeholder="Search notes, documents, links"
+                placeholder="Search notes, artists, sources, links"
                 autocomplete="off"
               />
             </label>
@@ -465,11 +468,33 @@
               </div>
               <div class="portal-list" data-links-list></div>
             </section>
+
+            <section class="portal-section" data-portal-section="discovery">
+              <div class="portal-section__header discovery-header">
+                <div>
+                  <p class="eyebrow">Pipeline</p>
+                  <h3>Artist discovery</h3>
+                </div>
+                <button type="button" data-add-artist>Add artist</button>
+              </div>
+
+              <div class="discovery-summary" data-discovery-summary></div>
+              <div class="discovery-list" data-artists-list></div>
+
+              <div class="portal-section__header discovery-sources-header">
+                <div>
+                  <p class="eyebrow">Research</p>
+                  <h3>Discovery sources</h3>
+                </div>
+                <button type="button" data-add-source>Add source</button>
+              </div>
+              <div class="discovery-sources" data-sources-list></div>
+            </section>
           </div>
         </div>
       </div>
     </section>
 
-    <script src="script.js?v=20261015-navigation"></script>
+    <script src="script.js?v=20261020-discovery"></script>
   </body>
 </html>

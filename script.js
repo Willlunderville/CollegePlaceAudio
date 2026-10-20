@@ -66,6 +66,39 @@ const defaultPortalData = {
       updated: 'Draft',
     },
   ],
+  artists: [
+    { name: 'Solex', spotify: 'https://open.spotify.com/artist/7uV7uQgiUQ3Ipxs5cHZsGL', soundcloud: '', source: 'https://shop.matadorrecords.com/format/1985172-low-kick-and-hard-bop?lang=ca', listeners: 4097, label: 'Matador (catalogue/reissue)', checkedOn: '2026-09-24', addedBy: 'Brett', willVote: 'Reject', brettVote: 'Approve', isaiahVote: 'Reject', inCrm: 'no', contact: 'dieter@toutpartout.be', willNotes: '', brettNotes: '', isaiahNotes: '' },
+    { name: 'Lisa Cooke', spotify: 'https://open.spotify.com/artist/2JB8p3I0Lr7HbJQb0ty45g', soundcloud: 'https://soundcloud.com/lisalisacooke', source: 'https://freshonthenet.co.uk/2026/09/faves619/', listeners: 85, label: 'Lisa Cooke (release credit)', checkedOn: '2026-09-24', addedBy: 'Brett', willVote: 'Approve', brettVote: 'Approve', isaiahVote: 'Approve', inCrm: 'yes', contact: '', willNotes: '', brettNotes: '', isaiahNotes: '' },
+    { name: 'The Skints', spotify: 'https://open.spotify.com/artist/39k4UDTgsWe6NCi6hgnfc1', soundcloud: 'https://soundcloud.com/the_skints', source: 'https://easystar.com/artists/the-skints/', listeners: 69159, label: 'Easy Star Records', checkedOn: '2026-09-24', addedBy: 'Brett', willVote: 'Pending', brettVote: 'Approve', isaiahVote: 'Approve', inCrm: 'yes', contact: 'david.strunk@unitedtalent.com', willNotes: '', brettNotes: '', isaiahNotes: '' },
+    { name: 'Angela Autumn', spotify: 'https://open.spotify.com/artist/2gyodrfLfK8xF0sSaxBZXQ', soundcloud: 'https://soundcloud.com/angelaautumn', source: 'https://garholerecords.com/collections/angela-autumn', listeners: 210304, label: 'Gar Hole Records', checkedOn: '2026-09-24', addedBy: 'Brett', willVote: 'Approve', brettVote: 'Approve', isaiahVote: 'Approve', inCrm: 'yes', contact: 'ash@findtheriver.org', willNotes: '', brettNotes: '', isaiahNotes: '' },
+    { name: 'Actress', spotify: 'https://open.spotify.com/artist/3bg5rmICvmA8dmYVAdKGYH', soundcloud: 'https://soundcloud.com/actress1', source: 'https://ninjatune.net/release/actress/radical-frame', listeners: 135720, label: 'Ninja Tune', checkedOn: '2026-09-24', addedBy: 'Brett', willVote: 'Approve', brettVote: 'Approve', isaiahVote: 'Pending', inCrm: 'yes', contact: 'hello@giantartistmanagement.com', willNotes: '', brettNotes: '', isaiahNotes: '' },
+    { name: 'Someday, Sky', spotify: 'https://open.spotify.com/artist/5ujFVxheeMQ27y7NjX0Sv1', soundcloud: 'https://soundcloud.com/somedaysky-music', source: 'https://someday-sky.com/', listeners: 115, label: 'someday, sky (release credit)', checkedOn: '2026-09-24', addedBy: 'Brett', willVote: 'Approve', brettVote: 'Approve', isaiahVote: 'Approve', inCrm: 'yes', contact: 'somedaysky.music@gmail.com', willNotes: '', brettNotes: '', isaiahNotes: '' },
+    { name: 'Dr. J', spotify: 'https://open.spotify.com/artist/1FWgFANxAOtSjhc6zXyJ2W', soundcloud: 'https://soundcloud.com/drjpresents', source: 'https://drjpresents.music/', listeners: 43, label: 'gottahavesoul Recordings', checkedOn: '2026-09-24', addedBy: 'Brett', willVote: 'Approve', brettVote: 'Approve', isaiahVote: 'Discuss', inCrm: 'yes', contact: 'hello@drjpresents.music', willNotes: '', brettNotes: '', isaiahNotes: '' },
+    { name: 'Adam Dodson', spotify: 'https://open.spotify.com/artist/0me95qZRAj797NaS72KUCZ', soundcloud: '', source: 'https://www.adamdodsonmusic.com/', listeners: 830000, label: 'None', checkedOn: '2026-09-24', addedBy: 'Isaiah', willVote: 'Approve', brettVote: 'Approve', isaiahVote: 'Approve', inCrm: 'yes', contact: 'https://www.adamdodsonmusic.com/contact', willNotes: '', brettNotes: '', isaiahNotes: '' },
+    { name: 'Carter Ace', spotify: 'https://open.spotify.com/artist/0bhck1r45kgsoMNBVqIziz', soundcloud: '', source: 'https://www.youtube.com/watch?v=POghbGn2XzY', listeners: 112000, label: 'None', checkedOn: '2026-09-27', addedBy: 'Isaiah', willVote: 'Approve', brettVote: 'Approve', isaiahVote: 'Approve', inCrm: 'yes', contact: '', willNotes: '', brettNotes: '', isaiahNotes: '' },
+    { name: 'pest.', spotify: 'https://open.spotify.com/artist/2CRPyONFKCPNTWkAQ4jskq?si=tU51l4Z5R9a5-6FZIygX0A', soundcloud: '', source: 'http://pestpestpest.com/', listeners: 18880, label: 'none', checkedOn: '2026-09-30', addedBy: 'Brett', willVote: 'Approve', brettVote: 'Approve', isaiahVote: 'Pending', inCrm: 'yes', contact: 'pest.pest.music@gmail.com', willNotes: '', brettNotes: '', isaiahNotes: '' },
+    { name: 'Miami Nights 1984', spotify: 'https://open.spotify.com/artist/18iQQOuyGlHunPVzmoLY20?si=XGpgMfTuR6qk9ZiybGhVJw', soundcloud: '', source: 'https://miaminights1984.bandcamp.com/music', listeners: 189000, label: '', checkedOn: '2026-09-30', addedBy: 'Brett', willVote: 'Approve', brettVote: 'Approve', isaiahVote: 'Pending', inCrm: 'yes', contact: 'contact@rossocorsarecords.com', willNotes: '', brettNotes: '', isaiahNotes: '' },
+    { name: 'Gilla Band', spotify: 'https://open.spotify.com/artist/7IdPmzvB3PugXieZE9vS4S?si=VkZ7jh3VSG-Et1fEHSS0mQ', soundcloud: '', source: 'https://gillaband.bandcamp.com/album/pugnello', listeners: 99608, label: '', checkedOn: '2026-09-30', addedBy: 'Brett', willVote: 'Reject', brettVote: 'Discuss', isaiahVote: 'Reject', inCrm: 'no', contact: 'NA', willNotes: '', brettNotes: '', isaiahNotes: '' },
+    { name: 'Protomartyr', spotify: 'https://open.spotify.com/album/1VFSC60Y9e1DxIvSvZdane?si=T11pCArxRbutmviUD8Drjg', soundcloud: '', source: 'https://protomartyr.bandcamp.com/album/hotel-usona', listeners: 209000, label: '', checkedOn: '2026-09-30', addedBy: 'Brett', willVote: 'Discuss', brettVote: 'Approve', isaiahVote: 'Reject', inCrm: 'no', contact: '', willNotes: "What are the stand out tracks? Worried they're already too established", brettNotes: '', isaiahNotes: '' },
+    { name: 'Seth Celdran', spotify: 'https://open.spotify.com/track/20jnXYuqpgVPVZoq2BEFeH?si=opFHo2ohSsKTlwRTWvjtLw&utm_source=whatsapp', soundcloud: '', source: '', listeners: 475, label: '"Yard Sale Records" aka self released', checkedOn: '2026-10-01', addedBy: 'Will', willVote: 'Approve', brettVote: 'Approve', isaiahVote: 'Pending', inCrm: 'yes', contact: '', willNotes: 'Do It Again, and Undercover Lover', brettNotes: '', isaiahNotes: '' },
+    { name: 'James Marley', spotify: 'https://open.spotify.com/artist/0shZgxgMxIX2SbMCcJhfeI?si=yX-LsJN_RbSggWaCJJlkNA', soundcloud: '', source: '', listeners: 345778, label: 'Marvibe Records (self owned)', checkedOn: '2026-10-02', addedBy: 'Brett', willVote: 'Approve', brettVote: 'Approve', isaiahVote: 'Approve', inCrm: 'no', contact: '', willNotes: '', brettNotes: 'Looks like most of his catalogue is all rights reserved under previous labels', isaiahNotes: '' },
+    { name: 'Kirti Pandey', spotify: 'https://open.spotify.com/artist/1qh5TpfWs8ntoCkbr1sYkb', soundcloud: 'https://soundcloud.com/kirtipandey', source: '', listeners: 19000, label: '', checkedOn: '', addedBy: 'Isaiah', willVote: 'Discuss', brettVote: 'Approve', isaiahVote: 'Approve', inCrm: 'no', contact: '', willNotes: '', brettNotes: '', isaiahNotes: '' },
+    { name: 'Cordelia Fox', spotify: 'https://open.spotify.com/album/06ceAxgkvN3WvLsJEPcSn2?si=5QC27fQpR8Wa0qgqbDRYdw&utm_source=whatsapp', soundcloud: '', source: '', listeners: 933, label: 'Self Released', checkedOn: '', addedBy: 'Will', willVote: 'Approve', brettVote: 'Pending', isaiahVote: 'Approve', inCrm: 'no', contact: '', willNotes: '', brettNotes: '', isaiahNotes: '' },
+    { name: 'EARTHANGEL', spotify: 'https://open.spotify.com/track/0gQ8VtgwZLLGlBTbjPhEIu?si=VX4vCX0jS5aHz_ae6e5NVg&utm_source=whatsapp', soundcloud: '', source: '', listeners: 147, label: 'Self Released', checkedOn: '', addedBy: 'Will', willVote: 'Approve', brettVote: 'Pending', isaiahVote: 'Approve', inCrm: 'no', contact: '', willNotes: '', brettNotes: '', isaiahNotes: '' },
+  ],
+  sources: [
+    { name: 'SoundCloud', url: 'https://soundcloud.com/', description: 'Explore small artists, reposts, collaborators and related tracks.' },
+    { name: 'Bandcamp Discover', url: 'https://bandcamp.com/discover', description: 'Browse by genre and location, then explore fan collections and label pages.' },
+    { name: 'Indie Music Feedback', url: 'https://indiemusicfeedback.com/', description: 'Find independent artists sharing original music for feedback.' },
+    { name: 'Fresh On The Net', url: 'https://freshonthenet.co.uk/', description: 'Check Listening Posts and picks from independent submissions.' },
+    { name: 'triple j Unearthed', url: 'https://www.abc.net.au/triplejunearthed', description: 'Discover unsigned and independent Australian artists.' },
+    { name: '!earshot', url: 'https://www.earshot-online.com/', description: 'Explore Canadian campus and community radio charts.' },
+    { name: 'Bandcamp Daily', url: 'https://daily.bandcamp.com/', description: 'Follow editorial picks, scene reports and genre features.' },
+    { name: 'KEXP', url: 'https://www.kexp.org/shows/', description: 'Explore DJ shows and playlists featuring emerging artists.' },
+    { name: 'NTS Radio', url: 'https://www.nts.live/explore', description: 'Browse human-curated shows and archives by sound or scene.' },
+    { name: 'Spotify discovery playlists', url: 'https://artists.spotify.com/en/blog/how-to-use-playlists-to-reach-more-listeners', description: 'Try Discover Weekly, Release Radar and Fresh Finds.' },
+    { name: 'Tune Find', url: 'https://www.tunefind.com/', description: 'Find out if artists or songs have already been synced elsewhere.' },
+  ],
 };
 
 function setNavigation(open) {
@@ -107,7 +140,12 @@ function getPortalData() {
     const data = JSON.parse(localStorage.getItem(portalStorageKey)) || defaultPortalData;
     let repairedData = false;
 
-    ['notes', 'docs', 'links'].forEach((type) => {
+    ['notes', 'docs', 'links', 'artists', 'sources'].forEach((type) => {
+      if (!Array.isArray(data[type])) {
+        data[type] = JSON.parse(JSON.stringify(defaultPortalData[type] || []));
+        repairedData = true;
+      }
+
       data[type] = (data[type] || []).map((item) => {
         if (item.id) return item;
 
@@ -222,10 +260,171 @@ function renderPortalList(type, selector) {
     .join('');
 }
 
+function safeExternalHref(value) {
+  try {
+    const url = new URL(String(value || '').trim());
+    return ['http:', 'https:'].includes(url.protocol) ? url.href : '';
+  } catch {
+    return '';
+  }
+}
+
+function overallApproval(artist) {
+  const votes = [artist.willVote, artist.brettVote, artist.isaiahVote];
+  if (votes.filter((vote) => vote === 'Approve').length >= 2) return 'Approved';
+  if (votes.filter((vote) => vote === 'Reject').length >= 2) return 'Rejected';
+  if (votes.includes('Discuss')) return 'Needs discussion';
+  return 'Pending';
+}
+
+function voteOptions(selected) {
+  return ['Pending', 'Approve', 'Discuss', 'Reject']
+    .map((vote) => `<option${vote === selected ? ' selected' : ''}>${vote}</option>`)
+    .join('');
+}
+
+function renderArtistLinkField(field, label, value) {
+  const href = safeExternalHref(value);
+  return `
+    <label class="discovery-field discovery-field--link">
+      <span>${label}</span>
+      <span class="discovery-link-row">
+        <input data-field="${field}" type="url" value="${escapeHtml(value || '')}" placeholder="https://" />
+        ${href ? `<a href="${escapeHtml(href)}" target="_blank" rel="noreferrer">Open</a>` : ''}
+      </span>
+    </label>
+  `;
+}
+
+function renderArtistCard(artist) {
+  const status = overallApproval(artist);
+  const statusClass = status.toLowerCase().replaceAll(' ', '-');
+  return `
+    <article class="discovery-card" data-artist-card data-id="${escapeHtml(artist.id)}">
+      <div class="discovery-card__top">
+        <input class="discovery-card__name" data-field="name" value="${escapeHtml(artist.name || '')}" aria-label="Artist name" placeholder="Artist name" />
+        <span class="discovery-status discovery-status--${statusClass}" data-approval-status>${escapeHtml(status)}</span>
+      </div>
+
+      <div class="discovery-links">
+        ${renderArtistLinkField('spotify', 'Spotify', artist.spotify)}
+        ${renderArtistLinkField('soundcloud', 'SoundCloud', artist.soundcloud)}
+        ${renderArtistLinkField('source', 'Discovery source', artist.source)}
+      </div>
+
+      <div class="discovery-fields">
+        <label class="discovery-field">
+          <span>Monthly listeners</span>
+          <input data-field="listeners" type="number" min="0" step="1" value="${escapeHtml(artist.listeners ?? '')}" />
+        </label>
+        <label class="discovery-field">
+          <span>Label association</span>
+          <input data-field="label" value="${escapeHtml(artist.label || '')}" placeholder="Independent, label name, or unknown" />
+        </label>
+        <label class="discovery-field">
+          <span>Listeners checked</span>
+          <input data-field="checkedOn" type="date" value="${escapeHtml(artist.checkedOn || '')}" />
+        </label>
+        <label class="discovery-field">
+          <span>Added by</span>
+          <input data-field="addedBy" value="${escapeHtml(artist.addedBy || '')}" />
+        </label>
+      </div>
+
+      <div class="discovery-votes" aria-label="Team votes">
+        <label><span>Will</span><select data-field="willVote">${voteOptions(artist.willVote)}</select></label>
+        <label><span>Brett</span><select data-field="brettVote">${voteOptions(artist.brettVote)}</select></label>
+        <label><span>Isaiah</span><select data-field="isaiahVote">${voteOptions(artist.isaiahVote)}</select></label>
+      </div>
+
+      <div class="discovery-fields discovery-fields--contact">
+        <label class="discovery-field">
+          <span>In CRM</span>
+          <select data-field="inCrm">
+            <option value="no"${artist.inCrm === 'no' ? ' selected' : ''}>No</option>
+            <option value="yes"${artist.inCrm === 'yes' ? ' selected' : ''}>Yes</option>
+          </select>
+        </label>
+        <label class="discovery-field discovery-field--wide">
+          <span>Contact email or link</span>
+          <input data-field="contact" value="${escapeHtml(artist.contact || '')}" />
+        </label>
+      </div>
+
+      <details class="discovery-notes"${[artist.willNotes, artist.brettNotes, artist.isaiahNotes].some(Boolean) ? ' open' : ''}>
+        <summary>Reviewer notes</summary>
+        <div>
+          <label><span>Will</span><textarea data-field="willNotes">${escapeHtml(artist.willNotes || '')}</textarea></label>
+          <label><span>Brett</span><textarea data-field="brettNotes">${escapeHtml(artist.brettNotes || '')}</textarea></label>
+          <label><span>Isaiah</span><textarea data-field="isaiahNotes">${escapeHtml(artist.isaiahNotes || '')}</textarea></label>
+        </div>
+      </details>
+
+      <div class="discovery-card__footer">
+        <span>${artist.listeners ? `${Number(artist.listeners).toLocaleString()} monthly listeners` : 'Listener count not checked'}</span>
+        <button type="button" data-delete-artist>Delete</button>
+      </div>
+    </article>
+  `;
+}
+
+function renderDiscoverySource(source) {
+  const href = safeExternalHref(source.url);
+  return `
+    <article class="discovery-source" data-source-card data-id="${escapeHtml(source.id)}">
+      <input data-field="name" value="${escapeHtml(source.name || '')}" aria-label="Source name" placeholder="Source name" />
+      <div class="discovery-link-row">
+        <input data-field="url" type="url" value="${escapeHtml(source.url || '')}" aria-label="Source URL" placeholder="https://" />
+        ${href ? `<a href="${escapeHtml(href)}" target="_blank" rel="noreferrer">Open</a>` : ''}
+      </div>
+      <textarea data-field="description" aria-label="Why this source is useful">${escapeHtml(source.description || '')}</textarea>
+      <button type="button" data-delete-source>Delete</button>
+    </article>
+  `;
+}
+
+function renderDiscovery() {
+  const artistList = document.querySelector('[data-artists-list]');
+  const sourceList = document.querySelector('[data-sources-list]');
+  const summary = document.querySelector('[data-discovery-summary]');
+  if (!artistList || !sourceList || !summary) return;
+
+  const data = getPortalData();
+  const searchTerm = portalSearchInput?.value.trim().toLowerCase() || '';
+  const artists = data.artists.filter((artist) => {
+    if (!searchTerm) return true;
+    return Object.values(artist).some((value) => String(value || '').toLowerCase().includes(searchTerm));
+  });
+  const sources = data.sources.filter((source) => {
+    if (!searchTerm) return true;
+    return Object.values(source).some((value) => String(value || '').toLowerCase().includes(searchTerm));
+  });
+
+  const counts = data.artists.reduce((totals, artist) => {
+    const status = overallApproval(artist);
+    totals[status] = (totals[status] || 0) + 1;
+    return totals;
+  }, {});
+  summary.innerHTML = `
+    <div><strong>${data.artists.length}</strong><span>Artists</span></div>
+    <div><strong>${counts.Approved || 0}</strong><span>Approved</span></div>
+    <div><strong>${counts['Needs discussion'] || 0}</strong><span>Discuss</span></div>
+    <div><strong>${counts.Pending || 0}</strong><span>Pending</span></div>
+  `;
+
+  artistList.innerHTML = artists.length
+    ? artists.map(renderArtistCard).join('')
+    : '<p class="portal-empty">No artists match this search.</p>';
+  sourceList.innerHTML = sources.length
+    ? sources.map(renderDiscoverySource).join('')
+    : '<p class="portal-empty">No discovery sources match this search.</p>';
+}
+
 function renderPortal() {
   renderPortalList('notes', '[data-notes-list]');
   renderPortalList('docs', '[data-docs-list]');
   renderPortalList('links', '[data-links-list]');
+  renderDiscovery();
 }
 
 function addPortalItem(type) {
@@ -308,6 +507,72 @@ function deletePortalItem(itemElement) {
   renderPortal();
 }
 
+function addArtist() {
+  const data = getPortalData();
+  data.artists.unshift({
+    id: crypto.randomUUID(),
+    name: 'Untitled artist',
+    spotify: '',
+    soundcloud: '',
+    source: '',
+    listeners: '',
+    label: '',
+    checkedOn: new Date().toISOString().slice(0, 10),
+    addedBy: '',
+    willVote: 'Pending',
+    brettVote: 'Pending',
+    isaiahVote: 'Pending',
+    inCrm: 'no',
+    contact: '',
+    willNotes: '',
+    brettNotes: '',
+    isaiahNotes: '',
+  });
+  savePortalData(data);
+  renderDiscovery();
+  document.querySelector('[data-artist-card] .discovery-card__name')?.focus();
+}
+
+function addDiscoverySource() {
+  const data = getPortalData();
+  data.sources.unshift({
+    id: crypto.randomUUID(),
+    name: 'Untitled source',
+    url: '',
+    description: '',
+  });
+  savePortalData(data);
+  renderDiscovery();
+  document.querySelector('[data-source-card] input')?.focus();
+}
+
+function updateDiscoveryEntry(element, collection) {
+  const card = element.closest(collection === 'artists' ? '[data-artist-card]' : '[data-source-card]');
+  if (!card) return;
+  const data = getPortalData();
+  const entry = data[collection].find((item) => item.id === card.dataset.id);
+  if (!entry) return;
+
+  const field = element.dataset.field;
+  entry[field] = field === 'listeners' && element.value !== ''
+    ? Math.max(0, Number(element.value))
+    : element.value;
+  savePortalData(data);
+
+  if (collection === 'artists' && ['willVote', 'brettVote', 'isaiahVote'].includes(field)) {
+    renderDiscovery();
+  }
+}
+
+function deleteDiscoveryEntry(card, collection) {
+  const data = getPortalData();
+  const index = data[collection].findIndex((item) => item.id === card.dataset.id);
+  if (index === -1) return;
+  data[collection].splice(index, 1);
+  savePortalData(data);
+  renderDiscovery();
+}
+
 menuToggle.addEventListener('click', () => {
   setNavigation(menuToggle.getAttribute('aria-expanded') !== 'true');
 });
@@ -378,14 +643,40 @@ document.querySelector('[data-add-link]')?.addEventListener('click', () => {
   addPortalItem('links');
 });
 
+document.querySelector('[data-add-artist]')?.addEventListener('click', addArtist);
+document.querySelector('[data-add-source]')?.addEventListener('click', addDiscoverySource);
+
 document.addEventListener('input', (event) => {
   const itemElement = event.target.closest?.('[data-portal-item]');
   if (itemElement) updatePortalItem(itemElement);
+
+  if (event.target.matches?.('[data-artist-card] [data-field]')) {
+    updateDiscoveryEntry(event.target, 'artists');
+  }
+
+  if (event.target.matches?.('[data-source-card] [data-field]')) {
+    updateDiscoveryEntry(event.target, 'sources');
+  }
+});
+
+document.addEventListener('change', (event) => {
+  if (event.target.matches?.('[data-artist-card] select[data-field]')) {
+    updateDiscoveryEntry(event.target, 'artists');
+  }
 });
 
 document.addEventListener('click', (event) => {
-  if (!event.target.matches('[data-delete-item]')) return;
-  deletePortalItem(event.target.closest('[data-portal-item]'));
+  if (event.target.matches('[data-delete-item]')) {
+    deletePortalItem(event.target.closest('[data-portal-item]'));
+  }
+
+  if (event.target.matches('[data-delete-artist]')) {
+    deleteDiscoveryEntry(event.target.closest('[data-artist-card]'), 'artists');
+  }
+
+  if (event.target.matches('[data-delete-source]')) {
+    deleteDiscoveryEntry(event.target.closest('[data-source-card]'), 'sources');
+  }
 });
 
 document.addEventListener('keydown', (event) => {

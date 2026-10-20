@@ -952,6 +952,252 @@ textarea {
   line-height: 1;
 }
 
+.discovery-header .eyebrow,
+.discovery-sources-header .eyebrow {
+  margin-bottom: 12px;
+}
+
+.discovery-summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-bottom: clamp(28px, 4vw, 54px);
+  border-top: 2px solid currentColor;
+  border-bottom: 1px solid currentColor;
+}
+
+.discovery-summary div {
+  display: grid;
+  gap: 5px;
+  padding: 17px 12px 15px 0;
+}
+
+.discovery-summary strong {
+  font-size: clamp(26px, 3vw, 48px);
+  font-weight: 600;
+  letter-spacing: -0.055em;
+  line-height: 0.9;
+}
+
+.discovery-summary span,
+.discovery-field > span,
+.discovery-votes label > span,
+.discovery-notes label > span {
+  font-size: 11px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.discovery-list {
+  display: grid;
+  gap: 18px;
+}
+
+.discovery-card {
+  padding: clamp(18px, 2.3vw, 30px);
+  border: 1px solid rgba(17, 17, 17, 0.42);
+}
+
+.discovery-card__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 24px;
+  padding-bottom: 18px;
+  border-bottom: 2px solid currentColor;
+}
+
+.discovery-card input,
+.discovery-card textarea,
+.discovery-card select,
+.discovery-source input,
+.discovery-source textarea {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  border-bottom: 1px solid rgba(17, 17, 17, 0.45);
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+}
+
+.discovery-card input:focus-visible,
+.discovery-card textarea:focus-visible,
+.discovery-card select:focus-visible,
+.discovery-source input:focus-visible,
+.discovery-source textarea:focus-visible {
+  outline: 0;
+  border-bottom: 2px dashed currentColor;
+}
+
+.discovery-card__name {
+  padding: 0 0 7px;
+  font-size: clamp(27px, 3.5vw, 58px);
+  font-weight: 600;
+  letter-spacing: -0.065em;
+  line-height: 0.9;
+}
+
+.discovery-status {
+  flex: 0 0 auto;
+  padding: 8px 10px 7px;
+  border: 1px solid currentColor;
+  font-size: 11px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.discovery-status--approved {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.discovery-status--rejected {
+  text-decoration: line-through;
+}
+
+.discovery-status--needs-discussion {
+  border-style: dashed;
+}
+
+.discovery-links,
+.discovery-fields,
+.discovery-votes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.discovery-fields {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.discovery-fields--contact {
+  grid-template-columns: minmax(100px, 0.3fr) minmax(240px, 1fr);
+}
+
+.discovery-field,
+.discovery-votes label,
+.discovery-notes label {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+.discovery-field input,
+.discovery-field select,
+.discovery-votes select {
+  padding: 9px 0 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.discovery-link-row {
+  display: flex;
+  align-items: end;
+  gap: 8px;
+  min-width: 0;
+}
+
+.discovery-link-row a {
+  flex: 0 0 auto;
+  padding: 9px 0 8px;
+  font-size: 11px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.discovery-votes {
+  padding: 18px 0;
+  border-top: 1px solid rgba(17, 17, 17, 0.35);
+  border-bottom: 1px solid rgba(17, 17, 17, 0.35);
+}
+
+.discovery-notes {
+  margin-top: 20px;
+}
+
+.discovery-notes summary {
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 1;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-transform: uppercase;
+}
+
+.discovery-notes > div {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.discovery-notes textarea,
+.discovery-source textarea {
+  min-height: 88px;
+  padding: 8px 0;
+  resize: vertical;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.discovery-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 22px;
+  font-size: 11px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.discovery-card__footer button,
+.discovery-source > button {
+  padding: 0;
+  border: 0;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.discovery-sources-header {
+  margin-top: clamp(70px, 9vw, 130px);
+  padding-top: clamp(28px, 4vw, 54px);
+  border-top: 2px solid currentColor;
+}
+
+.discovery-sources {
+  display: grid;
+  gap: 0;
+  border-bottom: 1px solid currentColor;
+}
+
+.discovery-source {
+  display: grid;
+  grid-template-columns: minmax(130px, 0.35fr) minmax(180px, 0.55fr) minmax(260px, 1fr) auto;
+  gap: 16px;
+  align-items: start;
+  padding: 15px 0;
+  border-top: 1px solid currentColor;
+}
+
+.discovery-source input {
+  padding: 8px 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.discovery-source .discovery-link-row {
+  align-items: start;
+}
+
+.discovery-source > button {
+  margin-top: 8px;
+}
+
 .menu-toggle {
   position: fixed;
   z-index: 8;
@@ -1133,6 +1379,18 @@ textarea {
   .portal-sidebar {
     margin-bottom: 34px;
   }
+
+  .discovery-links,
+  .discovery-fields,
+  .discovery-votes,
+  .discovery-notes > div,
+  .discovery-source {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .discovery-source textarea {
+    grid-column: 1 / -1;
+  }
 }
 
 @media (max-width: 540px) {
@@ -1265,6 +1523,36 @@ textarea {
   .portal-login__form button {
     width: 100%;
     margin-top: 10px;
+  }
+
+  .discovery-summary {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .discovery-card__top,
+  .discovery-card__footer {
+    display: block;
+  }
+
+  .discovery-status {
+    display: inline-block;
+    margin-top: 12px;
+  }
+
+  .discovery-card__footer button {
+    margin-top: 16px;
+  }
+
+  .discovery-links,
+  .discovery-fields,
+  .discovery-votes,
+  .discovery-notes > div,
+  .discovery-source {
+    grid-template-columns: 1fr;
+  }
+
+  .discovery-source textarea {
+    grid-column: auto;
   }
 }
 
