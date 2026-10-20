@@ -290,6 +290,20 @@ function artistInitials(name) {
   return initials || 'CPA';
 }
 
+function spotifyEmbedDetails(value) {
+  const href = safeSpotifyHref(value);
+  if (!href) return null;
+
+  const url = new URL(href);
+  const [, type, id] = url.pathname.match(/^\/(artist|album|track)\/([^/]+)/) || [];
+  if (!type || !id) return null;
+
+  return {
+    src: `https://open.spotify.com/embed/${type}/${id}?utm_source=generator&theme=0`,
+    height: type === 'track' ? 152 : 352,
+  };
+}
+
 function getSpotifyArtwork(spotifyUrl) {
   if (spotifyArtworkCache.has(spotifyUrl)) return spotifyArtworkCache.get(spotifyUrl);
 
@@ -362,6 +376,7 @@ function renderArtistCard(artist) {
   const status = overallApproval(artist);
   const statusClass = status.toLowerCase().replaceAll(' ', '-');
   const spotifyHref = safeSpotifyHref(artist.spotify);
+  const spotifyEmbed = spotifyEmbedDetails(artist.spotify);
   const isEmailed = artist.emailed === 'yes';
   return `
     <article class="discovery-card" data-artist-card data-id="${escapeHtml(artist.id)}">
@@ -380,6 +395,21 @@ function renderArtistCard(artist) {
           <p class="discovery-artwork__caption">Artwork via Spotify · Select to listen ↗</p>
         </div>
       </div>
+
+      ${spotifyEmbed ? `
+        <details class="discovery-spotify-preview" data-spotify-preview>
+          <summary>
+            <span>Spotify song preview</span>
+            <span aria-hidden="true">Listen +</span>
+          </summary>
+          <div
+            class="discovery-spotify-preview__frame"
+            data-spotify-embed="${escapeHtml(spotifyEmbed.src)}"
+            data-spotify-height="${spotifyEmbed.height}"
+            data-artist-name="${escapeHtml(artist.name || 'Artist')}"
+          ></div>
+        </details>
+      ` : ''}
 
       <div class="discovery-links">
         ${renderArtistLinkField('spotify', 'Spotify', artist.spotify)}
@@ -779,6 +809,27 @@ document.addEventListener('change', (event) => {
     updateDiscoveryEntry(event.target, 'artists');
   }
 });
+
+document.addEventListener('toggle', (event) => {
+  const preview = event.target.closest?.('[data-spotify-preview]');
+  if (!preview?.open) return;
+
+  const slot = preview.querySelector('[data-spotify-embed]');
+  if (!slot || slot.querySelector('iframe')) return;
+
+  const src = safeExternalHref(slot.dataset.spotifyEmbed);
+  if (!src) return;
+
+  const iframe = document.createElement('iframe');
+  iframe.src = src;
+  iframe.title = `${slot.dataset.artistName || 'Artist'} Spotify player`;
+  iframe.width = '100%';
+  iframe.height = slot.dataset.spotifyHeight || '352';
+  iframe.loading = 'lazy';
+  iframe.allow = 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
+  iframe.setAttribute('allowfullscreen', '');
+  slot.append(iframe);
+}, true);
 
 document.addEventListener('click', (event) => {
   if (event.target.matches('[data-delete-item]')) {

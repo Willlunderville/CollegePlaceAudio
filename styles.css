@@ -1110,6 +1110,42 @@ textarea {
   text-transform: uppercase;
 }
 
+.discovery-spotify-preview {
+  margin: 18px 0 0;
+  border-top: 1px solid rgba(17, 17, 17, 0.35);
+  border-bottom: 1px solid rgba(17, 17, 17, 0.35);
+}
+
+.discovery-spotify-preview summary {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 13px 0 11px;
+  cursor: pointer;
+  font-size: 11px;
+  line-height: 1;
+  list-style: none;
+  text-transform: uppercase;
+}
+
+.discovery-spotify-preview summary::-webkit-details-marker {
+  display: none;
+}
+
+.discovery-spotify-preview[open] summary span:last-child {
+  text-decoration: line-through;
+}
+
+.discovery-spotify-preview__frame {
+  padding: 4px 0 14px;
+}
+
+.discovery-spotify-preview iframe {
+  display: block;
+  width: 100%;
+  border: 0;
+}
+
 .discovery-card input,
 .discovery-card textarea,
 .discovery-card select,
