@@ -470,8 +470,7 @@ function renderDiscoverySource(source) {
 function renderDiscovery() {
   const artistList = document.querySelector('[data-artists-list]');
   const sourceList = document.querySelector('[data-sources-list]');
-  const summary = document.querySelector('[data-discovery-summary]');
-  if (!artistList || !sourceList || !summary) return;
+  if (!artistList || !sourceList) return;
 
   const data = getPortalData();
   const searchTerm = portalSearchInput?.value.trim().toLowerCase() || '';
@@ -493,17 +492,23 @@ function renderDiscovery() {
     totals[status] = (totals[status] || 0) + 1;
     return totals;
   }, {});
-  summary.innerHTML = `
-    <div><strong>${counts.Pending || 0}</strong><span>Pending</span></div>
-    <div><strong>${counts['Needs discussion'] || 0}</strong><span>Discuss</span></div>
-    <div><strong>${counts.Approved || 0}</strong><span>Approved</span></div>
-    <div><strong>${counts.Rejected || 0}</strong><span>Rejected</span></div>
-  `;
+  const filterCounts = {
+    'needs-approval': counts.Pending || 0,
+    discuss: counts['Needs discussion'] || 0,
+    approved: counts.Approved || 0,
+    rejected: counts.Rejected || 0,
+    all: data.artists.length,
+  };
 
   document.querySelectorAll('[data-discovery-filter]').forEach((button) => {
     const isActive = button.dataset.discoveryFilter === activeDiscoveryFilter;
+    const count = filterCounts[button.dataset.discoveryFilter] || 0;
+    const label = button.querySelector('span')?.textContent.trim() || 'Artists';
+    const countElement = button.querySelector('[data-filter-count]');
+    if (countElement) countElement.textContent = count;
     button.classList.toggle('is-active', isActive);
     button.setAttribute('aria-pressed', String(isActive));
+    button.setAttribute('aria-label', `${label}: ${count} ${count === 1 ? 'artist' : 'artists'}`);
   });
 
   const approvedNeedsEmail = data.artists.filter(

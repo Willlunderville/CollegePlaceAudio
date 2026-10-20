@@ -10,7 +10,7 @@
     <title>College Place Audio</title>
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
-    <link rel="stylesheet" href="styles.css?v=20261020-email-status" />
+    <link rel="stylesheet" href="styles.css?v=20261020-portal-layout" />
     <link rel="stylesheet" href="brand.css?v=20261015-navigation" />
   </head>
   <body>
@@ -412,6 +412,15 @@
             <p class="eyebrow">College Place Audio</p>
             <h2>Portal.</h2>
           </div>
+          <label class="portal-search">
+            <span>Search portal</span>
+            <input
+              type="search"
+              data-portal-search
+              placeholder="Search notes, artists, sources, links"
+              autocomplete="off"
+            />
+          </label>
           <button type="button" data-portal-logout>Log out</button>
         </div>
 
@@ -428,16 +437,6 @@
           </aside>
 
           <div class="portal-board">
-            <label class="portal-search">
-              <span>Search portal</span>
-              <input
-                type="search"
-                data-portal-search
-                placeholder="Search notes, artists, sources, links"
-                autocomplete="off"
-              />
-            </label>
-
             <section class="portal-section is-active" data-portal-section="notes">
               <div class="portal-section__header">
                 <h3>Meeting notes</h3>
@@ -485,23 +484,27 @@
                   data-discovery-filter="needs-approval"
                   aria-pressed="true"
                 >
-                  Pending
-                </button>
-                <button type="button" data-discovery-filter="approved" aria-pressed="false">
-                  Approved
+                  <strong data-filter-count>0</strong>
+                  <span>Pending</span>
                 </button>
                 <button type="button" data-discovery-filter="discuss" aria-pressed="false">
-                  Discuss
+                  <strong data-filter-count>0</strong>
+                  <span>Discuss</span>
+                </button>
+                <button type="button" data-discovery-filter="approved" aria-pressed="false">
+                  <strong data-filter-count>0</strong>
+                  <span>Approved</span>
                 </button>
                 <button type="button" data-discovery-filter="rejected" aria-pressed="false">
-                  Rejected
+                  <strong data-filter-count>0</strong>
+                  <span>Rejected</span>
                 </button>
                 <button type="button" data-discovery-filter="all" aria-pressed="false">
-                  All artists
+                  <strong data-filter-count>0</strong>
+                  <span>All artists</span>
                 </button>
               </nav>
 
-              <div class="discovery-summary" data-discovery-summary></div>
               <div class="discovery-list" data-artists-list></div>
 
               <div class="portal-section__header discovery-sources-header">
@@ -518,6 +521,6 @@
       </div>
     </section>
 
-    <script src="script.js?v=20261020-pipeline-order"></script>
+    <script src="script.js?v=20261020-portal-layout"></script>
   </body>
 </html>
