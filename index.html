@@ -426,17 +426,17 @@
 
         <div class="portal-layout">
           <aside class="portal-sidebar" aria-label="Portal sections">
-            <button type="button" data-portal-view="discovery">
+            <button class="is-active" type="button" data-portal-view="discovery">
               Artist discovery
             </button>
             <button type="button" data-portal-view="docs">Documents</button>
-            <button class="is-active" type="button" data-portal-view="notes">
+            <button type="button" data-portal-view="notes">
               Meeting notes
             </button>
           </aside>
 
           <div class="portal-board">
-            <section class="portal-section is-active" data-portal-section="notes">
+            <section class="portal-section" data-portal-section="notes">
               <div class="portal-section__header">
                 <h3>Meeting notes</h3>
                 <button type="button" data-add-note>Add note</button>
@@ -459,7 +459,7 @@
               <div class="portal-list" data-docs-list></div>
             </section>
 
-            <section class="portal-section" data-portal-section="discovery">
+            <section class="portal-section is-active" data-portal-section="discovery">
               <div class="portal-section__header discovery-header">
                 <div>
                   <p class="eyebrow">Pipeline</p>
