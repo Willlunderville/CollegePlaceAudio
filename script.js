@@ -362,6 +362,7 @@ function renderArtistCard(artist) {
   const status = overallApproval(artist);
   const statusClass = status.toLowerCase().replaceAll(' ', '-');
   const spotifyHref = safeSpotifyHref(artist.spotify);
+  const isEmailed = artist.emailed === 'yes';
   return `
     <article class="discovery-card" data-artist-card data-id="${escapeHtml(artist.id)}">
       <div class="discovery-card__hero">
@@ -371,7 +372,10 @@ function renderArtistCard(artist) {
         <div class="discovery-card__hero-copy">
           <div class="discovery-card__top">
             <input class="discovery-card__name" data-field="name" value="${escapeHtml(artist.name || '')}" aria-label="Artist name" placeholder="Artist name" />
-            <span class="discovery-status discovery-status--${statusClass}" data-approval-status>${escapeHtml(status)}</span>
+            <span class="discovery-statuses">
+              <span class="discovery-status discovery-status--${statusClass}" data-approval-status>${escapeHtml(status)}</span>
+              ${status === 'Approved' ? `<span class="discovery-email-badge${isEmailed ? ' is-emailed' : ''}">${isEmailed ? 'Emailed' : 'Needs email'}</span>` : ''}
+            </span>
           </div>
           <p class="discovery-artwork__caption">Artwork via Spotify · Select to listen ↗</p>
         </div>
@@ -408,7 +412,7 @@ function renderArtistCard(artist) {
         <label><span>Isaiah</span><select data-field="isaiahVote">${voteOptions(artist.isaiahVote)}</select></label>
       </div>
 
-      <div class="discovery-fields discovery-fields--contact">
+      <div class="discovery-fields discovery-fields--contact${status === 'Approved' ? ' discovery-fields--approved-contact' : ''}">
         <label class="discovery-field">
           <span>In CRM</span>
           <select data-field="inCrm">
@@ -416,6 +420,15 @@ function renderArtistCard(artist) {
             <option value="yes"${artist.inCrm === 'yes' ? ' selected' : ''}>Yes</option>
           </select>
         </label>
+        ${status === 'Approved' ? `
+          <label class="discovery-field">
+            <span>Email outreach</span>
+            <select data-field="emailed">
+              <option value="no"${!isEmailed ? ' selected' : ''}>Needs email</option>
+              <option value="yes"${isEmailed ? ' selected' : ''}>Emailed</option>
+            </select>
+          </label>
+        ` : ''}
         <label class="discovery-field discovery-field--wide">
           <span>Contact email or link</span>
           <input data-field="contact" value="${escapeHtml(artist.contact || '')}" />
@@ -467,6 +480,9 @@ function renderDiscovery() {
     if (!searchTerm) return true;
     return Object.values(artist).some((value) => String(value || '').toLowerCase().includes(searchTerm));
   });
+  if (activeDiscoveryFilter === 'approved') {
+    artists.sort((artistA, artistB) => Number(artistA.emailed === 'yes') - Number(artistB.emailed === 'yes'));
+  }
   const sources = data.sources.filter((source) => {
     if (!searchTerm) return true;
     return Object.values(source).some((value) => String(value || '').toLowerCase().includes(searchTerm));
@@ -490,8 +506,15 @@ function renderDiscovery() {
     button.setAttribute('aria-pressed', String(isActive));
   });
 
+  const approvedNeedsEmail = data.artists.filter(
+    (artist) => overallApproval(artist) === 'Approved' && artist.emailed !== 'yes',
+  ).length;
+  const emailNotice = activeDiscoveryFilter === 'approved'
+    ? `<div class="discovery-email-notice${approvedNeedsEmail ? '' : ' is-complete'}"><strong>${approvedNeedsEmail}</strong><span>${approvedNeedsEmail === 1 ? 'approved artist needs an email' : approvedNeedsEmail ? 'approved artists need an email' : 'All approved artists have been emailed'}</span></div>`
+    : '';
+
   artistList.innerHTML = artists.length
-    ? artists.map(renderArtistCard).join('')
+    ? `${emailNotice}${artists.map(renderArtistCard).join('')}`
     : `<p class="portal-empty">${searchTerm ? 'No artists match this search and filter.' : 'No artists in this view.'}</p>`;
   hydrateSpotifyArtwork();
   sourceList.innerHTML = sources.length
@@ -602,6 +625,7 @@ function addArtist() {
     brettVote: 'Pending',
     isaiahVote: 'Pending',
     inCrm: 'no',
+    emailed: 'no',
     contact: '',
     willNotes: '',
     brettNotes: '',
@@ -638,7 +662,7 @@ function updateDiscoveryEntry(element, collection) {
     : element.value;
   savePortalData(data);
 
-  if (collection === 'artists' && ['willVote', 'brettVote', 'isaiahVote'].includes(field)) {
+  if (collection === 'artists' && ['willVote', 'brettVote', 'isaiahVote', 'emailed'].includes(field)) {
     renderDiscovery();
   }
 }
