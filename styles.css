@@ -1474,6 +1474,14 @@ textarea {
   .discovery-card__name {
     font-size: clamp(32px, 3.2vw, 46px);
   }
+
+  .discovery-fields--approved-contact {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .discovery-fields--approved-contact .discovery-field--wide {
+    grid-column: 1 / -1;
+  }
 }
 
 @media (max-width: 900px) {
