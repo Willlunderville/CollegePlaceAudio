@@ -604,7 +604,6 @@ function renderDiscovery() {
 function renderPortal() {
   renderPortalList('notes', '[data-notes-list]');
   renderPortalList('docs', '[data-docs-list]');
-  renderPortalList('links', '[data-links-list]');
   renderDiscovery();
 }
 
@@ -826,10 +825,6 @@ document.querySelectorAll('[data-discovery-filter]').forEach((button) => {
     activeDiscoveryFilter = button.dataset.discoveryFilter;
     renderDiscovery();
   });
-});
-
-document.querySelector('[data-add-link]')?.addEventListener('click', () => {
-  addPortalItem('links');
 });
 
 document.querySelector('[data-add-artist]')?.addEventListener('click', addArtist);

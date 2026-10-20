@@ -385,8 +385,8 @@
         <p class="eyebrow">Private</p>
         <h2 id="portal-title">Portal.</h2>
         <p>
-          A quiet workspace for College Place Audio meeting notes, shared links,
-          and working documents.
+          A quiet workspace for College Place Audio artist discovery, working
+          documents, and meeting notes.
         </p>
 
         <form class="portal-login__form" data-portal-form>
@@ -417,7 +417,7 @@
             <input
               type="search"
               data-portal-search
-              placeholder="Search notes, artists, sources, links"
+              placeholder="Search artists, sources, documents, notes"
               autocomplete="off"
             />
           </label>
@@ -429,11 +429,10 @@
             <button type="button" data-portal-view="discovery">
               Artist discovery
             </button>
+            <button type="button" data-portal-view="docs">Documents</button>
             <button class="is-active" type="button" data-portal-view="notes">
               Meeting notes
             </button>
-            <button type="button" data-portal-view="docs">Documents</button>
-            <button type="button" data-portal-view="links">Shared links</button>
           </aside>
 
           <div class="portal-board">
@@ -458,14 +457,6 @@
                 />
               </div>
               <div class="portal-list" data-docs-list></div>
-            </section>
-
-            <section class="portal-section" data-portal-section="links">
-              <div class="portal-section__header">
-                <h3>Shared links</h3>
-                <button type="button" data-add-link>Add link</button>
-              </div>
-              <div class="portal-list" data-links-list></div>
             </section>
 
             <section class="portal-section" data-portal-section="discovery">
@@ -522,6 +513,6 @@
       </div>
     </section>
 
-    <script src="script.js?v=20261020-approved-email-alert"></script>
+    <script src="script.js?v=20261020-portal-nav-cleanup"></script>
   </body>
 </html>
