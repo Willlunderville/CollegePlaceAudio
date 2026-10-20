@@ -300,7 +300,7 @@ function spotifyEmbedDetails(value) {
 
   return {
     src: `https://open.spotify.com/embed/${type}/${id}?utm_source=generator&theme=0`,
-    height: type === 'track' ? 152 : 352,
+    height: 152,
   };
 }
 
@@ -400,6 +400,10 @@ function renderArtistCard(artist) {
   const isEmailed = artist.emailed === 'yes';
   return `
     <article class="discovery-card" data-artist-card data-id="${escapeHtml(artist.id)}">
+      <details class="discovery-card__menu">
+        <summary aria-label="Artist actions">⋮</summary>
+        <button type="button" data-delete-artist>Delete artist</button>
+      </details>
       <div class="discovery-card__hero">
         ${spotifyHref
           ? `<a class="discovery-artwork" href="${escapeHtml(spotifyHref)}" target="_blank" rel="noreferrer" data-spotify-artwork="${escapeHtml(spotifyHref)}" data-artist-name="${escapeHtml(artist.name || 'Artist')}" aria-label="Open ${escapeHtml(artist.name || 'artist')} on Spotify"><span>${escapeHtml(artistInitials(artist.name))}</span></a>`
@@ -481,6 +485,10 @@ function renderArtistCard(artist) {
               <option value="yes"${artist.inCrm === 'yes' ? ' selected' : ''}>Yes</option>
             </select>
           </label>
+          <label class="discovery-field discovery-field--wide">
+            <span>Contact email or link</span>
+            <input data-field="contact" value="${escapeHtml(artist.contact || '')}" placeholder="Enter email address or link…" />
+          </label>
           ${status === 'Approved' ? `
             <label class="discovery-field discovery-field--email ${isEmailed ? 'is-emailed' : 'needs-email'}">
               <span>Email outreach</span>
@@ -490,10 +498,6 @@ function renderArtistCard(artist) {
               </select>
             </label>
           ` : ''}
-          <label class="discovery-field discovery-field--wide">
-            <span>Contact email or link</span>
-            <input data-field="contact" value="${escapeHtml(artist.contact || '')}" placeholder="Enter email address or link…" />
-          </label>
         </div>
       </section>
 
@@ -506,10 +510,6 @@ function renderArtistCard(artist) {
         </div>
       </details>
 
-      <div class="discovery-card__footer">
-        <span>${artist.listeners ? `${Number(artist.listeners).toLocaleString()} monthly listeners` : 'Listener count not checked'}</span>
-        <button type="button" data-delete-artist>Delete</button>
-      </div>
     </article>
   `;
 }

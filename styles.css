@@ -1022,7 +1022,8 @@ textarea {
 }
 
 .discovery-card {
-  padding: clamp(18px, 2.5vw, 34px);
+  position: relative;
+  padding: clamp(16px, 2vw, 26px);
   border: 1px solid rgba(17, 17, 17, 0.12);
   border-radius: 14px;
   background: rgba(255, 255, 255, 0.18);
@@ -1032,9 +1033,39 @@ textarea {
 .discovery-card__hero {
   display: grid;
   grid-template-columns: clamp(180px, 23vw, 278px) minmax(0, 1fr);
-  gap: clamp(22px, 3vw, 42px);
+  gap: clamp(18px, 2.4vw, 32px);
   align-items: stretch;
-  margin-bottom: clamp(22px, 3vw, 34px);
+  margin-bottom: 18px;
+}
+
+.discovery-card__menu {
+  position: absolute;
+  top: clamp(18px, 2vw, 26px);
+  right: clamp(16px, 2vw, 26px);
+  z-index: 2;
+}
+
+.discovery-card__menu summary {
+  cursor: pointer;
+  font-size: 24px;
+  line-height: 1;
+  list-style: none;
+}
+
+.discovery-card__menu summary::-webkit-details-marker {
+  display: none;
+}
+
+.discovery-card__menu button {
+  position: absolute;
+  top: 28px;
+  right: 0;
+  width: max-content;
+  padding: 9px 11px 8px;
+  background: var(--paper);
+  box-shadow: 0 8px 24px rgba(17, 17, 17, 0.12);
+  font-size: 10px;
+  text-transform: uppercase;
 }
 
 .discovery-artwork {
@@ -1109,6 +1140,7 @@ textarea {
   justify-content: space-between;
   gap: 14px;
   margin-bottom: 16px;
+  padding-right: 42px;
 }
 
 .discovery-card__top {
@@ -1158,8 +1190,9 @@ textarea {
   border-bottom: 2px dashed currentColor;
 }
 
-.discovery-card__name {
+.discovery-card input.discovery-card__name {
   padding: 0 0 7px;
+  border-bottom: 0;
   font-size: clamp(34px, 4.2vw, 70px);
   font-weight: 600;
   letter-spacing: -0.065em;
@@ -1259,7 +1292,9 @@ textarea {
 }
 
 .discovery-status--needs-discussion {
-  border-style: dashed;
+  border-color: #e89a40;
+  background: #fff5e9;
+  color: #7a3d00;
 }
 
 .discovery-links,
@@ -1274,8 +1309,22 @@ textarea {
 .discovery-fields.discovery-fields--identity {
   grid-template-columns: repeat(4, minmax(0, 1fr));
   margin-top: auto;
-  padding-top: 24px;
+  padding-top: 18px;
   border-top: 1px solid rgba(17, 17, 17, 0.18);
+}
+
+.discovery-fields--identity .discovery-field {
+  padding-left: 16px;
+  border-left: 1px solid rgba(17, 17, 17, 0.16);
+}
+
+.discovery-fields--identity .discovery-field:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+
+.discovery-fields--identity input {
+  border-bottom: 0;
 }
 
 .discovery-fields {
@@ -1287,7 +1336,7 @@ textarea {
 }
 
 .discovery-fields--approved-contact {
-  grid-template-columns: minmax(100px, 0.28fr) minmax(130px, 0.36fr) minmax(240px, 1fr);
+  grid-template-columns: minmax(100px, 0.28fr) minmax(240px, 1fr) minmax(150px, 0.5fr);
 }
 
 .discovery-links {
@@ -1299,9 +1348,9 @@ textarea {
   display: grid;
   grid-template-columns: 42px minmax(0, 1fr) auto;
   gap: 0 12px;
-  min-height: 84px;
+  min-height: 70px;
   align-items: center;
-  padding: 13px 16px;
+  padding: 10px 16px;
   border: 1px solid rgba(17, 17, 17, 0.18);
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.42);
@@ -1417,8 +1466,8 @@ textarea {
 }
 
 .discovery-panel {
-  margin-top: 12px;
-  padding: 18px 20px 20px;
+  margin-top: 10px;
+  padding: 15px 18px 16px;
   border: 1px solid rgba(17, 17, 17, 0.18);
   border-radius: 11px;
   background: rgba(255, 255, 255, 0.4);
@@ -1485,20 +1534,30 @@ textarea {
 }
 
 .discovery-votes {
-  margin-top: 14px;
+  margin-top: 12px;
   padding: 0;
   border: 0;
 }
 
 .discovery-votes label {
   position: relative;
-  padding: 12px 14px 10px;
-  border: 1px solid rgba(17, 17, 17, 0.16);
-  border-radius: 7px;
+  padding: 0 14px;
+  border: 0;
+  border-left: 1px solid rgba(17, 17, 17, 0.12);
 }
 
-.discovery-vote--approve {
-  border-color: #c1d1bc !important;
+.discovery-votes label:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+
+.discovery-votes label:last-child {
+  padding-right: 0;
+}
+
+.discovery-vote--approve select {
+  border: 1px solid #c1d1bc;
+  border-radius: 7px;
   background: #f0f4ec;
 }
 
@@ -1518,13 +1577,15 @@ textarea {
   pointer-events: none;
 }
 
-.discovery-vote--discuss {
-  border-color: #d8a84b !important;
+.discovery-vote--discuss select {
+  border: 1px solid #d8a84b;
+  border-radius: 7px;
   background: #fbf4e5;
 }
 
-.discovery-vote--reject {
-  border-color: #c99892 !important;
+.discovery-vote--reject select {
+  border: 1px solid #c99892;
+  border-radius: 7px;
   background: #faeeee;
 }
 
@@ -1569,8 +1630,8 @@ textarea {
 }
 
 .discovery-notes {
-  margin-top: 12px;
-  padding: 16px 20px;
+  margin-top: 10px;
+  padding: 14px 18px;
   border: 1px dashed rgba(17, 17, 17, 0.32);
   border-radius: 11px;
   background: rgba(255, 255, 255, 0.28);
@@ -1580,8 +1641,7 @@ textarea {
   cursor: pointer;
   font-size: 12px;
   line-height: 1;
-  text-decoration: underline;
-  text-underline-offset: 3px;
+  text-decoration: none;
   text-transform: uppercase;
 }
 
@@ -1602,18 +1662,6 @@ textarea {
   line-height: 1.2;
 }
 
-.discovery-card__footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-top: 22px;
-  font-size: 11px;
-  line-height: 1;
-  text-transform: uppercase;
-}
-
-.discovery-card__footer button,
 .discovery-source > button {
   padding: 0;
   border: 0;
@@ -1717,7 +1765,7 @@ textarea {
     grid-template-columns: 1fr 1fr;
   }
 
-  .discovery-fields--approved-contact .discovery-field--wide {
+  .discovery-fields--approved-contact .discovery-field--email {
     grid-column: 1 / -1;
   }
 }
@@ -2022,8 +2070,7 @@ textarea {
     border: 1px solid currentColor;
   }
 
-  .discovery-card__top,
-  .discovery-card__footer {
+  .discovery-card__top {
     display: block;
   }
 
@@ -2071,10 +2118,6 @@ textarea {
     margin-top: 8px;
   }
 
-  .discovery-card__footer button {
-    margin-top: 16px;
-  }
-
   .discovery-links,
   .discovery-fields,
   .discovery-votes,
@@ -2116,6 +2159,15 @@ textarea {
 
   .discovery-fields--approved-contact .discovery-field--wide {
     grid-column: auto;
+  }
+
+  .discovery-fields--identity .discovery-field,
+  .discovery-votes label,
+  .discovery-votes label:first-child,
+  .discovery-votes label:last-child {
+    padding-right: 0;
+    padding-left: 0;
+    border-left: 0;
   }
 }
 
