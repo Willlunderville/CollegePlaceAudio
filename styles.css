@@ -805,6 +805,7 @@ textarea {
 
 .portal-board {
   min-width: 0;
+  container-type: inline-size;
 }
 
 .portal-search {
@@ -1022,8 +1023,10 @@ textarea {
 
 .discovery-card {
   padding: clamp(18px, 2.5vw, 34px);
-  border: 1px solid rgba(17, 17, 17, 0.24);
-  box-shadow: 0 10px 28px rgba(17, 17, 17, 0.05);
+  border: 1px solid rgba(17, 17, 17, 0.12);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 18px 50px rgba(17, 17, 17, 0.07);
 }
 
 .discovery-card__hero {
@@ -1041,7 +1044,8 @@ textarea {
   aspect-ratio: 1;
   place-items: center;
   overflow: hidden;
-  border: 1px solid currentColor;
+  border: 0;
+  border-radius: 8px;
   background: var(--ink);
   color: var(--paper);
   text-decoration: none;
@@ -1085,6 +1089,8 @@ textarea {
   display: flex;
   min-width: 0;
   flex-direction: column;
+  padding-left: clamp(18px, 2.2vw, 32px);
+  border-left: 1px solid rgba(17, 17, 17, 0.16);
 }
 
 .discovery-card__type {
@@ -1168,8 +1174,11 @@ textarea {
 }
 
 .discovery-status {
-  display: inline-block;
-  padding: 8px 10px 7px;
+  display: inline-flex;
+  min-width: 154px;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 14px 9px;
   border: 1px solid currentColor;
   font-size: 11px;
   line-height: 1;
@@ -1177,8 +1186,9 @@ textarea {
 }
 
 .discovery-email-badge {
-  display: inline-block;
-  padding: 8px 10px 7px;
+  display: inline-flex;
+  min-width: 154px;
+  padding: 10px 14px 9px;
   border: 1px dashed currentColor;
   font-size: 11px;
   line-height: 1;
@@ -1193,12 +1203,34 @@ textarea {
 
 .discovery-email-notice {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: 12px;
-  padding: 15px 18px;
-  border: 1px dashed currentColor;
+  padding: 8px 0 15px;
+  border-bottom: 1px solid rgba(17, 17, 17, 0.2);
   font-size: 12px;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
+}
+
+.discovery-email-notice button {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  padding: 0 1px 2px 0;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(17, 17, 17, 0.05);
+  color: inherit;
+  font-size: 26px;
+  line-height: 1;
+}
+
+.discovery-email-notice i {
+  margin-left: auto;
+  font-size: 25px;
+  font-style: normal;
+  letter-spacing: 0;
 }
 
 .discovery-email-notice strong {
@@ -1208,14 +1240,25 @@ textarea {
 }
 
 .discovery-email-notice.is-complete {
-  border-style: solid;
-  background: var(--ink);
-  color: var(--paper);
+  color: #315b34;
 }
 
 .discovery-status--approved {
-  background: var(--ink);
-  color: var(--paper);
+  border-color: #9eb69b;
+  background: #edf3e9;
+  color: #174c1d;
+}
+
+.discovery-status--approved::before {
+  display: grid;
+  width: 17px;
+  height: 17px;
+  place-items: center;
+  border-radius: 50%;
+  background: #155c20;
+  color: white;
+  content: '✓';
+  font-size: 11px;
 }
 
 .discovery-status--rejected {
@@ -1236,7 +1279,7 @@ textarea {
 }
 
 .discovery-fields.discovery-fields--identity {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   margin-top: auto;
   padding-top: 24px;
   border-top: 1px solid rgba(17, 17, 17, 0.18);
@@ -1260,16 +1303,78 @@ textarea {
 }
 
 .discovery-links .discovery-field {
-  padding: 14px 16px 12px;
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  gap: 0 12px;
+  padding: 13px 16px 11px;
   border: 1px solid rgba(17, 17, 17, 0.18);
-  background: rgba(255, 255, 255, 0.26);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.42);
+  box-shadow: 0 8px 24px rgba(17, 17, 17, 0.045);
+}
+
+.discovery-link-icon {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  grid-row: 1;
+  place-items: center;
+  border-radius: 50%;
+  background: #111;
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.discovery-field--soundcloud .discovery-link-icon {
+  background: #f45b18;
+}
+
+.discovery-field--source .discovery-link-icon {
+  border: 1px solid rgba(17, 17, 17, 0.2);
+  background: transparent;
+  color: #111;
+  font-size: 18px;
+}
+
+.discovery-link-copy {
+  display: grid;
+  min-width: 0;
+  align-content: center;
+  text-transform: none;
+}
+
+.discovery-link-copy strong {
+  overflow: hidden;
+  font-size: 13px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.discovery-link-copy small {
+  overflow: hidden;
+  color: rgba(17, 17, 17, 0.6);
+  font-size: 10px;
+  text-overflow: ellipsis;
+  text-transform: none;
+  white-space: nowrap;
+}
+
+.discovery-link-edit {
+  display: flex;
+  grid-column: 1 / -1;
+  align-items: end;
+  gap: 8px;
 }
 
 .discovery-panel {
   margin-top: 12px;
   padding: 18px 20px 20px;
   border: 1px solid rgba(17, 17, 17, 0.18);
-  background: rgba(255, 255, 255, 0.22);
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 26px rgba(17, 17, 17, 0.04);
 }
 
 .discovery-panel__header {
@@ -1292,6 +1397,12 @@ textarea {
 .discovery-panel__header span {
   font-size: 10px;
   line-height: 1;
+}
+
+.discovery-panel__header span::after {
+  margin-left: 20px;
+  content: '⌄';
+  font-size: 15px;
 }
 
 .discovery-field,
@@ -1332,14 +1443,89 @@ textarea {
 }
 
 .discovery-votes label {
+  position: relative;
   padding: 12px 14px 10px;
   border: 1px solid rgba(17, 17, 17, 0.16);
+  border-radius: 7px;
+}
+
+.discovery-vote--approve {
+  border-color: #c1d1bc !important;
+  background: #f0f4ec;
+}
+
+.discovery-vote--approve::after {
+  position: absolute;
+  right: 42px;
+  bottom: 18px;
+  display: grid;
+  width: 17px;
+  height: 17px;
+  place-items: center;
+  border-radius: 50%;
+  background: #155c20;
+  color: white;
+  content: '✓';
+  font-size: 11px;
+  pointer-events: none;
+}
+
+.discovery-vote--discuss {
+  border-color: #d8a84b !important;
+  background: #fbf4e5;
+}
+
+.discovery-vote--reject {
+  border-color: #c99892 !important;
+  background: #faeeee;
+}
+
+.discovery-field--email select {
+  padding-right: 30px;
+  padding-left: 30px;
+  border: 1px solid;
+  border-radius: 6px;
+}
+
+.discovery-field--email {
+  position: relative;
+}
+
+.discovery-field--email::after {
+  position: absolute;
+  bottom: 17px;
+  left: 11px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  content: '';
+  pointer-events: none;
+}
+
+.discovery-field--email.needs-email select {
+  border-color: #f2a179;
+  background: #fff1e8;
+}
+
+.discovery-field--email.needs-email::after {
+  background: #ef5b2a;
+}
+
+.discovery-field--email.is-emailed select {
+  border-color: #b4c8ae;
+  background: #eef4ea;
+}
+
+.discovery-field--email.is-emailed::after {
+  background: #155c20;
 }
 
 .discovery-notes {
   margin-top: 12px;
   padding: 16px 20px;
   border: 1px dashed rgba(17, 17, 17, 0.32);
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.28);
 }
 
 .discovery-notes summary {
@@ -1473,6 +1659,10 @@ textarea {
 
   .discovery-card__name {
     font-size: clamp(32px, 3.2vw, 46px);
+  }
+
+  .discovery-fields.discovery-fields--identity {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .discovery-fields--approved-contact {
@@ -1794,6 +1984,11 @@ textarea {
     gap: 18px;
   }
 
+  .discovery-card__hero-copy {
+    padding-left: 0;
+    border-left: 0;
+  }
+
   .discovery-artwork {
     max-width: 180px;
   }
@@ -1841,6 +2036,37 @@ textarea {
   }
 
   .discovery-source textarea {
+    grid-column: auto;
+  }
+}
+
+@container (max-width: 700px) {
+  .discovery-card__hero {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .discovery-artwork {
+    max-width: 240px;
+  }
+
+  .discovery-card__hero-copy {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .discovery-card__kicker {
+    align-items: center;
+  }
+
+  .discovery-fields.discovery-fields--identity,
+  .discovery-fields--approved-contact,
+  .discovery-links,
+  .discovery-votes {
+    grid-template-columns: 1fr;
+  }
+
+  .discovery-fields--approved-contact .discovery-field--wide {
     grid-column: auto;
   }
 }

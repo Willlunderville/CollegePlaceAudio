@@ -359,14 +359,23 @@ function voteOptions(selected) {
     .join('');
 }
 
-function renderArtistLinkField(field, label, value) {
+function renderArtistLinkField(field, value) {
   const href = safeExternalHref(value);
+  const linkDetails = {
+    spotify: { label: 'Listen on Spotify', helper: 'Full artist profile', icon: 'SP' },
+    soundcloud: { label: 'Listen on SoundCloud', helper: 'Full artist profile', icon: 'SC' },
+    source: { label: 'Discovery source', helper: href ? new URL(href).hostname.replace(/^www\./, '') : 'Where this artist was found', icon: '↗' },
+  }[field];
   return `
-    <label class="discovery-field discovery-field--link">
-      <span>${label}</span>
-      <span class="discovery-link-row">
+    <label class="discovery-field discovery-field--link discovery-field--${field}">
+      <span class="discovery-link-icon" aria-hidden="true">${linkDetails.icon}</span>
+      <span class="discovery-link-copy">
+        <strong>${linkDetails.label}${href ? ' ↗' : ''}</strong>
+        <small>${escapeHtml(linkDetails.helper)}</small>
+      </span>
+      <span class="discovery-link-edit">
         <input data-field="${field}" type="url" value="${escapeHtml(value || '')}" placeholder="https://" />
-        ${href ? `<a href="${escapeHtml(href)}" target="_blank" rel="noreferrer">Open</a>` : ''}
+        ${href ? `<a href="${escapeHtml(href)}" target="_blank" rel="noreferrer" aria-label="Open ${linkDetails.label}">Open</a>` : ''}
       </span>
     </label>
   `;
@@ -432,9 +441,9 @@ function renderArtistCard(artist) {
       ` : ''}
 
       <div class="discovery-links">
-        ${renderArtistLinkField('spotify', 'Spotify', artist.spotify)}
-        ${renderArtistLinkField('soundcloud', 'SoundCloud', artist.soundcloud)}
-        ${renderArtistLinkField('source', 'Discovery source', artist.source)}
+        ${renderArtistLinkField('spotify', artist.spotify)}
+        ${renderArtistLinkField('soundcloud', artist.soundcloud)}
+        ${renderArtistLinkField('source', artist.source)}
       </div>
 
       <section class="discovery-panel" aria-labelledby="reviewer-decisions-${escapeHtml(artist.id)}">
@@ -443,9 +452,9 @@ function renderArtistCard(artist) {
           <span>Select each reviewer's decision</span>
         </div>
         <div class="discovery-votes" aria-label="Team votes">
-          <label><span>Will</span><select data-field="willVote">${voteOptions(artist.willVote)}</select></label>
-          <label><span>Brett</span><select data-field="brettVote">${voteOptions(artist.brettVote)}</select></label>
-          <label><span>Isaiah</span><select data-field="isaiahVote">${voteOptions(artist.isaiahVote)}</select></label>
+          <label class="discovery-vote discovery-vote--${artist.willVote.toLowerCase()}"><span>Will</span><select data-field="willVote">${voteOptions(artist.willVote)}</select></label>
+          <label class="discovery-vote discovery-vote--${artist.brettVote.toLowerCase()}"><span>Brett</span><select data-field="brettVote">${voteOptions(artist.brettVote)}</select></label>
+          <label class="discovery-vote discovery-vote--${artist.isaiahVote.toLowerCase()}"><span>Isaiah</span><select data-field="isaiahVote">${voteOptions(artist.isaiahVote)}</select></label>
         </div>
       </section>
 
@@ -463,7 +472,7 @@ function renderArtistCard(artist) {
             </select>
           </label>
           ${status === 'Approved' ? `
-            <label class="discovery-field">
+            <label class="discovery-field discovery-field--email ${isEmailed ? 'is-emailed' : 'needs-email'}">
               <span>Email outreach</span>
               <select data-field="emailed">
                 <option value="no"${!isEmailed ? ' selected' : ''}>Needs email</option>
@@ -558,7 +567,7 @@ function renderDiscovery() {
     (artist) => overallApproval(artist) === 'Approved' && artist.emailed !== 'yes',
   ).length;
   const emailNotice = activeDiscoveryFilter === 'approved'
-    ? `<div class="discovery-email-notice${approvedNeedsEmail ? '' : ' is-complete'}"><strong>${approvedNeedsEmail}</strong><span>${approvedNeedsEmail === 1 ? 'approved artist needs an email' : approvedNeedsEmail ? 'approved artists need an email' : 'All approved artists have been emailed'}</span></div>`
+    ? `<div class="discovery-email-notice${approvedNeedsEmail ? '' : ' is-complete'}"><button type="button" data-discovery-back aria-label="Back to all artists">‹</button><strong>${approvedNeedsEmail}</strong><span>${approvedNeedsEmail === 1 ? 'approved artist needs an email' : approvedNeedsEmail ? 'approved artists need an email' : 'All approved artists have been emailed'}</span><i aria-hidden="true">⋮</i></div>`
     : '';
 
   artistList.innerHTML = artists.length
@@ -824,6 +833,11 @@ document.addEventListener('change', (event) => {
 });
 
 document.addEventListener('click', (event) => {
+  if (event.target.matches('[data-discovery-back]')) {
+    activeDiscoveryFilter = 'all';
+    renderDiscovery();
+  }
+
   if (event.target.matches('[data-delete-item]')) {
     deletePortalItem(event.target.closest('[data-portal-item]'));
   }
