@@ -43,3 +43,8 @@ The portal uses existing Avlen login, restricted to active CPA workspace members
 - Backend source/schema lives in Corvo's `backend/server/cpa_portal/`; `CPA_PORTAL_DATABASE_URL` is server-only. The database secret and Avlen session cookies never enter portal URLs or static assets. Short-lived portal capabilities are bound to the originating browser window and rechecked against active Avlen membership/session on requests.
 
 Verification: `node --test scripts/test-portal-sync.cjs scripts/test-crm-handoff.cjs`, `./scripts/check-site.sh`, and Corvo `tests/test_cpa_portal_store.py`. Release backend before static site.
+
+Add artist always returns to the first (Pending) discovery view, clears search,
+expands the new card and focuses its name by record ID. It never focuses the
+first existing artist from the previous view. Regression checks:
+`node --test scripts/test-add-artist.cjs`.

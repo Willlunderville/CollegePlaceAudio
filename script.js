@@ -713,8 +713,9 @@ function deletePortalItem(itemElement) {
 
 function addArtist() {
   const data = getPortalData();
+  const artistId = crypto.randomUUID();
   data.artists.unshift({
-    id: crypto.randomUUID(),
+    id: artistId,
     name: 'Untitled artist',
     spotify: '',
     soundcloud: '',
@@ -734,8 +735,15 @@ function addArtist() {
     isaiahNotes: '',
   });
   savePortalData(data);
+  activeDiscoveryFilter = 'needs-approval';
+  if (portalSearchInput) portalSearchInput.value = '';
+  expandedArtistIds.add(artistId);
   renderDiscovery();
-  document.querySelector('[data-artist-card] .discovery-card__name')?.focus();
+  const newCard = document.querySelector(`[data-artist-card][data-id="${artistId}"]`);
+  newCard?.scrollIntoView({ block: 'start', behavior: 'auto' });
+  const nameInput = newCard?.querySelector('.discovery-card__name');
+  nameInput?.focus({ preventScroll: true });
+  nameInput?.select();
 }
 
 function addDiscoverySource() {
