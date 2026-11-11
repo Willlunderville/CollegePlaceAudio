@@ -22,7 +22,7 @@
   new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; }).observe(grid);
   setInterval(async () => {
     if (busy || motion.matches || document.hidden || !visible || location.hash) return;
-    // Let the initial images settle, then change one tile every three seconds.
+    // Hold the opening collage for two extra intervals before the first change.
     if (initialTicks > 0) { initialTicks--; return; }
     busy = true;
     const slot = slots[nextSlot];
@@ -55,5 +55,5 @@
     } catch {
       replacements.forEach(({incoming}) => incoming.remove());
     } finally { busy = false; }
-  }, 3000);
+  }, 4000);
 })();
