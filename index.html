@@ -11,7 +11,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
     <link rel="stylesheet" href="styles.css?v=20261020-crm-handoff" />
-    <link rel="stylesheet" href="brand.css?v=20261015-navigation" />
+    <link rel="stylesheet" href="brand.css?v=20261111-haze" />
   </head>
   <body>
     <main class="landing">
@@ -27,15 +27,20 @@
         </nav>
       </header>
 
-      <figure class="feature">
-        <div class="feature__frame">
-          <img
-            src="assets/college-place-exterior-darker.png?v=20260910"
-            alt="A minimal white studio exterior with a College Place Audio sign"
-          />
-        </div>
-        <figcaption>College Place Audio — independent sound studio</figcaption>
-      </figure>
+      <div class="feature artist-grid" aria-label="Selected artists and artwork">
+        <figure class="artist-grid__tile">
+          <img src="assets/artists/portrait-charcoal.jpg" width="1279" height="1600" alt="Portrait against a charcoal backdrop" />
+        </figure>
+        <figure class="artist-grid__tile">
+          <img src="assets/artists/portrait-magenta.jpg" width="1600" height="1066" alt="Portrait in a hat under magenta light" />
+        </figure>
+        <figure class="artist-grid__tile">
+          <img src="assets/artists/portrait-gold.jpg" width="1600" height="901" alt="Portrait with sunglasses against a golden backdrop" />
+        </figure>
+        <figure class="artist-grid__tile">
+          <img src="assets/artists/songwriting-collage-clean.jpg" width="742" height="702" alt="Handwritten music and a photograph on turquoise paper" />
+        </figure>
+      </div>
 
       <button
         class="menu-toggle"
@@ -508,5 +513,6 @@
 
     <script src="portal-sync.js?v=20261020-shared"></script>
   <script src="script.js?v=20261021-add-artist"></script>
+  <script src="artist-grid.js?v=20261111-seven-photos"></script>
   </body>
 </html>

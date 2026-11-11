@@ -1,5 +1,5 @@
 /* October 2026 brand application. Source: supplied Brand Guidelines v1.0.
-   Preserve the photograph, factual copy, drawer navigation, and work carousel.
+   Preserve the factual copy, drawer navigation, and work carousel.
    Original embedded logo/grain assets are used without redrawing the wordmark. */
 @font-face {
   font-family: "Archivo Narrow";
@@ -26,6 +26,7 @@
   --ink: #1a1714;
   --paper: #ede7dd;
   --haze: #a9c6d3;
+  --haze-wash: #a9c6d3ed;
   --sage: #a8b39b;
   --plum: #5e2747;
   --clay: #b9643e;
@@ -37,8 +38,8 @@ body {
   font-family: var(--font-text);
   font-weight: 400;
   line-height: 1.5;
-  background: var(--paper);
-  background-image: linear-gradient(#ede7dded, #ede7dded), url("assets/identity/grain.jpg");
+  background: var(--haze);
+  background-image: linear-gradient(var(--haze-wash), var(--haze-wash)), url("assets/identity/grain.jpg");
   background-size: auto, cover;
   background-attachment: scroll, fixed;
   background-repeat: no-repeat;
@@ -58,8 +59,8 @@ body {
 }
 .brand__home { max-width: 100%; }
 .page-panel {
-  background: var(--paper);
-  background-image: linear-gradient(#ede7dded, #ede7dded), url("assets/identity/grain.jpg");
+  background: var(--haze);
+  background-image: linear-gradient(var(--haze-wash), var(--haze-wash)), url("assets/identity/grain.jpg");
   background-size: auto, cover;
   background-attachment: scroll, fixed;
   background-repeat: no-repeat;
@@ -98,7 +99,7 @@ body {
   align-items: center;
   min-height: 40px;
   font-family: var(--font-text);
-  font-size: 14px;
+  font-size: 18.2px;
   font-weight: 500;
   line-height: 1.5;
   letter-spacing: 0.06em;
@@ -171,6 +172,84 @@ body {
   text-transform: uppercase;
 }
 .feature figcaption { padding-top: 12px; }
+.feature.artist-grid {
+  margin-top: clamp(26px, 3.5vw, 62px);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  width: min(100%, calc(100svh - 120px), 600px);
+  align-self: start;
+}
+.artist-grid__tile {
+  position: relative;
+  margin: 0;
+  aspect-ratio: 1;
+  overflow: hidden;
+}
+.artist-grid__incoming { position: absolute; inset: 0; z-index: 1; }
+.artist-grid__badge {
+  position: absolute;
+  z-index: 2;
+  right: 2%;
+  bottom: 2%;
+  width: 17%;
+  aspect-ratio: 1;
+  padding: 3%;
+  background: var(--ink);
+}
+.artist-grid__badge .artist-grid__logo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  filter: brightness(0) invert(1);
+}
+.artist-grid__control {
+  grid-column: 1 / -1;
+  justify-self: end;
+  border: 0;
+  padding: 8px 0;
+  color: var(--ink);
+  background: transparent;
+  font: 11px var(--font-text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.artist-grid__tile > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.artist-grid__tile > .artist-grid__logo {
+  position: absolute;
+  right: 4%;
+  bottom: 4%;
+  width: 12%;
+  height: auto;
+  filter: brightness(0) invert(1);
+}
+/* The DISCO banner includes black space below Kev's photo. Frame the photo itself. */
+.artist-grid__tile > img[src$="kev-olden-photo.jpg"] {
+  transform: scale(1.7);
+  transform-origin: center top;
+}
+/* Crop out the CPA marks embedded in the original DISCO cover files. */
+.artist-grid__tile > img[src$="issachar-a.png"],
+.artist-grid__tile > img[src$="4a0580ff47978b63.png"],
+.artist-grid__tile > img[src$="914b2261a8336416.png"] {
+  transform: scale(1.45);
+}
+@media (max-width: 900px) {
+  .landing {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    gap: 0;
+  }
+  .feature.artist-grid { width: 100%; margin-top: 0; }
+}
 .feature__frame img,
 .feature__frame:hover img { filter: none; }
 .work-card__credits div { font-size: 13px; line-height: 1.5; }
@@ -188,7 +267,8 @@ body {
 .contact-list a span { overflow-wrap: anywhere; }
 .contact-list a:hover,
 .contact-list a:focus-visible { background: var(--ink); color: var(--paper); }
-.menu-toggle { background: var(--ink); color: var(--paper); }
+.menu-toggle { background: transparent; color: var(--ink); }
+.menu-toggle:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
 .about-origin,
 .about-collective__heading,
 .about-artist,
