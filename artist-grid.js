@@ -18,25 +18,10 @@
   let initialTicks = 2;
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
   let visible = true;
-  let paused = false;
   let busy = false;
-  const control = document.createElement('button');
-  control.type = 'button';
-  control.className = 'artist-grid__control';
-  control.textContent = 'Pause artwork';
-  control.setAttribute('aria-pressed', 'false');
-  grid.append(control);
-  control.addEventListener('click', () => {
-    paused = !paused;
-    control.textContent = paused ? 'Play artwork' : 'Pause artwork';
-    control.setAttribute('aria-pressed', String(paused));
-  });
-  const updateMotion = () => { control.hidden = motion.matches; };
-  motion.addEventListener('change', updateMotion);
-  updateMotion();
   new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; }).observe(grid);
   setInterval(async () => {
-    if (busy || paused || motion.matches || document.hidden || !visible || location.hash) return;
+    if (busy || motion.matches || document.hidden || !visible || location.hash) return;
     // Let the initial images settle, then change one tile every three seconds.
     if (initialTicks > 0) { initialTicks--; return; }
     busy = true;
@@ -54,7 +39,7 @@
     });
     try {
       await Promise.all(replacements.map(item => item.incoming.decode()));
-      if (paused || motion.matches || document.hidden || !visible || location.hash) return;
+      if (motion.matches || document.hidden || !visible || location.hash) return;
       await Promise.all(replacements.map(({slot, incoming, current}) => {
         slot.tile.insertBefore(incoming, current);
         return incoming.animate([{opacity: 0}, {opacity: 1}], {duration: 650, easing: 'ease-out'}).finished;

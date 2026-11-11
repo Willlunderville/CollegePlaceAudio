@@ -138,6 +138,12 @@ function closeActivePanel() {
   setActivePanel('');
 }
 
+document.querySelector('.drawer-close')?.addEventListener('click', () => {
+  closeActivePanel();
+  setNavigation(false);
+  menuToggle.focus({ preventScroll: true });
+});
+
 function getPortalData() {
   if (sharedPortal?.state?.migrated) return sharedPortal.data();
   try {

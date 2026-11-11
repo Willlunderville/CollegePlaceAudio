@@ -26,7 +26,7 @@
   --ink: #1a1714;
   --paper: #ede7dd;
   --haze: #a9c6d3;
-  --haze-wash: #a9c6d3ed;
+  --paper-wash: #ede7dded;
   --sage: #a8b39b;
   --plum: #5e2747;
   --clay: #b9643e;
@@ -38,8 +38,8 @@ body {
   font-family: var(--font-text);
   font-weight: 400;
   line-height: 1.5;
-  background: var(--haze);
-  background-image: linear-gradient(var(--haze-wash), var(--haze-wash)), url("assets/identity/grain.jpg");
+  background: var(--paper);
+  background-image: linear-gradient(var(--paper-wash), var(--paper-wash)), url("assets/identity/grain.jpg");
   background-size: auto, cover;
   background-attachment: scroll, fixed;
   background-repeat: no-repeat;
@@ -58,9 +58,17 @@ body {
   filter: brightness(0);
 }
 .brand__home { max-width: 100%; }
+.artist-grid__tagline {
+  grid-column: 1 / -1;
+  text-align: left;
+  margin: 0;
+  font: 500 0.75rem/1.4 var(--font-text);
+  text-transform: uppercase;
+}
+.has-active-panel .artist-grid__tagline { visibility: hidden; }
 .page-panel {
-  background: var(--haze);
-  background-image: linear-gradient(var(--haze-wash), var(--haze-wash)), url("assets/identity/grain.jpg");
+  background: var(--paper);
+  background-image: linear-gradient(var(--paper-wash), var(--paper-wash)), url("assets/identity/grain.jpg");
   background-size: auto, cover;
   background-attachment: scroll, fixed;
   background-repeat: no-repeat;
@@ -203,18 +211,6 @@ body {
   height: 100%;
   filter: brightness(0) invert(1);
 }
-.artist-grid__control {
-  grid-column: 1 / -1;
-  justify-self: end;
-  border: 0;
-  padding: 8px 0;
-  color: var(--ink);
-  background: transparent;
-  font: 11px var(--font-text);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  cursor: pointer;
-}
 .artist-grid__tile > img {
   display: block;
   width: 100%;
@@ -265,10 +261,42 @@ body {
   letter-spacing: 0;
 }
 .contact-list a span { overflow-wrap: anywhere; }
+.artist-roster {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+  gap: clamp(28px, 4vw, 56px) clamp(16px, 2vw, 32px);
+  list-style: none;
+  margin: clamp(24px, 4vw, 56px) 0 0;
+  padding: 20px 0 0;
+  border-top: 1px solid var(--ink);
+}
+.artist-roster img { display: block; width: 100%; height: auto; aspect-ratio: 1; }
+.artist-roster h3 { margin: 12px 0 0; font: 700 clamp(26px, 3vw, 40px)/1 var(--font-display); text-transform: uppercase; }
+.artist-roster a { display: inline-flex; gap: 8px; align-items: center; min-height: 44px; font: 500 14px/1.4 var(--font-text); text-decoration: underline; text-underline-offset: 3px; }
 .contact-list a:hover,
 .contact-list a:focus-visible { background: var(--ink); color: var(--paper); }
 .menu-toggle { background: transparent; color: var(--ink); }
 .menu-toggle:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
+.drawer-close { display: none; }
+@media (max-width: 900px) {
+  .has-active-panel .menu-toggle { display: none; }
+  .has-active-panel .drawer-close {
+    display: block;
+    position: fixed;
+    z-index: 10;
+    left: max(4px, calc(var(--gutter) - 12px));
+    bottom: max(38px, env(safe-area-inset-bottom));
+    min-height: 48px;
+    min-width: 48px;
+    padding: 0 5px;
+    border: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font: 600 14px/1 var(--font-text);
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+}
 .about-origin,
 .about-collective__heading,
 .about-artist,

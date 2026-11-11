@@ -11,7 +11,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
     <link rel="stylesheet" href="styles.css?v=20261020-crm-handoff" />
-    <link rel="stylesheet" href="brand.css?v=20261111-haze" />
+    <link rel="stylesheet" href="brand.css?v=20261111-left-caption" />
   </head>
   <body>
     <main class="landing">
@@ -22,6 +22,7 @@
 
         <nav class="primary-nav" id="primary-nav" aria-label="Primary navigation">
           <a href="#about">About</a>
+          <a href="#artists">Artists</a>
           <a href="#work">Work</a>
           <a href="#contact">Contact</a>
         </nav>
@@ -40,6 +41,7 @@
         <figure class="artist-grid__tile">
           <img src="assets/artists/songwriting-collage-clean.jpg" width="742" height="702" alt="Handwritten music and a photograph on turquoise paper" />
         </figure>
+        <p class="artist-grid__tagline">Music for Film, Television, and Ads</p>
       </div>
 
       <button
@@ -53,6 +55,7 @@
         <span></span>
       </button>
     </main>
+    <button class="drawer-close" type="button" aria-label="Close drawer and return home">Close</button>
 
     <section
       class="content-page content-page--about page-panel"
@@ -160,6 +163,37 @@
         <span>Looking for music for a project?</span>
         <strong>Get in touch ↗</strong>
       </a>
+    </section>
+
+    <section class="content-page page-panel roster-page" id="artists" aria-labelledby="artists-title" aria-hidden="true">
+      <h2 id="artists-title">Artists.</h2>
+      <ul class="artist-roster">
+        <li>
+          <img src="assets/artists/roster-brita-eyrie.jpg" width="640" height="640" loading="lazy" alt="" />
+          <h3>Brita Eyrie</h3>
+          <a href="https://s.disco.ac/fdeomwqrhydx" target="_blank" rel="noopener noreferrer" aria-label="Listen to Brita Eyrie on DISCO">Listen on DISCO <span aria-hidden="true">↗</span></a>
+        </li>
+        <li>
+          <img src="assets/artists/roster-clay-orange.jpg" width="640" height="640" loading="lazy" alt="" />
+          <h3>Clay Orange</h3>
+          <a href="https://s.disco.ac/vmbtbuonisdm" target="_blank" rel="noopener noreferrer" aria-label="Listen to Clay Orange on DISCO">Listen on DISCO <span aria-hidden="true">↗</span></a>
+        </li>
+        <li>
+          <img src="assets/artists/roster-jmaroon.jpg" width="640" height="640" loading="lazy" alt="" />
+          <h3>Jmaroon</h3>
+          <a href="https://s.disco.ac/xnfhvgkvjmtt" target="_blank" rel="noopener noreferrer" aria-label="Listen to Jmaroon on DISCO">Listen on DISCO <span aria-hidden="true">↗</span></a>
+        </li>
+        <li>
+          <img src="assets/artists/roster-kev-olden.jpg" width="640" height="640" loading="lazy" alt="" />
+          <h3>Kev Olden</h3>
+          <a href="https://s.disco.ac/oigebytthzcs" target="_blank" rel="noopener noreferrer" aria-label="Listen to Kev Olden on DISCO">Listen on DISCO <span aria-hidden="true">↗</span></a>
+        </li>
+        <li>
+          <img src="assets/artists/roster-rafael-khan.jpg" width="640" height="640" loading="lazy" alt="" />
+          <h3>Rafael Khan</h3>
+          <a href="https://s.disco.ac/ljjjebkcnmva" target="_blank" rel="noopener noreferrer" aria-label="Listen to Rafael Khan on DISCO">Listen on DISCO <span aria-hidden="true">↗</span></a>
+        </li>
+      </ul>
     </section>
 
     <section
@@ -512,7 +546,7 @@
     </section>
 
     <script src="portal-sync.js?v=20261020-shared"></script>
-  <script src="script.js?v=20261021-add-artist"></script>
-  <script src="artist-grid.js?v=20261111-seven-photos"></script>
+  <script src="script.js?v=20261111-drawer"></script>
+  <script src="artist-grid.js?v=20261111-auto"></script>
   </body>
 </html>
