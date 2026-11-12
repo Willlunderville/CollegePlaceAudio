@@ -22,8 +22,20 @@
     'coastal-path.jpg': 'Brita Eyrie',
     'portrait-knit-cap.jpg': 'Jmaroon',
   };
-  const rosterLinks = new Map([...document.querySelectorAll('.artist-roster li')].map(card =>
-    [card.querySelector('h3').textContent, card.querySelector('a').href]));
+  const rosterLinks = new Map([
+    ['Birthday Boy', 'https://s.disco.ac/ajvrfervhkel'],
+    ['Brita Eyrie', 'https://s.disco.ac/fdeomwqrhydx'],
+    ['Carter Ace', 'https://s.disco.ac/aqchjhvzeyhr'],
+    ['Clay Orange', 'https://s.disco.ac/vmbtbuonisdm'],
+    ['Jmaroon', 'https://s.disco.ac/xnfhvgkvjmtt'],
+    ['Kev Olden', 'https://s.disco.ac/oigebytthzcs'],
+    ['Sebastião Serrador', 'https://s.disco.ac/cnpljvbuvdfp'],
+  ]);
+  function clearRetiredRoute() {
+    if (location.hash === '#artists') history.replaceState(history.state, '', location.pathname + location.search);
+  }
+  clearRetiredRoute();
+  window.addEventListener('hashchange', clearRetiredRoute);
   const measure = document.createElement('canvas').getContext('2d');
   const displayFont = '700 100px "Archivo Narrow"';
   const fontReady = document.fonts.load(displayFont).catch(() => {});
