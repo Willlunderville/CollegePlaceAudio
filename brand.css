@@ -195,6 +195,32 @@ body {
   overflow: hidden;
 }
 .artist-grid__incoming { position: absolute; inset: 0; z-index: 1; }
+.artist-grid__link {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  place-items: center start;
+  container-type: inline-size;
+  color: var(--ink);
+  text-decoration: none;
+  transition: background-color 150ms ease-out;
+}
+.artist-grid__link span {
+  margin-inline-start: 6cqi;
+  text-align: left;
+  font: 700 var(--name-size, 15cqi)/0.98 var(--font-display);
+  text-transform: uppercase;
+  white-space: pre;
+  opacity: 0;
+}
+.artist-grid__link:is(:hover, :focus-visible) { background-color: rgb(255 255 255 / 68%); }
+.artist-grid__link:focus-visible { outline-offset: -3px; }
+.artist-grid__link:is(:hover, :focus-visible) span { opacity: 1; }
+@media (hover: none) {
+  .artist-grid__link span { opacity: 1; background: rgb(255 255 255 / 82%); }
+}
+@media (prefers-reduced-motion: reduce) { .artist-grid__link { transition: none; } }
 .artist-grid__badge {
   position: absolute;
   z-index: 2;

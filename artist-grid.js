@@ -12,6 +12,42 @@
     ['Black-and-white portrait in a knit cap', ['portrait-knit-cap.jpg']],
   ];
   const slots = [...grid.querySelectorAll('.artist-grid__tile')].map((tile, artistIndex) => ({tile, artistIndex}));
+  // Only label photos that have been matched to an artist.
+  const photoArtists = {
+    'portrait-charcoal.jpg': 'Sebastião Serrador',
+    'portrait-magenta.jpg': 'Clay Orange',
+    'portrait-gold.jpg': 'Carter Ace',
+    'portrait-denim.jpg': 'Kev Olden',
+    'songwriting-collage-clean.jpg': 'Birthday Boy',
+    'coastal-path.jpg': 'Brita Eyrie',
+    'portrait-knit-cap.jpg': 'Jmaroon',
+  };
+  const rosterLinks = new Map([...document.querySelectorAll('.artist-roster li')].map(card =>
+    [card.querySelector('h3').textContent, card.querySelector('a').href]));
+  const measure = document.createElement('canvas').getContext('2d');
+  const displayFont = '700 100px "Archivo Narrow"';
+  const fontReady = document.fonts.load(displayFont).catch(() => {});
+  function updateArtistLink(tile, file) {
+    tile.querySelector('.artist-grid__link')?.remove();
+    const name = photoArtists[file];
+    if (!rosterLinks.has(name)) return;
+    const link = document.createElement('a');
+    link.className = 'artist-grid__link';
+    link.href = rosterLinks.get(name);
+    link.setAttribute('aria-label', 'Listen to ' + name + ' on DISCO');
+    const label = document.createElement('span');
+    const lines = name.split(/\s+(.+)/).filter(Boolean);
+    label.textContent = lines.join('\n');
+    fontReady.then(() => {
+      if (!measure) return;
+      measure.font = displayFont;
+      const width = Math.max(...lines.map(line => measure.measureText(line.toUpperCase()).width));
+      if (width) label.style.setProperty('--name-size', (8400 / width) + 'cqi');
+    });
+    link.append(label);
+    tile.append(link);
+  }
+  slots.forEach(({tile, artistIndex}) => updateArtistLink(tile, collections[artistIndex][1][0]));
   const artworkIndexes = collections.map(() => 0);
   let nextSlot = 0;
   let nextArtist = slots.length;
@@ -24,6 +60,7 @@
     if (busy || motion.matches || document.hidden || !visible || location.hash) return;
     // Hold the opening collage for two extra intervals before the first change.
     if (initialTicks > 0) { initialTicks--; return; }
+    if (slots[nextSlot].tile.matches(':hover, :focus-within')) return;
     busy = true;
     const slot = slots[nextSlot];
     const visibleArtists = new Set(slots.map(item => item.artistIndex));
@@ -45,9 +82,14 @@
         return incoming.animate([{opacity: 0}, {opacity: 1}], {duration: 650, easing: 'ease-out'}).finished;
       }));
       replacements.forEach(({slot, incoming, current, artistIndex}) => {
+        if (slot.tile.matches(':hover, :focus-within')) {
+          incoming.remove();
+          return;
+        }
         current.remove();
         incoming.className = '';
         slot.artistIndex = artistIndex;
+        updateArtistLink(slot.tile, collections[artistIndex][1][0]);
         artworkIndexes[artistIndex]++;
       });
       nextSlot = (nextSlot + 1) % slots.length;
